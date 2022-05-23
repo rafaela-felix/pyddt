@@ -1,0 +1,3984 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pkg.xrdd API documentation</title>
+<meta name="description" content="XRDD is a tool for help to plan X-ray dynamical diffraction experiments,
+generating structural models, analyze experimental data and constructing
+…" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pkg.xrdd</code></h1>
+</header>
+<section id="section-intro">
+<p>XRDD is a tool for help to plan X-ray dynamical diffraction experiments,
+generating structural models, analyze experimental data and constructing
+compatibility diagrams.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+
+&#34;&#34;&#34;XRDD is a tool for help to plan X-ray dynamical diffraction experiments,
+generating structural models, analyze experimental data and constructing
+compatibility diagrams.&#34;&#34;&#34;
+
+import re
+import sys
+from datetime import datetime
+
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.express as px
+import plotly.subplots as sp
+from halo import Halo
+from pyfiglet import Figlet
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import find_peaks
+from termcolor import colored
+from tqdm import tqdm
+
+from funcs import *
+from scatter import *
+
+__author__ = &#34;Rafaela Felix&#34;
+__credits__ = [&#34;Rafaela Felix&#34;, &#34;Sergio Morelhão&#34;]
+__version__ = &#34;1.0&#34;
+__maintainer__ = &#34;Rafaela Felix&#34;
+__email__ = &#34;rafaelafelixp@usp.br&#34;
+__status__ = &#34;Production&#34;
+
+np.set_printoptions(precision=4, threshold=np.inf, suppress=True, formatter={&#39;float&#39;: &#39;{: 0.4f}&#39;.format})
+
+
+class Crystal:
+
+    def __init__(self, fname: str):
+
+        &#34;&#34;&#34;Given a structure file, returns a new `crystal` object.
+
+        Args:
+            fname (str): Structure file name.
+
+        Notes:
+            This file should have six columns: atom or ion label, fractional
+            coordinates (x, y and z), occupancy number and B-factor. The first
+            line contains the lattice parameters. For example,
+
+                5.5930 9.8270    11.8080    90.0000    90.0000    90.0000
+                C      0.8754    0.9424     0.0357     1.0000     1.1844
+                O1-    0.8812    0.8253     0.9960     1.0000     1.1844
+        &#34;&#34;&#34;
+
+        self.atoms = np.loadtxt(fname, skiprows=1, usecols=0, dtype=str)
+        self.positions = np.loadtxt(fname, skiprows=1, usecols=(1, 2, 3))
+        self.occupancy = np.loadtxt(fname, skiprows=1, usecols=4)
+        self.bfactors = np.loadtxt(fname, skiprows=1, usecols=5)
+
+        a, b, c, alpha, beta, gamma = np.loadtxt(fname,
+                                                 max_rows=1,
+                                                 usecols=(0, 1, 2, 3, 4, 5),
+                                                 unpack=True)
+        A, B, C, Ar, Br, Cr = lattice(a, b, c, alpha, beta, gamma)
+
+        self.A = A
+        self.B = B
+        self.C = C
+        self.Ar = Ar
+        self.Br = Br
+        self.Cr = Cr
+
+    def show_lattice(self):
+
+        &#34;&#34;&#34;Display the direct and reciprocal lattices.&#34;&#34;&#34;
+
+        print(&#34;\nDirect lattice: \n&#34;)
+        disp = str(np.row_stack((self.A, self.B, self.C)))
+        print(disp.replace(&#39; [&#39;, &#39;&#39;).replace(&#39;[&#39;, &#39;&#39;).replace(&#39;]&#39;, &#39;&#39;))
+
+        print(&#34;\nReciprocal lattice: \n&#34;)
+        disp = str(np.row_stack((self.Ar, self.Br, self.Cr)))
+        print(disp.replace(&#39; [&#39;, &#39;&#39;).replace(&#39;[&#39;, &#39;&#39;).replace(&#39;]&#39;, &#39;&#39;))
+        print(&#34;\n&#34;)
+
+    def bragg(self, E: float, hkl: list) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Display inter planar distance and Bragg angle.
+
+        Args:
+            E (float): Beam energy (eV).
+            hkl (list): Miller indices (e.g [1, 0, 0]).
+        Returns:
+            np.ndarray: Inter planar distance in index 0 and Bragg angle in 1.
+        &#34;&#34;&#34;
+
+        wl = 12398.5 / E
+        d = 2 * np.pi
+        d = d / np.linalg.norm(hkl[0] * self.Ar + hkl[1] * self.Br + hkl[2] * self.Cr)
+        thB = np.arcsin(wl / (2 * d)) * 180 / np.pi
+
+        print(&#34;Energy = &#34; + str(E) + &#34; eV&#34;)
+        print(&#34;d(&#34; + str(hkl[0]) + &#34;,&#34; + str(hkl[1]) + &#34;,&#34; + str(hkl[2]) + &#34;) = &#34;,
+              str(np.round(d, 3)) + &#34;A  - thB = &#34; + str(np.round(thB, 3)) + &#34;º&#34;)
+
+        return np.array([d, thB])
+
+    def hkl2Q(self, hkl: ndarray) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Returns the reciprocal vector from Miller indices.
+
+        Args:
+            hkl (ndarray): Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).
+        Returns:
+            np.ndarray: Q values (1/angstrom).
+        &#34;&#34;&#34;
+
+        hkl = np.array(hkl)
+        Q = []
+        if np.shape(hkl) == (3,):
+            q = hkl[0] * self.Ar + hkl[1] * self.Br + hkl[2] * self.Cr
+            Q.append(np.linalg.norm(q))
+        else:
+            for i in range(len(hkl)):
+                q = hkl[i, 0] * self.Ar + hkl[i, 1] * self.Br + hkl[i, 2] * self.Cr
+                Q.append(np.linalg.norm(q))
+
+        return np.array(Q)
+
+    def Fhkl(self, E: float or ndarray, H: ndarray) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Returns the structure factor.
+
+        Args:
+            E (float or ndarray): Beam energy (eV).
+            H (ndarray): Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).
+        Returns:
+            np.ndarray: Complex structure factor list.
+        Notes:
+            Provide one energy value and an array of reflections or an array
+            of energies and just one reflection.
+        &#34;&#34;&#34;
+
+        E = np.array(E)
+        H = np.array(H)
+
+        sym = np.unique(self.atoms, return_index=False, return_inverse=False,
+                        return_counts=True)[0]  # ions or atoms
+
+        at = np.copy(sym)  # just atoms (ion don&#39;t contribute to resonance)
+        idx = np.where(np.char.isalpha(sym) is False)
+        if not np.shape(idx):
+            pass
+        else:
+            ion = np.copy(sym[idx])
+            regex = re.compile(&#39;[^a-zA-Z]&#39;)
+
+            for i in range(len(ion)):
+                at[idx[0][i]] = regex.sub(&#39;&#39;, ion[i])
+
+        if np.shape(H) == (3,):
+            F = 0
+        else:
+            F = np.zeros(len(H), dtype=np.clongdouble)
+
+        Q = self.hkl2Q(H)
+        for j in range(len(sym)):
+
+            fn = asfQ(sym[j], Q / (4 * np.pi)) + aresE(at[j], E)
+
+            idx = np.where(self.atoms == sym[j])
+
+            if np.shape(H) != (3,):
+
+                bf = np.reshape(np.tile(self.bfactors[idx], len(H)),
+                                (len(H), len(self.bfactors[idx])))
+                x = np.reshape(np.tile(self.positions[idx, 0][0], len(H)),
+                               (len(H), len(self.positions[idx, 0][0])))
+                y = np.reshape(np.tile(self.positions[idx, 1][0], len(H)),
+                               (len(H), len(self.positions[idx, 1][0])))
+                z = np.reshape(np.tile(self.positions[idx, 2][0], len(H)),
+                               (len(H), len(self.positions[idx, 2][0])))
+                occ = np.reshape(np.tile(self.occupancy[idx], len(H)), (len(H),
+                                                                        len(self.occupancy[idx])))
+
+                Ma = np.transpose([(Q / (4 * np.pi)) ** 2]) * bf
+                frac = np.transpose([H[:, 0]]) * x + np.transpose([H[:, 1]]) * y
+                frac = frac + np.transpose([H[:, 2]]) * z
+
+                F = F + np.sum(np.transpose([fn]) * occ * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac),
+                               axis=1)
+
+            elif np.shape(E) != ():
+
+                bf = np.reshape(np.tile(self.bfactors[idx], len(E)), (len(E),
+                                                                      len(self.bfactors[idx])))
+                x = np.reshape(np.tile(self.positions[idx, 0][0], len(E)),
+                               (len(E), len(self.positions[idx, 0][0])))
+                y = np.reshape(np.tile(self.positions[idx, 1][0], len(E)),
+                               (len(E), len(self.positions[idx, 1][0])))
+                z = np.reshape(np.tile(self.positions[idx, 2][0], len(E)),
+                               (len(E), len(self.positions[idx, 2][0])))
+                occ = np.reshape(np.tile(self.occupancy[idx], len(E)), (len(E),
+                                                                        len(self.occupancy[idx])))
+
+                Ma = (Q / (4 * np.pi)) ** 2 * bf
+                frac = H[0] * x + H[1] * y + H[2] * z
+
+                F = F + np.sum(np.transpose([fn]) * occ * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac),
+                               axis=1)
+
+            else:
+
+                Ma = self.bfactors[idx] * (Q / (4 * np.pi)) ** 2
+                frac = H[0] * self.positions[idx, 0] + H[1] * self.positions[idx, 1]
+                frac = frac + H[2] * self.positions[idx, 2]
+
+                F = F + np.sum(fn * self.occupancy[idx] * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac))
+
+        return F
+
+    def hkl_generate(self, E: float) -&gt; tuple[ndarray, ndarray, ndarray]:
+
+        &#34;&#34;&#34;Returns the Miller indices of all allowed lattice planes.
+
+        Args:
+            E (float): Beam energy (eV).
+        Returns:
+            tuple[ndarray, ndarray, ndarray]: Miller indices, Bragg angles and inter planar distances.
+        &#34;&#34;&#34;
+
+        wl = 12398.5 / E
+        hmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Ar)))
+        kmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Br)))
+        lmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Cr)))
+
+        z = np.array([0])
+        H = np.arange(-hmax, hmax + 1)
+        K = np.arange(-kmax, kmax + 1)
+        L = np.arange(-lmax, lmax + 1)
+        H = np.delete(H, np.argwhere(H == 0))
+        K = np.delete(K, np.argwhere(K == 0))
+        L = np.delete(L, np.argwhere(L == 0))
+        H, K, L = np.append(H, z), np.append(K, z), np.append(L, z)
+
+        Nmax = int((2 * hmax + 1) * (2 * kmax + 1) * (2 * lmax + 1))
+        Qmax = (2 * np.pi) / wl
+        HKL = np.zeros((Nmax, 3))
+        th_hkl = np.zeros(Nmax)
+        Dhkl = np.zeros(Nmax)
+
+        m = 0
+        for nh in range(0, int(2 * hmax)):
+
+            h = H[nh]
+
+            for nk in range(0, int(2 * kmax + 1)):
+
+                k = K[nk]
+
+                for nl in range(0, int(2 * lmax) + 1):
+
+                    l = L[nl]
+                    Q = np.linalg.norm(h * self.Ar + k * self.Br + l * self.Cr)
+
+                    if Q / 2 &lt; Qmax and Q &gt; 0:
+                        HKL[m, 0] = h
+                        HKL[m, 1] = k
+                        HKL[m, 2] = l
+                        th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                        Dhkl[m] = 2 * np.pi / Q
+                        m = m + 1
+
+        h = 0
+        for nk in range(0, int(2 * kmax)):
+
+            k = K[nk]
+
+            for nl in range(0, int(2 * lmax) + 1):
+
+                l = L[nl]
+                Q = np.linalg.norm(k * self.Br + l * self.Cr)
+
+                if Q / 2 &lt; Qmax and Q &gt; 0:
+                    HKL[m, 0] = h
+                    HKL[m, 1] = k
+                    HKL[m, 2] = l
+                    th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                    Dhkl[m] = 2 * np.pi / Q
+                    m = m + 1
+
+        k = 0
+        for nl in range(0, int(2 * lmax)):
+
+            l = L[nl]
+            Q = np.linalg.norm(l * self.Cr)
+
+            if Q / 2 &lt; Qmax and Q &gt; 0:
+                HKL[m, 0] = h
+                HKL[m, 1] = k
+                HKL[m, 2] = l
+                th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                Dhkl[m] = 2 * np.pi / Q
+                m = m + 1
+
+        idx = []
+        for j in range(Nmax):
+
+            if HKL[j, 0] == 0 and HKL[j, 1] == 0 and HKL[j, 2] == 0:
+                idx.append(j)
+
+        HKL = np.delete(HKL, idx, 0)
+        th_hkl = np.delete(th_hkl, idx)
+        Dhkl = np.delete(Dhkl, idx)
+
+        return HKL, th_hkl, Dhkl
+
+    def diffraction(self, E: float, fout: str = &#39;&#39;) -&gt; tuple[ndarray, ndarray, ndarray]:
+
+        &#34;&#34;&#34;Returns the structure factor and inter planar distance of all lattice
+        planes.
+
+        Args:
+            E (float): Beam energy (eV).
+            fout (str): Name for save output. Does not save by default.
+        Returns:
+            tuple[ndarray, ndarray, ndarray]: Arrays of reflections, complex structure factor and inter planar distance.
+        &#34;&#34;&#34;
+
+        HKL, th, d = self.hkl_generate(E)
+
+        F = self.Fhkl(E, HKL)
+
+        # Sorting by intensity
+        idx = np.argsort(np.absolute(F) / np.max(np.absolute(F)))[::-1]
+        F = F[idx]
+        HKL = HKL[idx, :]
+        th = th[idx]
+        d = d[idx]
+
+        if fout != &#39;&#39;:
+            save_diffraction(HKL, F, th, d, fout)
+
+        return HKL, F, d
+
+    def triplet_relation(self, E: float, G_H: list) -&gt; tuple[float, float]:
+
+        &#34;&#34;&#34;Calculates the phase triplet relation.
+
+        Args:
+            E (float): Beam energy (eV).
+            G_H (list): Indices of primary and secondary reflection. Should be in this order.
+        Returns:
+            tuple[float, float]: Cosine of phase triplet and interference amplitude W.
+        &#34;&#34;&#34;
+
+        G_H = np.array(G_H)
+        G_H = np.row_stack((G_H, G_H[0] - G_H[1]))
+        W = self.Fhkl(E, G_H)
+        W = (W[1] * W[2]) / W[0]
+
+        return np.real(W) / np.absolute(W), np.absolute(W)
+
+    def klines(self, E: float, G: list or ndarray, M: list or ndarray, Fmin: float, dw: float = 0.1) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Saves the Bragg Cones crossing the primary reflection.
+
+        Args:
+            E (float): Beam energy (eV).
+            G (list or ndarray): Indices of primary reflection (eg, [1, 1, 1]).
+            M (list or ndarray): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W.
+            dw (float): Maximum Bragg angle distance between secondary and primary.
+        Returns:
+            np.ndarray: Array of reflections, in-out, out-in angles, W values.
+        Notes:
+            The BC lines are saved on `IN/OUT/THG_G_array_M_array_E_value.dat` files.
+        &#34;&#34;&#34;
+
+        M, G = np.array(M), np.array(G)
+        HKL, FH, d = self.diffraction(E)
+
+        wl = 12398.5 / E
+        th = np.arcsin(wl / (2 * d)) * 180 / np.pi
+        FH = np.absolute(FH)
+
+        idx = search_reflection(HKL, G)
+        thG = np.round(np.arcsin(wl / (2 * d[idx])) * 180 / np.pi, 4)
+
+        HKL, FH, th = delete_multiple(HKL, FH, th, idx=idx)  # Exclude primary
+        HKL, FH, GH, FGH, idx = coupling_reflection(FH, HKL, G)
+
+        th = np.delete(th, idx)
+
+        F = FGH * FH
+        HKL, F, th = delete_multiple(HKL, F, th, idx=np.argwhere(F &lt;= Fmin))
+
+        Z = np.matmul(G, np.array([self.Ar, self.Br, self.Cr]))  # Rotation axis
+        Y = np.matmul(M, np.array([self.Ar, self.Br, self.Cr]))  # Φ-reference
+
+        # xyz coordinate system
+        z = Z / (np.sqrt(np.dot(Z, Z)))
+        y = np.cross(z, Y) / (np.sqrt(np.dot(np.cross(z, Y), np.cross(z, Y))))
+        x = np.cross(y, z)
+
+        # secondary reflection on xyz system
+        H = np.matmul(HKL, np.array([self.Ar, self.Br, self.Cr]))
+        modH = np.sqrt(np.sum(np.multiply(H, H), axis=1))
+        sinthH = np.sin(th * np.pi / 180)
+
+        cosGH = np.sum(np.multiply(H, z), axis=1) / modH  # cos(γ)
+        sinGH = np.sqrt(1 - cosGH ** 2)  # sin(γ)
+
+        cosGH, sinthH, F, H, sinGH = delete_multiple(cosGH, sinthH, F, H, sinGH,
+                                                     idx=np.argwhere(sinGH == 0))
+
+        alphaH = np.arctan2(np.sum(np.multiply(H, y), axis=1),
+                            np.sum(np.multiply(H, x), axis=1))  # α
+        alphaH = alphaH * 180 / np.pi
+
+        N = np.argwhere(alphaH &lt; 0)
+        kappa = alphaH[N] + 360
+        alphaH[N] = kappa[:]
+
+        dom = dw / 20
+        omega = np.arange(thG - dw, thG + dw + dom, dom)
+
+        h = np.matmul(H, np.linalg.inv(np.array([self.Ar, self.Br, self.Cr])))
+
+        PHI_IN = np.zeros((len(alphaH) + 1, 4 + len(omega)))
+        PHI_IN[0, 3] = thG
+        PHI_IN[0, 4:] = omega[:]
+        PHI_IN[1:, 0] = h[:, 0]
+        PHI_IN[1:, 1] = h[:, 1]
+        PHI_IN[1:, 2] = h[:, 2]
+        PHI_IN[1:, 3] = F[:]
+        PHI_OUT = np.copy(PHI_IN)
+
+        fileout = &#34;G_&#34; + &#34;&#34;.join((G.astype(int)).astype(str))
+        fileout += &#34;_M_&#34; + &#34;&#34;.join((M.astype(int)).astype(str))
+        fileout += &#34;_E_&#34; + str(E) + &#34;.dat&#34;
+
+        for i in range(len(omega)):
+
+            Om = omega[i]
+            omg = np.round(Om, 4)
+
+            cosBH = (sinthH - np.sin(Om * np.pi / 180) * cosGH) / (np.cos(Om * np.pi / 180) * sinGH)
+            N = np.argwhere(np.abs(cosBH) &gt; 1)
+            cosBH[N] = 1
+
+            phi1 = alphaH - (np.arccos(cosBH)) * 180 / np.pi  # out-in
+
+            N = np.argwhere(phi1 &lt; 0)
+            phi = phi1[N] + 360
+            phi1[N] = phi[:]
+            N = np.argwhere(phi1 &gt; 360)
+            phi = phi1[N] - 360
+            phi1[N] = phi[:]
+
+            phi2 = alphaH + (np.arccos(cosBH)) * 180 / np.pi  # in-out
+
+            N = np.argwhere(phi2 &gt; 360)
+            phi = phi2[N] - 360
+            phi2[N] = phi[:]
+            N = np.argwhere(phi2 &lt; 0)
+            phi = phi2[N] + 360
+            phi2[N] = phi[:]
+
+            PHI_OUT[1:, 4 + i] = phi1[:]
+            PHI_IN[1:, 4 + i] = phi2[:]
+
+            if omg == thG:  # BC lines crossing primary
+
+                M = np.zeros((len(PHI_IN) - 1, 6))
+                M[:, :3] = PHI_IN[1:, :3]
+                M[:, 3] = phi1[:]
+                M[:, 4] = phi2[:]
+                M[:, 5] = F[:]
+
+                header = &#34;h   k   l     out-in     in-out     FH*FGH&#34;
+                fmt = &#34;%3.f %3.f %3.f %10.4f %10.4f %10.f&#34;
+
+                np.savetxt(&#39;THG_&#39; + fileout, M, fmt=fmt, header=header)
+
+        line1 = &#34;      0          0         0      G-thBragg            &#34;
+        line1 += &#34;omega (deg)         -       1st line&#34;
+        line2 = &#34;      h          k         l      FH*FGH               &#34;
+        line2 += &#34;phi (in-out)        -       following lines&#34;
+        header = &#39;\n&#39;.join([line1, line2])
+        np.savetxt(&#39;IN_&#39; + fileout, PHI_IN, fmt=&#34;%10.4f&#34;, header=header)
+
+        line2 = &#34;      h          k         l      FH*FGH               &#34;
+        line2 += &#34;phi (out-in)        -       following lines&#34;
+        header = &#39;\n&#39;.join([line1, line2])
+        np.savetxt(&#39;OUT_&#39; + fileout, PHI_OUT, fmt=&#34;%10.4f&#34;, header=header)
+
+        return M
+
+
+class ExpData:
+
+    def __init__(self, E: float, G: list, fname: str, colx: int = 0,
+                 coly: int = 1, name: str = &#39;&#39;):
+
+        &#34;&#34;&#34;Given the experimental data, returns a new `exp` object.
+
+        Args:
+            E (float): Beam energy (eV).
+            G (list): Indices of primary reflection (eg, [1, 1, 1]).
+            fname (str): Experimental data file name.
+            colx (int): Column number with angle values on data file. 1st column, by default.
+            coly (int): Column number with intensity values. 2nd column, by default.
+            name: Label for analysis (e.g. &#39;pure&#39;, &#39;doped&#39;). Default: None.
+        &#34;&#34;&#34;
+
+        self.asy = None
+        self.slope_data = None
+        self.index = None
+        self.BC = None
+        self.region = None
+        self.peaks = None
+        self.phi = np.loadtxt(fname, usecols=colx)
+        self.counts = np.loadtxt(fname, usecols=coly)
+        self.energy = E
+        self.primary = np.array(G)
+        self.name = name
+
+    def plot(self) -&gt; plotly.graph_objects:
+
+        &#34;&#34;&#34;Plot the experimental data.
+
+        Returns:
+            plotly.graph_objects: Interactive plot.
+        &#34;&#34;&#34;
+
+        df_exp = pd.DataFrame(np.column_stack((self.phi, self.counts)),
+                              columns=[&#39;phi&#39;, &#39;I&#39;])
+
+        fig = px.scatter(df_exp, x=&#39;phi&#39;, y=&#39;I&#39;,
+                         labels={&#39;phi&#39;: &#39;𝜙 (deg)&#39;, &#39;I&#39;: &#39;Counts&#39;})
+        fig.data[0].update(mode=&#39;markers+lines&#39;)
+        fig.update_traces(marker=dict(color=&#39;black&#39;, size=6),
+                          line=dict(color=&#39;black&#39;, width=2))
+
+        fig.update_yaxes(title_text=&#39;Counts&#39;,
+                         range=[0, 1.1 * self.counts.max()])
+        fig.update_xaxes(range=[0.85 * self.phi.min(), 1.005 * self.phi.max()])
+        fig.update_layout(legend_title_text=&#39;&#39;, template=&#39;plotly_white&#39;,
+                          font=dict(size=16))
+        fig.show()
+
+    def BC_plot(self, fname: str, M: list, Fmin: float) -&gt; plotly.graph_objects:
+
+        &#34;&#34;&#34;Plot the experimental data and BC lines.
+
+        Args:
+            fname (str): Structure file name (the same used by Crystal class).
+            M (list): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W (absolute).
+        Returns:
+            plotly.graph_objects: Interactive plot.
+        &#34;&#34;&#34;
+
+        M = np.array(M)
+        struc = Crystal(fname)
+        struc.klines(self.energy, self.primary, M, Fmin)
+
+        fname = &#34;G_&#34; + &#34;&#34;.join((self.primary.astype(int)).astype(str))
+        fname += &#34;_M_&#34; + &#34;&#34;.join((M.astype(int)).astype(str))
+        fname += &#34;_E_&#34; + str(self.energy) + &#34;.dat&#34;
+        thG, FHFGH, df_in = dataframe_BClines(&#39;IN_&#39; + fname)
+        thG, FHFGH, df_out = dataframe_BClines(&#39;OUT_&#39; + fname)
+
+        subfigure = sp.make_subplots(rows=2, cols=1,
+                                     shared_xaxes=True,
+                                     vertical_spacing=0.02)
+
+        # Experimental data subplot
+        df_exp = pd.DataFrame(np.column_stack((self.phi, self.counts)),
+                              columns=[&#39;phi&#39;, &#39;I&#39;])
+
+        fig = px.scatter(df_exp, x=&#39;phi&#39;, y=&#39;I&#39;,
+                         labels={&#39;phi&#39;: &#39;𝜙 (deg)&#39;, &#39;I&#39;: &#39;Counts&#39;})
+        fig.data[0].update(mode=&#39;markers+lines&#39;)
+        fig.update_traces(marker=dict(color=&#39;black&#39;, size=5),
+                          line=dict(color=&#39;black&#39;, width=2))
+
+        fig_traces = []
+        for trace in range(len(fig[&#39;data&#39;])):
+            fig_traces.append(fig[&#39;data&#39;][trace])
+        for traces in fig_traces:
+            subfigure.append_trace(traces, row=1, col=1)
+
+        subfigure.update_yaxes(title_text=&#39;Counts&#39;,
+                               range=[0, 1.1 * self.counts.max()],
+                               row=1, col=1)
+        subfigure.update_xaxes(range=[self.phi.min(), self.phi.max()],
+                               row=1, col=1)
+        subfigure.update_layout(legend_title_text=&#39;&#39;, template=&#39;plotly_white&#39;)
+
+        # BC lines subplot
+        fig = px.line()
+        for i in range(1, len(FHFGH)):
+            hover_in = &#39;&lt;i&gt;𝜙&lt;/i&gt;: %{x:.3f} &lt;br&gt;&lt;b&gt;F&lt;/b&gt;:&#39; + str(FHFGH[i - 1])
+            hover_in += &#39;&lt;br&gt;&lt;b&gt;hkl&lt;/b&gt;:&#39; + df_in.columns[i]
+
+            fig.add_scatter(x=df_in[df_in.columns[i]], y=df_in[&#39;ω&#39;], name=&#39;&#39;,
+                            hovertemplate=hover_in,
+                            line=dict(color=&#39;Red&#39;,
+                                      width=10 * FHFGH[i - 1] / np.max(FHFGH)))
+
+            hover_out = &#39;&lt;i&gt;𝜙&lt;/i&gt;: %{x:.3f} &lt;br&gt;&lt;b&gt;F&lt;/b&gt;:&#39; + str(FHFGH[i - 1])
+            hover_out += &#39;&lt;br&gt;&lt;b&gt;hkl&lt;/b&gt;:&#39; + df_out.columns[i]
+
+            fig.add_scatter(x=df_out[df_out.columns[i]], y=df_out[&#39;ω&#39;], name=&#39;&#39;,
+                            hovertemplate=hover_out,
+                            line=dict(color=&#39;Blue&#39;,
+                                      width=10 * FHFGH[i - 1] / np.max(FHFGH)))
+
+        fig_traces = []
+        for trace in range(len(fig[&#34;data&#34;])):
+            fig_traces.append(fig[&#34;data&#34;][trace])
+        for traces in fig_traces:
+            subfigure.append_trace(traces, row=2, col=1)
+
+        subfigure.add_shape(type=&#39;line&#39;, x0=self.phi.min(), y0=thG,
+                            x1=self.phi.max(), y1=thG,
+                            line=dict(color=&#39;black&#39;),
+                            row=2, col=1)
+        subfigure.update_xaxes(title_text=&#39;𝜙 (deg)&#39;,
+                               range=[self.phi.min(), self.phi.max()],
+                               row=2, col=1,
+                               showgrid=False)
+        subfigure.update_yaxes(title_text=&#39;ω (deg)&#39;,
+                               range=[thG - 0.1, thG + 0.1],
+                               row=2, col=1,
+                               showgrid=False)
+        subfigure.update_layout(showlegend=False, template=&#39;plotly_white&#39;,
+                                font=dict(size=16))
+
+        subfigure.show()
+
+    def peak_finder(self, minimum_intensity_p: float = 0.03):
+
+        &#34;&#34;&#34;Defines the peak list.
+
+        Args:
+            minimum_intensity_p (float): Minimum value of intensity to define a peak given as percentage of maximum
+                value of spectrum. 3% by default.
+        &#34;&#34;&#34;
+
+        yf = gaussian_filter1d(self.counts, 2)
+        peaks, _ = find_peaks(yf, prominence=100,
+                              height=self.counts.max() * minimum_intensity_p)
+
+        self.peaks = peaks
+
+    def data_cleaner(self, minimum_intensity_p: float = 0.2, points: int = 60):
+
+        &#34;&#34;&#34;Update the peak list after automatic clean the data.
+
+        Args:
+            minimum_intensity_p (float): Minimum value of intensity to define a peak given as percentage of maximum
+                value of region. 20% by default.
+            points (int): Max number of points defining a peak.
+        &#34;&#34;&#34;
+
+        idx, i = [], 0
+        for j in self.peaks:
+
+            m, n = self.peak_definer(j, points)
+            y = self.counts[m:n]
+
+            height = (y.max() + (y[0] + y[-1]) / 2) * minimum_intensity_p
+            pk, _ = find_peaks(gaussian_filter1d(y, 2), height=height)
+
+            if len(pk) != 1:
+                idx.append(i)
+            i += 1
+
+        self.peaks = np.delete(self.peaks, idx)
+
+    def data_review(self):
+
+        &#34;&#34;&#34;Plot the experimental data highlighting peaks. Delete the peaks
+        selected by external user.
+
+        Note:
+                To select a peak, stop the mouse over the maximum and press `SPACE`.
+                To unselect, stop the mouse over the maximum and press `DEL`.
+                Feel free to zoom in or out.
+                After finishing the selection, press `ENTER`. Then, press `ENTER: int
+                to close the figure.
+        &#34;&#34;&#34;
+
+        plt.plot(self.phi, self.counts, c=&#39;k&#39;)
+        plt.plot(self.phi[self.peaks], self.counts[self.peaks], &#34;*b&#34;)
+        plt.xlabel(&#39;ɸ (deg)&#39;)
+        plt.ylabel(&#39;counts&#39;)
+        plt.xlim(self.phi.min(), self.phi.max())
+        mk = plt.ginput(n=0, timeout=0, mouse_add=None,
+                        mouse_pop=None, mouse_stop=None)
+        plt.draw()
+        while True:
+            if plt.waitforbuttonpress(0):
+                plt.close()
+                break
+
+        mk = np.array(mk)
+
+        if len(mk) != 0:
+
+            phi_mk = mk[:, 0]
+
+            idx = []
+            for j in range(len(phi_mk)):
+                diff = np.abs(self.phi[self.peaks] - phi_mk[j])
+                idx.append(int(diff.argmin()))
+
+            self.peaks = np.delete(self.peaks, idx)
+
+    def region_of_fit(self, interval: int = 6, points: int = 60):
+
+        &#34;&#34;&#34;Defines the region of fit list.
+
+        Args:
+            interval (int): Number of standard deviations defining the region of fit. By default, 6-sigma is used.
+            points (int): Max number of points defining a peak.
+        &#34;&#34;&#34;
+
+        region, i = np.zeros((len(self.peaks), 4)), 0
+        for j in self.peaks:
+            m, n = self.peak_definer(j, points)
+            x = self.phi[m:n]
+            y = self.counts[m:n]
+
+            s, d, f = fwhm(x, np.log10(y))
+
+            N = np.abs(x - (d - interval * s)).argmin()
+            M = np.abs(x - (d + interval * s)).argmin()
+
+            region[i, :] = x[N], x[M], f, d
+            i += 1
+
+            self.region = region
+
+    def MD_indexer(self, fname: str, M: list, Fmin: float):
+
+        &#34;&#34;&#34;Finds the secondary reflection list corresponding to each founded
+        peak.
+
+        Args:
+            fname (str): Structure file name (the same used by Crystal class).
+            M (list): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W (absolute).
+
+        Notes:
+            In case 2 reflections distance by less than 0.01º and the W
+            difference between them is bigger than the half value of the one of
+            them, this case is **UNINDEXABLE**.
+        &#34;&#34;&#34;
+
+        struc = Crystal(fname)
+        self.BC = struc.klines(self.energy, self.primary, M, Fmin)
+
+        hkl = (self.BC[:, 0:3].astype(int)).astype(str)
+        for i in range(len(hkl)):
+            hkl[i] = &#34; &#34;.join(hkl[i])
+        hkl = hkl[:, 0]
+
+        idx = []
+        s = []
+        HKL = []
+        for i in range(len(self.region[:, 0])):
+
+            if self.region[i, -1] &lt; 0:
+                ph = self.region[i, -1] + 360
+            else:
+                ph = self.region[i, -1]
+
+            Fin, id_in = self.index_find(ph, 4)
+            Fout, id_out = self.index_find(ph, 3)
+
+            if Fin == Fout:
+                idx.append(i)
+            elif Fin &gt; Fout:
+                HKL.append(hkl[id_in])
+                s.append(1)
+            else:
+                HKL.append(hkl[id_out])
+                s.append(-1)
+
+        self.peaks = np.delete(self.peaks, idx)
+        self.region = np.delete(self.region, idx, axis=0)
+        self.index = np.column_stack((HKL, s))
+
+    def plot_peaks(self):
+
+        &#34;&#34;&#34;Plot the selected peaks and corresponding region of fit.&#34;&#34;&#34;
+
+        plt.plot(self.phi, self.counts, c=&#39;k&#39;)
+
+        for i in range(len(self.region[:, -1])):
+            N = np.abs(self.phi - self.region[i, 0]).argmin()
+            M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+            x = self.phi[N:M]
+            y = self.counts[N:M]
+
+            plt.plot(x, y, &#34;r&#34;)
+
+        plt.xlabel(&#39;ɸ (deg)&#39;)
+        plt.ylabel(&#39;counts&#39;)
+        plt.xlim(0.85 * self.phi.min(), 1.005 * self.phi.max())
+        plt.ylim(0, 1.1 * self.counts.max())
+        plt.draw()
+        while True:
+            if plt.waitforbuttonpress(0):
+                plt.close()
+                break
+
+    def data_fitter(self, nsamples: int = 1000):
+
+        &#34;&#34;&#34;Determine the slope and slope error list.
+
+        Args:
+            nsamples (int): Number of samples to calculate the slope error.
+        &#34;&#34;&#34;
+
+        slope_err = np.zeros((len(self.peaks), 2))
+        for i in tqdm(range(len(self.peaks))):
+            N = np.abs(self.phi - self.region[i, 0]).argmin()
+            M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+            x = self.phi[N:M]
+            y = np.log10(self.counts[N:M])
+
+            slope_err[i, 0] = peak_fit(x, y)
+
+            sample = pd.DataFrame(np.column_stack((x, y)))
+            slope_err[i, 1] = bootstrap_resampling(sample, nsamples)
+
+        self.slope_data = slope_err
+
+    def asymmetry_assigner(self, sbar: float = 0.1, tau: float = 0.4):
+
+        &#34;&#34;&#34;Determines the asymmetry list.
+
+        Args:
+            sbar (float): Minimum value of relative slope. Default = 10%.
+            tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
+        &#34;&#34;&#34;
+
+        ratio = self.slope_data[:, 0] / self.slope_data[:, 0].max()
+        idx1 = np.where(np.abs(ratio) &lt; sbar)
+        self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                                   self.slope_data,
+                                                                   self.region,
+                                                                   idx=idx1)
+
+        ratio = self.slope_data[:, 1] / self.slope_data[:, 0]
+        idx2 = np.where(np.abs(ratio) &gt; tau)
+        self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                                   self.slope_data,
+                                                                   self.region,
+                                                                   idx=idx2)
+
+        asy = np.zeros((len(self.slope_data[:, 0]), 2), dtype=str)
+        asy[np.where(self.slope_data[:, 0] &lt; 0), :] = &#39;H&#39;, &#39;L&#39;
+        asy[np.where(self.slope_data[:, 0] &gt; 0), :] = &#39;L&#39;, &#39;H&#39;
+        asy = [&#39;&#39;.join(row) for row in asy]
+
+        self.asy = asy
+
+    def save_output(self, fout: str = &#39;&#39;):
+
+        &#34;&#34;&#34;Save file with output of experimental data analysis.
+
+        Args:
+            fout (str): File name to save. Default:`asymmetries_NAME_E_value_G_indexes.dat`
+        &#34;&#34;&#34;
+
+        sbar = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
+        tau = np.abs(self.slope_data[:, 1] / self.slope_data[:, 0])
+        M = np.column_stack((np.round(self.region[:, -1], 4), self.index,
+                             self.asy, np.round(self.slope_data, 4),
+                             np.round(sbar, 2), np.round(tau, 2)))
+
+        form = &#39;%10s %10s %5s %10s %10s %10s %10s %10s&#39;
+
+        header = &#39;    phi         hkl     s     asymmetry   slope   slope error&#39;
+        header += &#39;  sbar (%)    tau (%)&#39;
+
+        if fout == &#39;&#39;:
+            fout = &#39;data&#39; + self.name.upper() + &#39;_E&#39; + str(self.energy)
+            fout += &#39;_G&#39; + &#34;&#34;.join((self.primary.astype(int)).astype(str)) + &#39;.dat&#39;
+
+        np.savetxt(fout, M, fmt=form, header=header)
+
+        return fout
+
+    def peak_definer(self, peak_number: int, points: int) -&gt; tuple:
+
+        &#34;&#34;&#34;Return the indexes of first and last points of peak.
+
+        Args:
+            peak_number (int): Index of peak point on angles array.
+            points (int): Max number of points defining a peak.
+        Returns:
+            tuple: First and last points of peak.
+        &#34;&#34;&#34;
+
+        p = int(points / 2)
+
+        if peak_number - p &lt; 0:
+            m = 0
+        else:
+            m = peak_number - p
+        if peak_number + p &gt; len(self.counts):
+            n = len(self.counts) - 1
+        else:
+            n = peak_number + p
+
+        return m, n
+
+    def index_find(self, ph: float, col: int) -&gt; tuple:
+
+        &#34;&#34;&#34;Returns the closer multiple-diffraction case of certain phi.
+
+        Args:
+            ph (float): Angle on Renninger scan.
+            col (int): 3 or 4 (in-out or out-in BC lines).
+        Returns:
+            tuple: FHFGH value and array index of closer case.
+        &#34;&#34;&#34;
+
+        M = np.where(np.abs(self.BC[:, col] - ph) &lt; 0.2)
+        m = []
+
+        if self.BC[M, -1].size != 0:
+
+            if len(M[0]) &gt; 1:
+
+                idk = np.argsort(np.abs(self.BC[M, col] - ph))[::-1]
+                phi1 = self.BC[M[0][idk][0][0], col]
+                phi2 = self.BC[M[0][idk][0][1], col]
+                W1 = self.BC[M[0][idk][0][0], 5]
+                W2 = self.BC[M[0][idk][0][1], 5]
+                Wd = np.abs(W1 - W2)
+
+                if np.abs(phi1 - phi2) &lt; 0.01 and (Wd &lt; W1 / 2 or Wd &lt; W2 / 2):
+                    F, k = 0, 0
+                else:
+                    F = self.BC[M, -1].max()
+                    k = self.BC[M, -1].argmax()
+                    m = M[0][k]
+            else:
+                F = self.BC[M, -1].max()
+                k = self.BC[M, -1].argmax()
+                m = M[0][k]
+        else:
+            F, k = 0, 0
+
+        return F, m
+
+    def analyze(self, fname: str, M: list, Fmin: float, p_find: float = 0.03,
+                p_clean: float = 0.2, points: int = 60, sbar: float = 0.1,
+                tau: float = 0.4, fout: str = &#39;&#39;):
+
+        &#34;&#34;&#34;Executes the entire peak analysis.
+
+        Args:
+            fname (str): Structure file name (the same used by Crystal class).
+            M (list): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W (absolute).
+            p_find (float): Minimum value of intensity to define a peak (percentage of maximum value of spectrum).
+            3% by default.
+            p_clean (float): Minimum value of intensity to define a peak (percentage of maximum value of region).
+            20% by default.
+            points (int): Max number of points defining a peak.
+            sbar (float): Minimum value of relative slope. Default = 10%.
+            tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
+            fout (str): File name to save. Default:`asymmetries_NAME_E_value_G_indexes.dat`
+        Notes:
+            This method does not work properly on notebooks.
+        &#34;&#34;&#34;
+
+        f = Figlet(font=&#39;banner3-D&#39;, width=50, justify=&#34;center&#34;)
+        print(colored(f.renderText(&#39;xrdd_asy&#39;), &#39;green&#39;))
+
+        spinner = Halo(text=&#39;Finding peaks...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.peak_finder(p_find)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Finding peaks:\033[1m\033[92m Success&#39;)
+        print(&#39;\t Minimum of counts = &#39;, int(p_find * self.counts.max()))
+        print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; found peaks.&#39; + &#39;\033[0m&#39;)
+
+        spinner = Halo(text=&#39;Automatic cleaning the data...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.data_cleaner(p_clean, points=points)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Automatic cleaning the data:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; selected peaks.&#39; + &#39;\033[0m&#39;)
+
+        spinner = Halo(text=&#39;Manual cleaning the data...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.data_review()
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Manual cleaning the data:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; selected peaks.&#39; + &#39;\033[0m&#39;)
+
+        spinner = Halo(text=&#39;Defining region of fit...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.region_of_fit(points=points)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Defining region of fit:\033[1m\033[92m Success&#39;)
+
+        spinner = Halo(text=&#39;Indexing peaks...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.MD_indexer(fname, M, Fmin)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Indexing peaks:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + &#39;Data set with &#39; + str(len(self.peaks)) + &#39; peaks.&#39; + &#39;\033[0m&#39;)
+        print(&#39;\tMinimum value of FHFGH = &#39;, Fmin)
+        self.plot_peaks()
+
+        print(&#39;:: Fitting peaks...&#39;)
+        self.data_fitter()
+        sys.stdout.write(&#34;\033[2F&#34;)
+        print(&#39;🗸 Fitting peaks:\033[1m\033[92m Success&#39;)
+
+        spinner = Halo(text=&#39;Assigning asymmetry type...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.asymmetry_assigner(sbar, tau)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Assigning asymmetry type:\033[1m\033[92m Success&#39;)
+        print(&#39;\tCUTOFF: slope &gt; &#39;, sbar)
+        print(&#39;\t            τ &lt; &#39;, tau)
+
+        spinner = Halo(text=&#39;Saving file...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        fn = self.save_output(fout)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Saving file:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + fn + &#39;\033[0m&#39;)
+
+
+def phase_comparison(data1: np.ndarray, data2: np.ndarray) -&gt; plotly.graph_objects:
+
+    &#34;&#34;&#34;Display and plot the structure factor phase variation between two models.
+
+    Args:
+        data1 (np.ndarray): Complex structure factor list for structure 1 (obtained from `Crystal().diffraction()`)
+        data2 (np.ndarray): Complex structure factor list for structure 2.
+    Returns:
+            plotly.graph_objects: Interactive plot.
+    &#34;&#34;&#34;
+
+    HKL1, F1, d1 = data1[0], data1[1], data1[2]
+    HKL2, F2, d2 = data2[0], data2[1], data2[2]
+
+    Z, Q, F, HKL = [], [], [], []
+
+    for i in range(len(HKL1)):
+
+        x = np.where(HKL2[:, 0] == HKL1[i, 0])
+        y = np.where(HKL2[:, 1] == HKL1[i, 1])
+        z = np.where(HKL2[:, 2] == HKL1[i, 2])
+
+        m = reduce(np.intersect1d, (x, y, z))
+
+        if len(m) != 0:
+            m = int(m[0])
+            Z.append(np.abs(np.angle(F1[i]) - np.angle(F2[m])) * 180 / np.pi)
+            HKL.append(HKL1[i, :])
+            Q.append(2 * np.pi / d1[i])
+            F.append(np.absolute(F1[i]))
+
+    Z = np.array(Z, dtype=float)
+    Q = np.array(Q, dtype=float)
+    F = np.array(F, dtype=float)
+    HKL = np.array(HKL, dtype=float)
+
+    Z, Q, F, HKL = delete_multiple(Z, Q, F, HKL, idx=np.argwhere(Z &lt; 15))
+    Z, Q, F, HKL = delete_multiple(Z, Q, F, HKL, idx=np.argwhere(Z &gt; 180))
+
+    HKL = (HKL.astype(int)).astype(str)
+    for i in range(len(HKL)):
+        HKL[i] = &#34; &#34;.join(HKL[i])
+    HKL = HKL[:, 0]
+
+    df = pd.DataFrame(np.column_stack((HKL, np.round(F, 2), np.round(Q, 2),
+                                       np.round(Z, 2))),
+                      columns=[&#39;hkl&#39;, &#39;F&#39;, &#39;Q&#39;, &#39;Z&#39;])
+    date = datetime.now().strftime(&#34;%Y%m%d_%X&#34;)
+    name = &#39;PHASE&#39; + date + &#39;.txt&#39;
+
+    np.savetxt(name, df.values, fmt=&#39;% 10s&#39;,
+               header=&#39;     hkl         |F|²      Q (Å)    Δδ (deg)&#39;)
+
+    print(&#39;Saved in&#39;, name)
+
+    comparison_plot(df, &#39;Δδ (deg)&#39;, &#39;|F|²&#39;)
+
+
+def phase_triplet_comparison(data1: np.ndarray, data2: np.ndarray, G: list, wmin: float = 5) -&gt; plotly.graph_objects:
+
+    &#34;&#34;&#34;Display and plot the phase triplet variation between two models for a given primary reflection.
+
+    Args:
+        data1 (np.ndarray): Complex structure factor list for structure 1 (obtained from `Crystal().diffraction()`)
+        data2 (np.ndarray): Complex structure factor list for structure 2.
+        G (list): Indices of primary reflection (eg, [1, 1, 1]).
+        wmin (float): Cutoff for interference amplitude as percentage. 5% by default.
+    Returns:
+            plotly.graph_objects: Interactive plot.
+    &#34;&#34;&#34;
+
+    G = np.array(G)
+    HKL1, F1, d1 = data1[0], data1[1], data1[2]
+    HKL2, F2, d2 = data2[0], data2[1], data2[2]
+
+    idx1 = search_reflection(HKL1, G)
+    idx2 = search_reflection(HKL2, G)
+
+    if not idx1:
+        print(&#39;Primary reflection not found for 1st structure.&#39;)
+        return
+    elif not idx2:
+        print(&#39;Primary reflection not found for 2nd structure.&#39;)
+        return
+    elif np.absolute(F1[idx1]) == 0:
+        print(&#39;Null primary reflection in 1st structure.&#39;)
+        return
+    elif np.absolute(F2[idx2]) == 0:
+        print(&#39;Null primary reflection in 2nd structure.&#39;)
+        return
+
+    FG1 = F1[idx1]
+    FG2 = F2[idx2]
+
+    HKL1, F1, d1 = delete_multiple(HKL1, F1, d1, idx=idx1)
+    HKL2, F2, d2 = delete_multiple(HKL2, F2, d2, idx=idx2)
+
+    HKL1, F1, GH1, FGH1, i = coupling_reflection(F1, HKL1, G)
+    HKL2, F2, GH2, FGH2, i = coupling_reflection(F2, HKL2, G)
+
+    Z, Q, W, HKL = [], [], [], []
+
+    for i in range(len(HKL1)):
+
+        x = np.where(HKL2[:, 0] == HKL1[i, 0])
+        y = np.where(HKL2[:, 1] == HKL1[i, 1])
+        z = np.where(HKL2[:, 2] == HKL1[i, 2])
+
+        m = reduce(np.intersect1d, (x, y, z))
+
+        if len(m) != 0:
+
+            m = int(m[0])
+
+            cpsi1, psi1, w1 = triplet_calculation(FG1, F1[i], FGH1[i])
+            cpsi2, psi2, w2 = triplet_calculation(FG2, F2[m], FGH2[m])
+
+            if cpsi1 * cpsi2 &lt; 0:  # inverted asymmetries
+                HKL.append(HKL1[i, :])
+                Z.append(np.abs(psi1 - psi2) * 180 / np.pi)
+                Q.append(2 * np.pi / d1[i])
+                W.append(w1)
+
+    Z = np.array(Z, dtype=float)
+    Q = np.array(Q, dtype=float)
+    W = np.array(W, dtype=float)
+    HKL = np.array(HKL, dtype=float)
+
+    W = 100 * W / W.max()
+    HKL, Z, Q, W = delete_multiple(HKL, Z, Q, W, idx=np.argwhere(Z &lt; 1))
+    HKL, Z, Q, W = delete_multiple(HKL, Z, Q, W, idx=np.argwhere(Z &gt; 180))
+    HKL, Z, Q, W = delete_multiple(HKL, Z, Q, W, idx=np.argwhere(W &lt; wmin))
+
+    HKL = (HKL.astype(int)).astype(str)
+    for i in range(len(HKL)):
+        HKL[i] = &#34; &#34;.join(HKL[i])
+    HKL = HKL[:, 0]
+
+    df = pd.DataFrame(np.column_stack((HKL, np.round(W, 2), np.round(Q, 2),
+                                       np.round(Z, 2))),
+                      columns=[&#39;hkl&#39;, &#39;F&#39;, &#39;Q&#39;, &#39;Z&#39;])
+
+    date = datetime.now().strftime(&#34;%Y%m%d_%X&#34;)
+    name = &#39;TRIPLET_G_&#39; + &#34;&#34;.join((G.astype(int)).astype(str)) + &#39;_&#39; + date + &#39;.txt&#39;
+
+    np.savetxt(name, df.values, fmt=&#39;% 10s&#39;,
+               header=&#39;     hkl         W (%)      Q (Å)    ΔΨ (deg)&#39;)
+
+    print(&#39;Saved in&#39;, name)
+
+    comparison_plot(df, &#39;ΔΨ (deg)&#39;, &#39;W (%)&#39;, &#39;blue&#39;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pkg.xrdd.phase_comparison"><code class="name flex">
+<span>def <span class="ident">phase_comparison</span></span>(<span>data1: numpy.ndarray, data2: numpy.ndarray) ‑> <module 'plotly.graph_objects' from '/home/rafaela/.local/lib/python3.10/site-packages/plotly/graph_objects/__init__.py'></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display and plot the structure factor phase variation between two models.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data1</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Complex structure factor list for structure 1 (obtained from <code><a title="pkg.xrdd.Crystal" href="#pkg.xrdd.Crystal">Crystal</a>.diffraction()</code>)</dd>
+<dt><strong><code>data2</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Complex structure factor list for structure 2.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>plotly.graph_objects</code></dt>
+<dd>Interactive plot.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def phase_comparison(data1: np.ndarray, data2: np.ndarray) -&gt; plotly.graph_objects:
+
+    &#34;&#34;&#34;Display and plot the structure factor phase variation between two models.
+
+    Args:
+        data1 (np.ndarray): Complex structure factor list for structure 1 (obtained from `Crystal().diffraction()`)
+        data2 (np.ndarray): Complex structure factor list for structure 2.
+    Returns:
+            plotly.graph_objects: Interactive plot.
+    &#34;&#34;&#34;
+
+    HKL1, F1, d1 = data1[0], data1[1], data1[2]
+    HKL2, F2, d2 = data2[0], data2[1], data2[2]
+
+    Z, Q, F, HKL = [], [], [], []
+
+    for i in range(len(HKL1)):
+
+        x = np.where(HKL2[:, 0] == HKL1[i, 0])
+        y = np.where(HKL2[:, 1] == HKL1[i, 1])
+        z = np.where(HKL2[:, 2] == HKL1[i, 2])
+
+        m = reduce(np.intersect1d, (x, y, z))
+
+        if len(m) != 0:
+            m = int(m[0])
+            Z.append(np.abs(np.angle(F1[i]) - np.angle(F2[m])) * 180 / np.pi)
+            HKL.append(HKL1[i, :])
+            Q.append(2 * np.pi / d1[i])
+            F.append(np.absolute(F1[i]))
+
+    Z = np.array(Z, dtype=float)
+    Q = np.array(Q, dtype=float)
+    F = np.array(F, dtype=float)
+    HKL = np.array(HKL, dtype=float)
+
+    Z, Q, F, HKL = delete_multiple(Z, Q, F, HKL, idx=np.argwhere(Z &lt; 15))
+    Z, Q, F, HKL = delete_multiple(Z, Q, F, HKL, idx=np.argwhere(Z &gt; 180))
+
+    HKL = (HKL.astype(int)).astype(str)
+    for i in range(len(HKL)):
+        HKL[i] = &#34; &#34;.join(HKL[i])
+    HKL = HKL[:, 0]
+
+    df = pd.DataFrame(np.column_stack((HKL, np.round(F, 2), np.round(Q, 2),
+                                       np.round(Z, 2))),
+                      columns=[&#39;hkl&#39;, &#39;F&#39;, &#39;Q&#39;, &#39;Z&#39;])
+    date = datetime.now().strftime(&#34;%Y%m%d_%X&#34;)
+    name = &#39;PHASE&#39; + date + &#39;.txt&#39;
+
+    np.savetxt(name, df.values, fmt=&#39;% 10s&#39;,
+               header=&#39;     hkl         |F|²      Q (Å)    Δδ (deg)&#39;)
+
+    print(&#39;Saved in&#39;, name)
+
+    comparison_plot(df, &#39;Δδ (deg)&#39;, &#39;|F|²&#39;)</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.phase_triplet_comparison"><code class="name flex">
+<span>def <span class="ident">phase_triplet_comparison</span></span>(<span>data1: numpy.ndarray, data2: numpy.ndarray, G: list, wmin: float = 5) ‑> <module 'plotly.graph_objects' from '/home/rafaela/.local/lib/python3.10/site-packages/plotly/graph_objects/__init__.py'></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display and plot the phase triplet variation between two models for a given primary reflection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data1</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Complex structure factor list for structure 1 (obtained from <code><a title="pkg.xrdd.Crystal" href="#pkg.xrdd.Crystal">Crystal</a>.diffraction()</code>)</dd>
+<dt><strong><code>data2</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Complex structure factor list for structure 2.</dd>
+<dt><strong><code>G</code></strong> :&ensp;<code>list</code></dt>
+<dd>Indices of primary reflection (eg, [1, 1, 1]).</dd>
+<dt><strong><code>wmin</code></strong> :&ensp;<code>float</code></dt>
+<dd>Cutoff for interference amplitude as percentage. 5% by default.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>plotly.graph_objects</code></dt>
+<dd>Interactive plot.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def phase_triplet_comparison(data1: np.ndarray, data2: np.ndarray, G: list, wmin: float = 5) -&gt; plotly.graph_objects:
+
+    &#34;&#34;&#34;Display and plot the phase triplet variation between two models for a given primary reflection.
+
+    Args:
+        data1 (np.ndarray): Complex structure factor list for structure 1 (obtained from `Crystal().diffraction()`)
+        data2 (np.ndarray): Complex structure factor list for structure 2.
+        G (list): Indices of primary reflection (eg, [1, 1, 1]).
+        wmin (float): Cutoff for interference amplitude as percentage. 5% by default.
+    Returns:
+            plotly.graph_objects: Interactive plot.
+    &#34;&#34;&#34;
+
+    G = np.array(G)
+    HKL1, F1, d1 = data1[0], data1[1], data1[2]
+    HKL2, F2, d2 = data2[0], data2[1], data2[2]
+
+    idx1 = search_reflection(HKL1, G)
+    idx2 = search_reflection(HKL2, G)
+
+    if not idx1:
+        print(&#39;Primary reflection not found for 1st structure.&#39;)
+        return
+    elif not idx2:
+        print(&#39;Primary reflection not found for 2nd structure.&#39;)
+        return
+    elif np.absolute(F1[idx1]) == 0:
+        print(&#39;Null primary reflection in 1st structure.&#39;)
+        return
+    elif np.absolute(F2[idx2]) == 0:
+        print(&#39;Null primary reflection in 2nd structure.&#39;)
+        return
+
+    FG1 = F1[idx1]
+    FG2 = F2[idx2]
+
+    HKL1, F1, d1 = delete_multiple(HKL1, F1, d1, idx=idx1)
+    HKL2, F2, d2 = delete_multiple(HKL2, F2, d2, idx=idx2)
+
+    HKL1, F1, GH1, FGH1, i = coupling_reflection(F1, HKL1, G)
+    HKL2, F2, GH2, FGH2, i = coupling_reflection(F2, HKL2, G)
+
+    Z, Q, W, HKL = [], [], [], []
+
+    for i in range(len(HKL1)):
+
+        x = np.where(HKL2[:, 0] == HKL1[i, 0])
+        y = np.where(HKL2[:, 1] == HKL1[i, 1])
+        z = np.where(HKL2[:, 2] == HKL1[i, 2])
+
+        m = reduce(np.intersect1d, (x, y, z))
+
+        if len(m) != 0:
+
+            m = int(m[0])
+
+            cpsi1, psi1, w1 = triplet_calculation(FG1, F1[i], FGH1[i])
+            cpsi2, psi2, w2 = triplet_calculation(FG2, F2[m], FGH2[m])
+
+            if cpsi1 * cpsi2 &lt; 0:  # inverted asymmetries
+                HKL.append(HKL1[i, :])
+                Z.append(np.abs(psi1 - psi2) * 180 / np.pi)
+                Q.append(2 * np.pi / d1[i])
+                W.append(w1)
+
+    Z = np.array(Z, dtype=float)
+    Q = np.array(Q, dtype=float)
+    W = np.array(W, dtype=float)
+    HKL = np.array(HKL, dtype=float)
+
+    W = 100 * W / W.max()
+    HKL, Z, Q, W = delete_multiple(HKL, Z, Q, W, idx=np.argwhere(Z &lt; 1))
+    HKL, Z, Q, W = delete_multiple(HKL, Z, Q, W, idx=np.argwhere(Z &gt; 180))
+    HKL, Z, Q, W = delete_multiple(HKL, Z, Q, W, idx=np.argwhere(W &lt; wmin))
+
+    HKL = (HKL.astype(int)).astype(str)
+    for i in range(len(HKL)):
+        HKL[i] = &#34; &#34;.join(HKL[i])
+    HKL = HKL[:, 0]
+
+    df = pd.DataFrame(np.column_stack((HKL, np.round(W, 2), np.round(Q, 2),
+                                       np.round(Z, 2))),
+                      columns=[&#39;hkl&#39;, &#39;F&#39;, &#39;Q&#39;, &#39;Z&#39;])
+
+    date = datetime.now().strftime(&#34;%Y%m%d_%X&#34;)
+    name = &#39;TRIPLET_G_&#39; + &#34;&#34;.join((G.astype(int)).astype(str)) + &#39;_&#39; + date + &#39;.txt&#39;
+
+    np.savetxt(name, df.values, fmt=&#39;% 10s&#39;,
+               header=&#39;     hkl         W (%)      Q (Å)    ΔΨ (deg)&#39;)
+
+    print(&#39;Saved in&#39;, name)
+
+    comparison_plot(df, &#39;ΔΨ (deg)&#39;, &#39;W (%)&#39;, &#39;blue&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pkg.xrdd.Crystal"><code class="flex name class">
+<span>class <span class="ident">Crystal</span></span>
+<span>(</span><span>fname: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given a structure file, returns a new <code>crystal</code> object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Structure file name.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This file should have six columns: atom or ion label, fractional
+coordinates (x, y and z), occupancy number and B-factor. The first
+line contains the lattice parameters. For example,</p>
+<pre><code>5.5930 9.8270    11.8080    90.0000    90.0000    90.0000
+C      0.8754    0.9424     0.0357     1.0000     1.1844
+O1-    0.8812    0.8253     0.9960     1.0000     1.1844
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Crystal:
+
+    def __init__(self, fname: str):
+
+        &#34;&#34;&#34;Given a structure file, returns a new `crystal` object.
+
+        Args:
+            fname (str): Structure file name.
+
+        Notes:
+            This file should have six columns: atom or ion label, fractional
+            coordinates (x, y and z), occupancy number and B-factor. The first
+            line contains the lattice parameters. For example,
+
+                5.5930 9.8270    11.8080    90.0000    90.0000    90.0000
+                C      0.8754    0.9424     0.0357     1.0000     1.1844
+                O1-    0.8812    0.8253     0.9960     1.0000     1.1844
+        &#34;&#34;&#34;
+
+        self.atoms = np.loadtxt(fname, skiprows=1, usecols=0, dtype=str)
+        self.positions = np.loadtxt(fname, skiprows=1, usecols=(1, 2, 3))
+        self.occupancy = np.loadtxt(fname, skiprows=1, usecols=4)
+        self.bfactors = np.loadtxt(fname, skiprows=1, usecols=5)
+
+        a, b, c, alpha, beta, gamma = np.loadtxt(fname,
+                                                 max_rows=1,
+                                                 usecols=(0, 1, 2, 3, 4, 5),
+                                                 unpack=True)
+        A, B, C, Ar, Br, Cr = lattice(a, b, c, alpha, beta, gamma)
+
+        self.A = A
+        self.B = B
+        self.C = C
+        self.Ar = Ar
+        self.Br = Br
+        self.Cr = Cr
+
+    def show_lattice(self):
+
+        &#34;&#34;&#34;Display the direct and reciprocal lattices.&#34;&#34;&#34;
+
+        print(&#34;\nDirect lattice: \n&#34;)
+        disp = str(np.row_stack((self.A, self.B, self.C)))
+        print(disp.replace(&#39; [&#39;, &#39;&#39;).replace(&#39;[&#39;, &#39;&#39;).replace(&#39;]&#39;, &#39;&#39;))
+
+        print(&#34;\nReciprocal lattice: \n&#34;)
+        disp = str(np.row_stack((self.Ar, self.Br, self.Cr)))
+        print(disp.replace(&#39; [&#39;, &#39;&#39;).replace(&#39;[&#39;, &#39;&#39;).replace(&#39;]&#39;, &#39;&#39;))
+        print(&#34;\n&#34;)
+
+    def bragg(self, E: float, hkl: list) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Display inter planar distance and Bragg angle.
+
+        Args:
+            E (float): Beam energy (eV).
+            hkl (list): Miller indices (e.g [1, 0, 0]).
+        Returns:
+            np.ndarray: Inter planar distance in index 0 and Bragg angle in 1.
+        &#34;&#34;&#34;
+
+        wl = 12398.5 / E
+        d = 2 * np.pi
+        d = d / np.linalg.norm(hkl[0] * self.Ar + hkl[1] * self.Br + hkl[2] * self.Cr)
+        thB = np.arcsin(wl / (2 * d)) * 180 / np.pi
+
+        print(&#34;Energy = &#34; + str(E) + &#34; eV&#34;)
+        print(&#34;d(&#34; + str(hkl[0]) + &#34;,&#34; + str(hkl[1]) + &#34;,&#34; + str(hkl[2]) + &#34;) = &#34;,
+              str(np.round(d, 3)) + &#34;A  - thB = &#34; + str(np.round(thB, 3)) + &#34;º&#34;)
+
+        return np.array([d, thB])
+
+    def hkl2Q(self, hkl: ndarray) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Returns the reciprocal vector from Miller indices.
+
+        Args:
+            hkl (ndarray): Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).
+        Returns:
+            np.ndarray: Q values (1/angstrom).
+        &#34;&#34;&#34;
+
+        hkl = np.array(hkl)
+        Q = []
+        if np.shape(hkl) == (3,):
+            q = hkl[0] * self.Ar + hkl[1] * self.Br + hkl[2] * self.Cr
+            Q.append(np.linalg.norm(q))
+        else:
+            for i in range(len(hkl)):
+                q = hkl[i, 0] * self.Ar + hkl[i, 1] * self.Br + hkl[i, 2] * self.Cr
+                Q.append(np.linalg.norm(q))
+
+        return np.array(Q)
+
+    def Fhkl(self, E: float or ndarray, H: ndarray) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Returns the structure factor.
+
+        Args:
+            E (float or ndarray): Beam energy (eV).
+            H (ndarray): Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).
+        Returns:
+            np.ndarray: Complex structure factor list.
+        Notes:
+            Provide one energy value and an array of reflections or an array
+            of energies and just one reflection.
+        &#34;&#34;&#34;
+
+        E = np.array(E)
+        H = np.array(H)
+
+        sym = np.unique(self.atoms, return_index=False, return_inverse=False,
+                        return_counts=True)[0]  # ions or atoms
+
+        at = np.copy(sym)  # just atoms (ion don&#39;t contribute to resonance)
+        idx = np.where(np.char.isalpha(sym) is False)
+        if not np.shape(idx):
+            pass
+        else:
+            ion = np.copy(sym[idx])
+            regex = re.compile(&#39;[^a-zA-Z]&#39;)
+
+            for i in range(len(ion)):
+                at[idx[0][i]] = regex.sub(&#39;&#39;, ion[i])
+
+        if np.shape(H) == (3,):
+            F = 0
+        else:
+            F = np.zeros(len(H), dtype=np.clongdouble)
+
+        Q = self.hkl2Q(H)
+        for j in range(len(sym)):
+
+            fn = asfQ(sym[j], Q / (4 * np.pi)) + aresE(at[j], E)
+
+            idx = np.where(self.atoms == sym[j])
+
+            if np.shape(H) != (3,):
+
+                bf = np.reshape(np.tile(self.bfactors[idx], len(H)),
+                                (len(H), len(self.bfactors[idx])))
+                x = np.reshape(np.tile(self.positions[idx, 0][0], len(H)),
+                               (len(H), len(self.positions[idx, 0][0])))
+                y = np.reshape(np.tile(self.positions[idx, 1][0], len(H)),
+                               (len(H), len(self.positions[idx, 1][0])))
+                z = np.reshape(np.tile(self.positions[idx, 2][0], len(H)),
+                               (len(H), len(self.positions[idx, 2][0])))
+                occ = np.reshape(np.tile(self.occupancy[idx], len(H)), (len(H),
+                                                                        len(self.occupancy[idx])))
+
+                Ma = np.transpose([(Q / (4 * np.pi)) ** 2]) * bf
+                frac = np.transpose([H[:, 0]]) * x + np.transpose([H[:, 1]]) * y
+                frac = frac + np.transpose([H[:, 2]]) * z
+
+                F = F + np.sum(np.transpose([fn]) * occ * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac),
+                               axis=1)
+
+            elif np.shape(E) != ():
+
+                bf = np.reshape(np.tile(self.bfactors[idx], len(E)), (len(E),
+                                                                      len(self.bfactors[idx])))
+                x = np.reshape(np.tile(self.positions[idx, 0][0], len(E)),
+                               (len(E), len(self.positions[idx, 0][0])))
+                y = np.reshape(np.tile(self.positions[idx, 1][0], len(E)),
+                               (len(E), len(self.positions[idx, 1][0])))
+                z = np.reshape(np.tile(self.positions[idx, 2][0], len(E)),
+                               (len(E), len(self.positions[idx, 2][0])))
+                occ = np.reshape(np.tile(self.occupancy[idx], len(E)), (len(E),
+                                                                        len(self.occupancy[idx])))
+
+                Ma = (Q / (4 * np.pi)) ** 2 * bf
+                frac = H[0] * x + H[1] * y + H[2] * z
+
+                F = F + np.sum(np.transpose([fn]) * occ * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac),
+                               axis=1)
+
+            else:
+
+                Ma = self.bfactors[idx] * (Q / (4 * np.pi)) ** 2
+                frac = H[0] * self.positions[idx, 0] + H[1] * self.positions[idx, 1]
+                frac = frac + H[2] * self.positions[idx, 2]
+
+                F = F + np.sum(fn * self.occupancy[idx] * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac))
+
+        return F
+
+    def hkl_generate(self, E: float) -&gt; tuple[ndarray, ndarray, ndarray]:
+
+        &#34;&#34;&#34;Returns the Miller indices of all allowed lattice planes.
+
+        Args:
+            E (float): Beam energy (eV).
+        Returns:
+            tuple[ndarray, ndarray, ndarray]: Miller indices, Bragg angles and inter planar distances.
+        &#34;&#34;&#34;
+
+        wl = 12398.5 / E
+        hmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Ar)))
+        kmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Br)))
+        lmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Cr)))
+
+        z = np.array([0])
+        H = np.arange(-hmax, hmax + 1)
+        K = np.arange(-kmax, kmax + 1)
+        L = np.arange(-lmax, lmax + 1)
+        H = np.delete(H, np.argwhere(H == 0))
+        K = np.delete(K, np.argwhere(K == 0))
+        L = np.delete(L, np.argwhere(L == 0))
+        H, K, L = np.append(H, z), np.append(K, z), np.append(L, z)
+
+        Nmax = int((2 * hmax + 1) * (2 * kmax + 1) * (2 * lmax + 1))
+        Qmax = (2 * np.pi) / wl
+        HKL = np.zeros((Nmax, 3))
+        th_hkl = np.zeros(Nmax)
+        Dhkl = np.zeros(Nmax)
+
+        m = 0
+        for nh in range(0, int(2 * hmax)):
+
+            h = H[nh]
+
+            for nk in range(0, int(2 * kmax + 1)):
+
+                k = K[nk]
+
+                for nl in range(0, int(2 * lmax) + 1):
+
+                    l = L[nl]
+                    Q = np.linalg.norm(h * self.Ar + k * self.Br + l * self.Cr)
+
+                    if Q / 2 &lt; Qmax and Q &gt; 0:
+                        HKL[m, 0] = h
+                        HKL[m, 1] = k
+                        HKL[m, 2] = l
+                        th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                        Dhkl[m] = 2 * np.pi / Q
+                        m = m + 1
+
+        h = 0
+        for nk in range(0, int(2 * kmax)):
+
+            k = K[nk]
+
+            for nl in range(0, int(2 * lmax) + 1):
+
+                l = L[nl]
+                Q = np.linalg.norm(k * self.Br + l * self.Cr)
+
+                if Q / 2 &lt; Qmax and Q &gt; 0:
+                    HKL[m, 0] = h
+                    HKL[m, 1] = k
+                    HKL[m, 2] = l
+                    th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                    Dhkl[m] = 2 * np.pi / Q
+                    m = m + 1
+
+        k = 0
+        for nl in range(0, int(2 * lmax)):
+
+            l = L[nl]
+            Q = np.linalg.norm(l * self.Cr)
+
+            if Q / 2 &lt; Qmax and Q &gt; 0:
+                HKL[m, 0] = h
+                HKL[m, 1] = k
+                HKL[m, 2] = l
+                th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                Dhkl[m] = 2 * np.pi / Q
+                m = m + 1
+
+        idx = []
+        for j in range(Nmax):
+
+            if HKL[j, 0] == 0 and HKL[j, 1] == 0 and HKL[j, 2] == 0:
+                idx.append(j)
+
+        HKL = np.delete(HKL, idx, 0)
+        th_hkl = np.delete(th_hkl, idx)
+        Dhkl = np.delete(Dhkl, idx)
+
+        return HKL, th_hkl, Dhkl
+
+    def diffraction(self, E: float, fout: str = &#39;&#39;) -&gt; tuple[ndarray, ndarray, ndarray]:
+
+        &#34;&#34;&#34;Returns the structure factor and inter planar distance of all lattice
+        planes.
+
+        Args:
+            E (float): Beam energy (eV).
+            fout (str): Name for save output. Does not save by default.
+        Returns:
+            tuple[ndarray, ndarray, ndarray]: Arrays of reflections, complex structure factor and inter planar distance.
+        &#34;&#34;&#34;
+
+        HKL, th, d = self.hkl_generate(E)
+
+        F = self.Fhkl(E, HKL)
+
+        # Sorting by intensity
+        idx = np.argsort(np.absolute(F) / np.max(np.absolute(F)))[::-1]
+        F = F[idx]
+        HKL = HKL[idx, :]
+        th = th[idx]
+        d = d[idx]
+
+        if fout != &#39;&#39;:
+            save_diffraction(HKL, F, th, d, fout)
+
+        return HKL, F, d
+
+    def triplet_relation(self, E: float, G_H: list) -&gt; tuple[float, float]:
+
+        &#34;&#34;&#34;Calculates the phase triplet relation.
+
+        Args:
+            E (float): Beam energy (eV).
+            G_H (list): Indices of primary and secondary reflection. Should be in this order.
+        Returns:
+            tuple[float, float]: Cosine of phase triplet and interference amplitude W.
+        &#34;&#34;&#34;
+
+        G_H = np.array(G_H)
+        G_H = np.row_stack((G_H, G_H[0] - G_H[1]))
+        W = self.Fhkl(E, G_H)
+        W = (W[1] * W[2]) / W[0]
+
+        return np.real(W) / np.absolute(W), np.absolute(W)
+
+    def klines(self, E: float, G: list or ndarray, M: list or ndarray, Fmin: float, dw: float = 0.1) -&gt; np.ndarray:
+
+        &#34;&#34;&#34;Saves the Bragg Cones crossing the primary reflection.
+
+        Args:
+            E (float): Beam energy (eV).
+            G (list or ndarray): Indices of primary reflection (eg, [1, 1, 1]).
+            M (list or ndarray): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W.
+            dw (float): Maximum Bragg angle distance between secondary and primary.
+        Returns:
+            np.ndarray: Array of reflections, in-out, out-in angles, W values.
+        Notes:
+            The BC lines are saved on `IN/OUT/THG_G_array_M_array_E_value.dat` files.
+        &#34;&#34;&#34;
+
+        M, G = np.array(M), np.array(G)
+        HKL, FH, d = self.diffraction(E)
+
+        wl = 12398.5 / E
+        th = np.arcsin(wl / (2 * d)) * 180 / np.pi
+        FH = np.absolute(FH)
+
+        idx = search_reflection(HKL, G)
+        thG = np.round(np.arcsin(wl / (2 * d[idx])) * 180 / np.pi, 4)
+
+        HKL, FH, th = delete_multiple(HKL, FH, th, idx=idx)  # Exclude primary
+        HKL, FH, GH, FGH, idx = coupling_reflection(FH, HKL, G)
+
+        th = np.delete(th, idx)
+
+        F = FGH * FH
+        HKL, F, th = delete_multiple(HKL, F, th, idx=np.argwhere(F &lt;= Fmin))
+
+        Z = np.matmul(G, np.array([self.Ar, self.Br, self.Cr]))  # Rotation axis
+        Y = np.matmul(M, np.array([self.Ar, self.Br, self.Cr]))  # Φ-reference
+
+        # xyz coordinate system
+        z = Z / (np.sqrt(np.dot(Z, Z)))
+        y = np.cross(z, Y) / (np.sqrt(np.dot(np.cross(z, Y), np.cross(z, Y))))
+        x = np.cross(y, z)
+
+        # secondary reflection on xyz system
+        H = np.matmul(HKL, np.array([self.Ar, self.Br, self.Cr]))
+        modH = np.sqrt(np.sum(np.multiply(H, H), axis=1))
+        sinthH = np.sin(th * np.pi / 180)
+
+        cosGH = np.sum(np.multiply(H, z), axis=1) / modH  # cos(γ)
+        sinGH = np.sqrt(1 - cosGH ** 2)  # sin(γ)
+
+        cosGH, sinthH, F, H, sinGH = delete_multiple(cosGH, sinthH, F, H, sinGH,
+                                                     idx=np.argwhere(sinGH == 0))
+
+        alphaH = np.arctan2(np.sum(np.multiply(H, y), axis=1),
+                            np.sum(np.multiply(H, x), axis=1))  # α
+        alphaH = alphaH * 180 / np.pi
+
+        N = np.argwhere(alphaH &lt; 0)
+        kappa = alphaH[N] + 360
+        alphaH[N] = kappa[:]
+
+        dom = dw / 20
+        omega = np.arange(thG - dw, thG + dw + dom, dom)
+
+        h = np.matmul(H, np.linalg.inv(np.array([self.Ar, self.Br, self.Cr])))
+
+        PHI_IN = np.zeros((len(alphaH) + 1, 4 + len(omega)))
+        PHI_IN[0, 3] = thG
+        PHI_IN[0, 4:] = omega[:]
+        PHI_IN[1:, 0] = h[:, 0]
+        PHI_IN[1:, 1] = h[:, 1]
+        PHI_IN[1:, 2] = h[:, 2]
+        PHI_IN[1:, 3] = F[:]
+        PHI_OUT = np.copy(PHI_IN)
+
+        fileout = &#34;G_&#34; + &#34;&#34;.join((G.astype(int)).astype(str))
+        fileout += &#34;_M_&#34; + &#34;&#34;.join((M.astype(int)).astype(str))
+        fileout += &#34;_E_&#34; + str(E) + &#34;.dat&#34;
+
+        for i in range(len(omega)):
+
+            Om = omega[i]
+            omg = np.round(Om, 4)
+
+            cosBH = (sinthH - np.sin(Om * np.pi / 180) * cosGH) / (np.cos(Om * np.pi / 180) * sinGH)
+            N = np.argwhere(np.abs(cosBH) &gt; 1)
+            cosBH[N] = 1
+
+            phi1 = alphaH - (np.arccos(cosBH)) * 180 / np.pi  # out-in
+
+            N = np.argwhere(phi1 &lt; 0)
+            phi = phi1[N] + 360
+            phi1[N] = phi[:]
+            N = np.argwhere(phi1 &gt; 360)
+            phi = phi1[N] - 360
+            phi1[N] = phi[:]
+
+            phi2 = alphaH + (np.arccos(cosBH)) * 180 / np.pi  # in-out
+
+            N = np.argwhere(phi2 &gt; 360)
+            phi = phi2[N] - 360
+            phi2[N] = phi[:]
+            N = np.argwhere(phi2 &lt; 0)
+            phi = phi2[N] + 360
+            phi2[N] = phi[:]
+
+            PHI_OUT[1:, 4 + i] = phi1[:]
+            PHI_IN[1:, 4 + i] = phi2[:]
+
+            if omg == thG:  # BC lines crossing primary
+
+                M = np.zeros((len(PHI_IN) - 1, 6))
+                M[:, :3] = PHI_IN[1:, :3]
+                M[:, 3] = phi1[:]
+                M[:, 4] = phi2[:]
+                M[:, 5] = F[:]
+
+                header = &#34;h   k   l     out-in     in-out     FH*FGH&#34;
+                fmt = &#34;%3.f %3.f %3.f %10.4f %10.4f %10.f&#34;
+
+                np.savetxt(&#39;THG_&#39; + fileout, M, fmt=fmt, header=header)
+
+        line1 = &#34;      0          0         0      G-thBragg            &#34;
+        line1 += &#34;omega (deg)         -       1st line&#34;
+        line2 = &#34;      h          k         l      FH*FGH               &#34;
+        line2 += &#34;phi (in-out)        -       following lines&#34;
+        header = &#39;\n&#39;.join([line1, line2])
+        np.savetxt(&#39;IN_&#39; + fileout, PHI_IN, fmt=&#34;%10.4f&#34;, header=header)
+
+        line2 = &#34;      h          k         l      FH*FGH               &#34;
+        line2 += &#34;phi (out-in)        -       following lines&#34;
+        header = &#39;\n&#39;.join([line1, line2])
+        np.savetxt(&#39;OUT_&#39; + fileout, PHI_OUT, fmt=&#34;%10.4f&#34;, header=header)
+
+        return M</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pkg.xrdd.Crystal.show_lattice"><code class="name flex">
+<span>def <span class="ident">show_lattice</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display the direct and reciprocal lattices.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_lattice(self):
+
+    &#34;&#34;&#34;Display the direct and reciprocal lattices.&#34;&#34;&#34;
+
+    print(&#34;\nDirect lattice: \n&#34;)
+    disp = str(np.row_stack((self.A, self.B, self.C)))
+    print(disp.replace(&#39; [&#39;, &#39;&#39;).replace(&#39;[&#39;, &#39;&#39;).replace(&#39;]&#39;, &#39;&#39;))
+
+    print(&#34;\nReciprocal lattice: \n&#34;)
+    disp = str(np.row_stack((self.Ar, self.Br, self.Cr)))
+    print(disp.replace(&#39; [&#39;, &#39;&#39;).replace(&#39;[&#39;, &#39;&#39;).replace(&#39;]&#39;, &#39;&#39;))
+    print(&#34;\n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.bragg"><code class="name flex">
+<span>def <span class="ident">bragg</span></span>(<span>self, E: float, hkl: list) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display inter planar distance and Bragg angle.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code></dt>
+<dd>Beam energy (eV).</dd>
+<dt><strong><code>hkl</code></strong> :&ensp;<code>list</code></dt>
+<dd>Miller indices (e.g [1, 0, 0]).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>np.ndarray</code></dt>
+<dd>Inter planar distance in index 0 and Bragg angle in 1.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bragg(self, E: float, hkl: list) -&gt; np.ndarray:
+
+    &#34;&#34;&#34;Display inter planar distance and Bragg angle.
+
+    Args:
+        E (float): Beam energy (eV).
+        hkl (list): Miller indices (e.g [1, 0, 0]).
+    Returns:
+        np.ndarray: Inter planar distance in index 0 and Bragg angle in 1.
+    &#34;&#34;&#34;
+
+    wl = 12398.5 / E
+    d = 2 * np.pi
+    d = d / np.linalg.norm(hkl[0] * self.Ar + hkl[1] * self.Br + hkl[2] * self.Cr)
+    thB = np.arcsin(wl / (2 * d)) * 180 / np.pi
+
+    print(&#34;Energy = &#34; + str(E) + &#34; eV&#34;)
+    print(&#34;d(&#34; + str(hkl[0]) + &#34;,&#34; + str(hkl[1]) + &#34;,&#34; + str(hkl[2]) + &#34;) = &#34;,
+          str(np.round(d, 3)) + &#34;A  - thB = &#34; + str(np.round(thB, 3)) + &#34;º&#34;)
+
+    return np.array([d, thB])</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.hkl2Q"><code class="name flex">
+<span>def <span class="ident">hkl2Q</span></span>(<span>self, hkl: numpy.ndarray) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the reciprocal vector from Miller indices.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>hkl</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>np.ndarray</code></dt>
+<dd>Q values (1/angstrom).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hkl2Q(self, hkl: ndarray) -&gt; np.ndarray:
+
+    &#34;&#34;&#34;Returns the reciprocal vector from Miller indices.
+
+    Args:
+        hkl (ndarray): Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).
+    Returns:
+        np.ndarray: Q values (1/angstrom).
+    &#34;&#34;&#34;
+
+    hkl = np.array(hkl)
+    Q = []
+    if np.shape(hkl) == (3,):
+        q = hkl[0] * self.Ar + hkl[1] * self.Br + hkl[2] * self.Cr
+        Q.append(np.linalg.norm(q))
+    else:
+        for i in range(len(hkl)):
+            q = hkl[i, 0] * self.Ar + hkl[i, 1] * self.Br + hkl[i, 2] * self.Cr
+            Q.append(np.linalg.norm(q))
+
+    return np.array(Q)</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.Fhkl"><code class="name flex">
+<span>def <span class="ident">Fhkl</span></span>(<span>self, E: float, H: numpy.ndarray) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the structure factor.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code> or <code>ndarray</code></dt>
+<dd>Beam energy (eV).</dd>
+<dt><strong><code>H</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>np.ndarray</code></dt>
+<dd>Complex structure factor list.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Provide one energy value and an array of reflections or an array
+of energies and just one reflection.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Fhkl(self, E: float or ndarray, H: ndarray) -&gt; np.ndarray:
+
+    &#34;&#34;&#34;Returns the structure factor.
+
+    Args:
+        E (float or ndarray): Beam energy (eV).
+        H (ndarray): Miller indices (e.g [[1, 0, 0], [0, 1, 1]]).
+    Returns:
+        np.ndarray: Complex structure factor list.
+    Notes:
+        Provide one energy value and an array of reflections or an array
+        of energies and just one reflection.
+    &#34;&#34;&#34;
+
+    E = np.array(E)
+    H = np.array(H)
+
+    sym = np.unique(self.atoms, return_index=False, return_inverse=False,
+                    return_counts=True)[0]  # ions or atoms
+
+    at = np.copy(sym)  # just atoms (ion don&#39;t contribute to resonance)
+    idx = np.where(np.char.isalpha(sym) is False)
+    if not np.shape(idx):
+        pass
+    else:
+        ion = np.copy(sym[idx])
+        regex = re.compile(&#39;[^a-zA-Z]&#39;)
+
+        for i in range(len(ion)):
+            at[idx[0][i]] = regex.sub(&#39;&#39;, ion[i])
+
+    if np.shape(H) == (3,):
+        F = 0
+    else:
+        F = np.zeros(len(H), dtype=np.clongdouble)
+
+    Q = self.hkl2Q(H)
+    for j in range(len(sym)):
+
+        fn = asfQ(sym[j], Q / (4 * np.pi)) + aresE(at[j], E)
+
+        idx = np.where(self.atoms == sym[j])
+
+        if np.shape(H) != (3,):
+
+            bf = np.reshape(np.tile(self.bfactors[idx], len(H)),
+                            (len(H), len(self.bfactors[idx])))
+            x = np.reshape(np.tile(self.positions[idx, 0][0], len(H)),
+                           (len(H), len(self.positions[idx, 0][0])))
+            y = np.reshape(np.tile(self.positions[idx, 1][0], len(H)),
+                           (len(H), len(self.positions[idx, 1][0])))
+            z = np.reshape(np.tile(self.positions[idx, 2][0], len(H)),
+                           (len(H), len(self.positions[idx, 2][0])))
+            occ = np.reshape(np.tile(self.occupancy[idx], len(H)), (len(H),
+                                                                    len(self.occupancy[idx])))
+
+            Ma = np.transpose([(Q / (4 * np.pi)) ** 2]) * bf
+            frac = np.transpose([H[:, 0]]) * x + np.transpose([H[:, 1]]) * y
+            frac = frac + np.transpose([H[:, 2]]) * z
+
+            F = F + np.sum(np.transpose([fn]) * occ * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac),
+                           axis=1)
+
+        elif np.shape(E) != ():
+
+            bf = np.reshape(np.tile(self.bfactors[idx], len(E)), (len(E),
+                                                                  len(self.bfactors[idx])))
+            x = np.reshape(np.tile(self.positions[idx, 0][0], len(E)),
+                           (len(E), len(self.positions[idx, 0][0])))
+            y = np.reshape(np.tile(self.positions[idx, 1][0], len(E)),
+                           (len(E), len(self.positions[idx, 1][0])))
+            z = np.reshape(np.tile(self.positions[idx, 2][0], len(E)),
+                           (len(E), len(self.positions[idx, 2][0])))
+            occ = np.reshape(np.tile(self.occupancy[idx], len(E)), (len(E),
+                                                                    len(self.occupancy[idx])))
+
+            Ma = (Q / (4 * np.pi)) ** 2 * bf
+            frac = H[0] * x + H[1] * y + H[2] * z
+
+            F = F + np.sum(np.transpose([fn]) * occ * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac),
+                           axis=1)
+
+        else:
+
+            Ma = self.bfactors[idx] * (Q / (4 * np.pi)) ** 2
+            frac = H[0] * self.positions[idx, 0] + H[1] * self.positions[idx, 1]
+            frac = frac + H[2] * self.positions[idx, 2]
+
+            F = F + np.sum(fn * self.occupancy[idx] * np.exp(-Ma) * np.exp(2 * np.pi * 1j * frac))
+
+    return F</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.hkl_generate"><code class="name flex">
+<span>def <span class="ident">hkl_generate</span></span>(<span>self, E: float) ‑> tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the Miller indices of all allowed lattice planes.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code></dt>
+<dd>Beam energy (eV).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple[ndarray, ndarray, ndarray]</code></dt>
+<dd>Miller indices, Bragg angles and inter planar distances.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hkl_generate(self, E: float) -&gt; tuple[ndarray, ndarray, ndarray]:
+
+    &#34;&#34;&#34;Returns the Miller indices of all allowed lattice planes.
+
+    Args:
+        E (float): Beam energy (eV).
+    Returns:
+        tuple[ndarray, ndarray, ndarray]: Miller indices, Bragg angles and inter planar distances.
+    &#34;&#34;&#34;
+
+    wl = 12398.5 / E
+    hmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Ar)))
+    kmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Br)))
+    lmax = np.floor((4 * np.pi) / (wl * np.linalg.norm(self.Cr)))
+
+    z = np.array([0])
+    H = np.arange(-hmax, hmax + 1)
+    K = np.arange(-kmax, kmax + 1)
+    L = np.arange(-lmax, lmax + 1)
+    H = np.delete(H, np.argwhere(H == 0))
+    K = np.delete(K, np.argwhere(K == 0))
+    L = np.delete(L, np.argwhere(L == 0))
+    H, K, L = np.append(H, z), np.append(K, z), np.append(L, z)
+
+    Nmax = int((2 * hmax + 1) * (2 * kmax + 1) * (2 * lmax + 1))
+    Qmax = (2 * np.pi) / wl
+    HKL = np.zeros((Nmax, 3))
+    th_hkl = np.zeros(Nmax)
+    Dhkl = np.zeros(Nmax)
+
+    m = 0
+    for nh in range(0, int(2 * hmax)):
+
+        h = H[nh]
+
+        for nk in range(0, int(2 * kmax + 1)):
+
+            k = K[nk]
+
+            for nl in range(0, int(2 * lmax) + 1):
+
+                l = L[nl]
+                Q = np.linalg.norm(h * self.Ar + k * self.Br + l * self.Cr)
+
+                if Q / 2 &lt; Qmax and Q &gt; 0:
+                    HKL[m, 0] = h
+                    HKL[m, 1] = k
+                    HKL[m, 2] = l
+                    th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                    Dhkl[m] = 2 * np.pi / Q
+                    m = m + 1
+
+    h = 0
+    for nk in range(0, int(2 * kmax)):
+
+        k = K[nk]
+
+        for nl in range(0, int(2 * lmax) + 1):
+
+            l = L[nl]
+            Q = np.linalg.norm(k * self.Br + l * self.Cr)
+
+            if Q / 2 &lt; Qmax and Q &gt; 0:
+                HKL[m, 0] = h
+                HKL[m, 1] = k
+                HKL[m, 2] = l
+                th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+                Dhkl[m] = 2 * np.pi / Q
+                m = m + 1
+
+    k = 0
+    for nl in range(0, int(2 * lmax)):
+
+        l = L[nl]
+        Q = np.linalg.norm(l * self.Cr)
+
+        if Q / 2 &lt; Qmax and Q &gt; 0:
+            HKL[m, 0] = h
+            HKL[m, 1] = k
+            HKL[m, 2] = l
+            th_hkl[m] = 180 * np.arcsin(wl * Q / (4 * np.pi)) / np.pi
+            Dhkl[m] = 2 * np.pi / Q
+            m = m + 1
+
+    idx = []
+    for j in range(Nmax):
+
+        if HKL[j, 0] == 0 and HKL[j, 1] == 0 and HKL[j, 2] == 0:
+            idx.append(j)
+
+    HKL = np.delete(HKL, idx, 0)
+    th_hkl = np.delete(th_hkl, idx)
+    Dhkl = np.delete(Dhkl, idx)
+
+    return HKL, th_hkl, Dhkl</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.diffraction"><code class="name flex">
+<span>def <span class="ident">diffraction</span></span>(<span>self, E: float, fout: str = '') ‑> tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the structure factor and inter planar distance of all lattice
+planes.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code></dt>
+<dd>Beam energy (eV).</dd>
+<dt><strong><code>fout</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name for save output. Does not save by default.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple[ndarray, ndarray, ndarray]</code></dt>
+<dd>Arrays of reflections, complex structure factor and inter planar distance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def diffraction(self, E: float, fout: str = &#39;&#39;) -&gt; tuple[ndarray, ndarray, ndarray]:
+
+    &#34;&#34;&#34;Returns the structure factor and inter planar distance of all lattice
+    planes.
+
+    Args:
+        E (float): Beam energy (eV).
+        fout (str): Name for save output. Does not save by default.
+    Returns:
+        tuple[ndarray, ndarray, ndarray]: Arrays of reflections, complex structure factor and inter planar distance.
+    &#34;&#34;&#34;
+
+    HKL, th, d = self.hkl_generate(E)
+
+    F = self.Fhkl(E, HKL)
+
+    # Sorting by intensity
+    idx = np.argsort(np.absolute(F) / np.max(np.absolute(F)))[::-1]
+    F = F[idx]
+    HKL = HKL[idx, :]
+    th = th[idx]
+    d = d[idx]
+
+    if fout != &#39;&#39;:
+        save_diffraction(HKL, F, th, d, fout)
+
+    return HKL, F, d</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.triplet_relation"><code class="name flex">
+<span>def <span class="ident">triplet_relation</span></span>(<span>self, E: float, G_H: list) ‑> tuple[float, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the phase triplet relation.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code></dt>
+<dd>Beam energy (eV).</dd>
+<dt><strong><code>G_H</code></strong> :&ensp;<code>list</code></dt>
+<dd>Indices of primary and secondary reflection. Should be in this order.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple[float, float]</code></dt>
+<dd>Cosine of phase triplet and interference amplitude W.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def triplet_relation(self, E: float, G_H: list) -&gt; tuple[float, float]:
+
+    &#34;&#34;&#34;Calculates the phase triplet relation.
+
+    Args:
+        E (float): Beam energy (eV).
+        G_H (list): Indices of primary and secondary reflection. Should be in this order.
+    Returns:
+        tuple[float, float]: Cosine of phase triplet and interference amplitude W.
+    &#34;&#34;&#34;
+
+    G_H = np.array(G_H)
+    G_H = np.row_stack((G_H, G_H[0] - G_H[1]))
+    W = self.Fhkl(E, G_H)
+    W = (W[1] * W[2]) / W[0]
+
+    return np.real(W) / np.absolute(W), np.absolute(W)</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.Crystal.klines"><code class="name flex">
+<span>def <span class="ident">klines</span></span>(<span>self, E: float, G: list, M: list, Fmin: float, dw: float = 0.1) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saves the Bragg Cones crossing the primary reflection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code></dt>
+<dd>Beam energy (eV).</dd>
+<dt><strong><code>G</code></strong> :&ensp;<code>list</code> or <code>ndarray</code></dt>
+<dd>Indices of primary reflection (eg, [1, 1, 1]).</dd>
+<dt><strong><code>M</code></strong> :&ensp;<code>list</code> or <code>ndarray</code></dt>
+<dd>Reference direction (eg, [1, 0, 0]).</dd>
+<dt><strong><code>Fmin</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum cutoff value for W.</dd>
+<dt><strong><code>dw</code></strong> :&ensp;<code>float</code></dt>
+<dd>Maximum Bragg angle distance between secondary and primary.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>np.ndarray</code></dt>
+<dd>Array of reflections, in-out, out-in angles, W values.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The BC lines are saved on <code>IN/OUT/THG_G_array_M_array_E_value.dat</code> files.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def klines(self, E: float, G: list or ndarray, M: list or ndarray, Fmin: float, dw: float = 0.1) -&gt; np.ndarray:
+
+    &#34;&#34;&#34;Saves the Bragg Cones crossing the primary reflection.
+
+    Args:
+        E (float): Beam energy (eV).
+        G (list or ndarray): Indices of primary reflection (eg, [1, 1, 1]).
+        M (list or ndarray): Reference direction (eg, [1, 0, 0]).
+        Fmin (float): Minimum cutoff value for W.
+        dw (float): Maximum Bragg angle distance between secondary and primary.
+    Returns:
+        np.ndarray: Array of reflections, in-out, out-in angles, W values.
+    Notes:
+        The BC lines are saved on `IN/OUT/THG_G_array_M_array_E_value.dat` files.
+    &#34;&#34;&#34;
+
+    M, G = np.array(M), np.array(G)
+    HKL, FH, d = self.diffraction(E)
+
+    wl = 12398.5 / E
+    th = np.arcsin(wl / (2 * d)) * 180 / np.pi
+    FH = np.absolute(FH)
+
+    idx = search_reflection(HKL, G)
+    thG = np.round(np.arcsin(wl / (2 * d[idx])) * 180 / np.pi, 4)
+
+    HKL, FH, th = delete_multiple(HKL, FH, th, idx=idx)  # Exclude primary
+    HKL, FH, GH, FGH, idx = coupling_reflection(FH, HKL, G)
+
+    th = np.delete(th, idx)
+
+    F = FGH * FH
+    HKL, F, th = delete_multiple(HKL, F, th, idx=np.argwhere(F &lt;= Fmin))
+
+    Z = np.matmul(G, np.array([self.Ar, self.Br, self.Cr]))  # Rotation axis
+    Y = np.matmul(M, np.array([self.Ar, self.Br, self.Cr]))  # Φ-reference
+
+    # xyz coordinate system
+    z = Z / (np.sqrt(np.dot(Z, Z)))
+    y = np.cross(z, Y) / (np.sqrt(np.dot(np.cross(z, Y), np.cross(z, Y))))
+    x = np.cross(y, z)
+
+    # secondary reflection on xyz system
+    H = np.matmul(HKL, np.array([self.Ar, self.Br, self.Cr]))
+    modH = np.sqrt(np.sum(np.multiply(H, H), axis=1))
+    sinthH = np.sin(th * np.pi / 180)
+
+    cosGH = np.sum(np.multiply(H, z), axis=1) / modH  # cos(γ)
+    sinGH = np.sqrt(1 - cosGH ** 2)  # sin(γ)
+
+    cosGH, sinthH, F, H, sinGH = delete_multiple(cosGH, sinthH, F, H, sinGH,
+                                                 idx=np.argwhere(sinGH == 0))
+
+    alphaH = np.arctan2(np.sum(np.multiply(H, y), axis=1),
+                        np.sum(np.multiply(H, x), axis=1))  # α
+    alphaH = alphaH * 180 / np.pi
+
+    N = np.argwhere(alphaH &lt; 0)
+    kappa = alphaH[N] + 360
+    alphaH[N] = kappa[:]
+
+    dom = dw / 20
+    omega = np.arange(thG - dw, thG + dw + dom, dom)
+
+    h = np.matmul(H, np.linalg.inv(np.array([self.Ar, self.Br, self.Cr])))
+
+    PHI_IN = np.zeros((len(alphaH) + 1, 4 + len(omega)))
+    PHI_IN[0, 3] = thG
+    PHI_IN[0, 4:] = omega[:]
+    PHI_IN[1:, 0] = h[:, 0]
+    PHI_IN[1:, 1] = h[:, 1]
+    PHI_IN[1:, 2] = h[:, 2]
+    PHI_IN[1:, 3] = F[:]
+    PHI_OUT = np.copy(PHI_IN)
+
+    fileout = &#34;G_&#34; + &#34;&#34;.join((G.astype(int)).astype(str))
+    fileout += &#34;_M_&#34; + &#34;&#34;.join((M.astype(int)).astype(str))
+    fileout += &#34;_E_&#34; + str(E) + &#34;.dat&#34;
+
+    for i in range(len(omega)):
+
+        Om = omega[i]
+        omg = np.round(Om, 4)
+
+        cosBH = (sinthH - np.sin(Om * np.pi / 180) * cosGH) / (np.cos(Om * np.pi / 180) * sinGH)
+        N = np.argwhere(np.abs(cosBH) &gt; 1)
+        cosBH[N] = 1
+
+        phi1 = alphaH - (np.arccos(cosBH)) * 180 / np.pi  # out-in
+
+        N = np.argwhere(phi1 &lt; 0)
+        phi = phi1[N] + 360
+        phi1[N] = phi[:]
+        N = np.argwhere(phi1 &gt; 360)
+        phi = phi1[N] - 360
+        phi1[N] = phi[:]
+
+        phi2 = alphaH + (np.arccos(cosBH)) * 180 / np.pi  # in-out
+
+        N = np.argwhere(phi2 &gt; 360)
+        phi = phi2[N] - 360
+        phi2[N] = phi[:]
+        N = np.argwhere(phi2 &lt; 0)
+        phi = phi2[N] + 360
+        phi2[N] = phi[:]
+
+        PHI_OUT[1:, 4 + i] = phi1[:]
+        PHI_IN[1:, 4 + i] = phi2[:]
+
+        if omg == thG:  # BC lines crossing primary
+
+            M = np.zeros((len(PHI_IN) - 1, 6))
+            M[:, :3] = PHI_IN[1:, :3]
+            M[:, 3] = phi1[:]
+            M[:, 4] = phi2[:]
+            M[:, 5] = F[:]
+
+            header = &#34;h   k   l     out-in     in-out     FH*FGH&#34;
+            fmt = &#34;%3.f %3.f %3.f %10.4f %10.4f %10.f&#34;
+
+            np.savetxt(&#39;THG_&#39; + fileout, M, fmt=fmt, header=header)
+
+    line1 = &#34;      0          0         0      G-thBragg            &#34;
+    line1 += &#34;omega (deg)         -       1st line&#34;
+    line2 = &#34;      h          k         l      FH*FGH               &#34;
+    line2 += &#34;phi (in-out)        -       following lines&#34;
+    header = &#39;\n&#39;.join([line1, line2])
+    np.savetxt(&#39;IN_&#39; + fileout, PHI_IN, fmt=&#34;%10.4f&#34;, header=header)
+
+    line2 = &#34;      h          k         l      FH*FGH               &#34;
+    line2 += &#34;phi (out-in)        -       following lines&#34;
+    header = &#39;\n&#39;.join([line1, line2])
+    np.savetxt(&#39;OUT_&#39; + fileout, PHI_OUT, fmt=&#34;%10.4f&#34;, header=header)
+
+    return M</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pkg.xrdd.ExpData"><code class="flex name class">
+<span>class <span class="ident">ExpData</span></span>
+<span>(</span><span>E: float, G: list, fname: str, colx: int = 0, coly: int = 1, name: str = '')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given the experimental data, returns a new <code>exp</code> object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>E</code></strong> :&ensp;<code>float</code></dt>
+<dd>Beam energy (eV).</dd>
+<dt><strong><code>G</code></strong> :&ensp;<code>list</code></dt>
+<dd>Indices of primary reflection (eg, [1, 1, 1]).</dd>
+<dt><strong><code>fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Experimental data file name.</dd>
+<dt><strong><code>colx</code></strong> :&ensp;<code>int</code></dt>
+<dd>Column number with angle values on data file. 1st column, by default.</dd>
+<dt><strong><code>coly</code></strong> :&ensp;<code>int</code></dt>
+<dd>Column number with intensity values. 2nd column, by default.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Label for analysis (e.g. 'pure', 'doped'). Default: None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ExpData:
+
+    def __init__(self, E: float, G: list, fname: str, colx: int = 0,
+                 coly: int = 1, name: str = &#39;&#39;):
+
+        &#34;&#34;&#34;Given the experimental data, returns a new `exp` object.
+
+        Args:
+            E (float): Beam energy (eV).
+            G (list): Indices of primary reflection (eg, [1, 1, 1]).
+            fname (str): Experimental data file name.
+            colx (int): Column number with angle values on data file. 1st column, by default.
+            coly (int): Column number with intensity values. 2nd column, by default.
+            name: Label for analysis (e.g. &#39;pure&#39;, &#39;doped&#39;). Default: None.
+        &#34;&#34;&#34;
+
+        self.asy = None
+        self.slope_data = None
+        self.index = None
+        self.BC = None
+        self.region = None
+        self.peaks = None
+        self.phi = np.loadtxt(fname, usecols=colx)
+        self.counts = np.loadtxt(fname, usecols=coly)
+        self.energy = E
+        self.primary = np.array(G)
+        self.name = name
+
+    def plot(self) -&gt; plotly.graph_objects:
+
+        &#34;&#34;&#34;Plot the experimental data.
+
+        Returns:
+            plotly.graph_objects: Interactive plot.
+        &#34;&#34;&#34;
+
+        df_exp = pd.DataFrame(np.column_stack((self.phi, self.counts)),
+                              columns=[&#39;phi&#39;, &#39;I&#39;])
+
+        fig = px.scatter(df_exp, x=&#39;phi&#39;, y=&#39;I&#39;,
+                         labels={&#39;phi&#39;: &#39;𝜙 (deg)&#39;, &#39;I&#39;: &#39;Counts&#39;})
+        fig.data[0].update(mode=&#39;markers+lines&#39;)
+        fig.update_traces(marker=dict(color=&#39;black&#39;, size=6),
+                          line=dict(color=&#39;black&#39;, width=2))
+
+        fig.update_yaxes(title_text=&#39;Counts&#39;,
+                         range=[0, 1.1 * self.counts.max()])
+        fig.update_xaxes(range=[0.85 * self.phi.min(), 1.005 * self.phi.max()])
+        fig.update_layout(legend_title_text=&#39;&#39;, template=&#39;plotly_white&#39;,
+                          font=dict(size=16))
+        fig.show()
+
+    def BC_plot(self, fname: str, M: list, Fmin: float) -&gt; plotly.graph_objects:
+
+        &#34;&#34;&#34;Plot the experimental data and BC lines.
+
+        Args:
+            fname (str): Structure file name (the same used by Crystal class).
+            M (list): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W (absolute).
+        Returns:
+            plotly.graph_objects: Interactive plot.
+        &#34;&#34;&#34;
+
+        M = np.array(M)
+        struc = Crystal(fname)
+        struc.klines(self.energy, self.primary, M, Fmin)
+
+        fname = &#34;G_&#34; + &#34;&#34;.join((self.primary.astype(int)).astype(str))
+        fname += &#34;_M_&#34; + &#34;&#34;.join((M.astype(int)).astype(str))
+        fname += &#34;_E_&#34; + str(self.energy) + &#34;.dat&#34;
+        thG, FHFGH, df_in = dataframe_BClines(&#39;IN_&#39; + fname)
+        thG, FHFGH, df_out = dataframe_BClines(&#39;OUT_&#39; + fname)
+
+        subfigure = sp.make_subplots(rows=2, cols=1,
+                                     shared_xaxes=True,
+                                     vertical_spacing=0.02)
+
+        # Experimental data subplot
+        df_exp = pd.DataFrame(np.column_stack((self.phi, self.counts)),
+                              columns=[&#39;phi&#39;, &#39;I&#39;])
+
+        fig = px.scatter(df_exp, x=&#39;phi&#39;, y=&#39;I&#39;,
+                         labels={&#39;phi&#39;: &#39;𝜙 (deg)&#39;, &#39;I&#39;: &#39;Counts&#39;})
+        fig.data[0].update(mode=&#39;markers+lines&#39;)
+        fig.update_traces(marker=dict(color=&#39;black&#39;, size=5),
+                          line=dict(color=&#39;black&#39;, width=2))
+
+        fig_traces = []
+        for trace in range(len(fig[&#39;data&#39;])):
+            fig_traces.append(fig[&#39;data&#39;][trace])
+        for traces in fig_traces:
+            subfigure.append_trace(traces, row=1, col=1)
+
+        subfigure.update_yaxes(title_text=&#39;Counts&#39;,
+                               range=[0, 1.1 * self.counts.max()],
+                               row=1, col=1)
+        subfigure.update_xaxes(range=[self.phi.min(), self.phi.max()],
+                               row=1, col=1)
+        subfigure.update_layout(legend_title_text=&#39;&#39;, template=&#39;plotly_white&#39;)
+
+        # BC lines subplot
+        fig = px.line()
+        for i in range(1, len(FHFGH)):
+            hover_in = &#39;&lt;i&gt;𝜙&lt;/i&gt;: %{x:.3f} &lt;br&gt;&lt;b&gt;F&lt;/b&gt;:&#39; + str(FHFGH[i - 1])
+            hover_in += &#39;&lt;br&gt;&lt;b&gt;hkl&lt;/b&gt;:&#39; + df_in.columns[i]
+
+            fig.add_scatter(x=df_in[df_in.columns[i]], y=df_in[&#39;ω&#39;], name=&#39;&#39;,
+                            hovertemplate=hover_in,
+                            line=dict(color=&#39;Red&#39;,
+                                      width=10 * FHFGH[i - 1] / np.max(FHFGH)))
+
+            hover_out = &#39;&lt;i&gt;𝜙&lt;/i&gt;: %{x:.3f} &lt;br&gt;&lt;b&gt;F&lt;/b&gt;:&#39; + str(FHFGH[i - 1])
+            hover_out += &#39;&lt;br&gt;&lt;b&gt;hkl&lt;/b&gt;:&#39; + df_out.columns[i]
+
+            fig.add_scatter(x=df_out[df_out.columns[i]], y=df_out[&#39;ω&#39;], name=&#39;&#39;,
+                            hovertemplate=hover_out,
+                            line=dict(color=&#39;Blue&#39;,
+                                      width=10 * FHFGH[i - 1] / np.max(FHFGH)))
+
+        fig_traces = []
+        for trace in range(len(fig[&#34;data&#34;])):
+            fig_traces.append(fig[&#34;data&#34;][trace])
+        for traces in fig_traces:
+            subfigure.append_trace(traces, row=2, col=1)
+
+        subfigure.add_shape(type=&#39;line&#39;, x0=self.phi.min(), y0=thG,
+                            x1=self.phi.max(), y1=thG,
+                            line=dict(color=&#39;black&#39;),
+                            row=2, col=1)
+        subfigure.update_xaxes(title_text=&#39;𝜙 (deg)&#39;,
+                               range=[self.phi.min(), self.phi.max()],
+                               row=2, col=1,
+                               showgrid=False)
+        subfigure.update_yaxes(title_text=&#39;ω (deg)&#39;,
+                               range=[thG - 0.1, thG + 0.1],
+                               row=2, col=1,
+                               showgrid=False)
+        subfigure.update_layout(showlegend=False, template=&#39;plotly_white&#39;,
+                                font=dict(size=16))
+
+        subfigure.show()
+
+    def peak_finder(self, minimum_intensity_p: float = 0.03):
+
+        &#34;&#34;&#34;Defines the peak list.
+
+        Args:
+            minimum_intensity_p (float): Minimum value of intensity to define a peak given as percentage of maximum
+                value of spectrum. 3% by default.
+        &#34;&#34;&#34;
+
+        yf = gaussian_filter1d(self.counts, 2)
+        peaks, _ = find_peaks(yf, prominence=100,
+                              height=self.counts.max() * minimum_intensity_p)
+
+        self.peaks = peaks
+
+    def data_cleaner(self, minimum_intensity_p: float = 0.2, points: int = 60):
+
+        &#34;&#34;&#34;Update the peak list after automatic clean the data.
+
+        Args:
+            minimum_intensity_p (float): Minimum value of intensity to define a peak given as percentage of maximum
+                value of region. 20% by default.
+            points (int): Max number of points defining a peak.
+        &#34;&#34;&#34;
+
+        idx, i = [], 0
+        for j in self.peaks:
+
+            m, n = self.peak_definer(j, points)
+            y = self.counts[m:n]
+
+            height = (y.max() + (y[0] + y[-1]) / 2) * minimum_intensity_p
+            pk, _ = find_peaks(gaussian_filter1d(y, 2), height=height)
+
+            if len(pk) != 1:
+                idx.append(i)
+            i += 1
+
+        self.peaks = np.delete(self.peaks, idx)
+
+    def data_review(self):
+
+        &#34;&#34;&#34;Plot the experimental data highlighting peaks. Delete the peaks
+        selected by external user.
+
+        Note:
+                To select a peak, stop the mouse over the maximum and press `SPACE`.
+                To unselect, stop the mouse over the maximum and press `DEL`.
+                Feel free to zoom in or out.
+                After finishing the selection, press `ENTER`. Then, press `ENTER: int
+                to close the figure.
+        &#34;&#34;&#34;
+
+        plt.plot(self.phi, self.counts, c=&#39;k&#39;)
+        plt.plot(self.phi[self.peaks], self.counts[self.peaks], &#34;*b&#34;)
+        plt.xlabel(&#39;ɸ (deg)&#39;)
+        plt.ylabel(&#39;counts&#39;)
+        plt.xlim(self.phi.min(), self.phi.max())
+        mk = plt.ginput(n=0, timeout=0, mouse_add=None,
+                        mouse_pop=None, mouse_stop=None)
+        plt.draw()
+        while True:
+            if plt.waitforbuttonpress(0):
+                plt.close()
+                break
+
+        mk = np.array(mk)
+
+        if len(mk) != 0:
+
+            phi_mk = mk[:, 0]
+
+            idx = []
+            for j in range(len(phi_mk)):
+                diff = np.abs(self.phi[self.peaks] - phi_mk[j])
+                idx.append(int(diff.argmin()))
+
+            self.peaks = np.delete(self.peaks, idx)
+
+    def region_of_fit(self, interval: int = 6, points: int = 60):
+
+        &#34;&#34;&#34;Defines the region of fit list.
+
+        Args:
+            interval (int): Number of standard deviations defining the region of fit. By default, 6-sigma is used.
+            points (int): Max number of points defining a peak.
+        &#34;&#34;&#34;
+
+        region, i = np.zeros((len(self.peaks), 4)), 0
+        for j in self.peaks:
+            m, n = self.peak_definer(j, points)
+            x = self.phi[m:n]
+            y = self.counts[m:n]
+
+            s, d, f = fwhm(x, np.log10(y))
+
+            N = np.abs(x - (d - interval * s)).argmin()
+            M = np.abs(x - (d + interval * s)).argmin()
+
+            region[i, :] = x[N], x[M], f, d
+            i += 1
+
+            self.region = region
+
+    def MD_indexer(self, fname: str, M: list, Fmin: float):
+
+        &#34;&#34;&#34;Finds the secondary reflection list corresponding to each founded
+        peak.
+
+        Args:
+            fname (str): Structure file name (the same used by Crystal class).
+            M (list): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W (absolute).
+
+        Notes:
+            In case 2 reflections distance by less than 0.01º and the W
+            difference between them is bigger than the half value of the one of
+            them, this case is **UNINDEXABLE**.
+        &#34;&#34;&#34;
+
+        struc = Crystal(fname)
+        self.BC = struc.klines(self.energy, self.primary, M, Fmin)
+
+        hkl = (self.BC[:, 0:3].astype(int)).astype(str)
+        for i in range(len(hkl)):
+            hkl[i] = &#34; &#34;.join(hkl[i])
+        hkl = hkl[:, 0]
+
+        idx = []
+        s = []
+        HKL = []
+        for i in range(len(self.region[:, 0])):
+
+            if self.region[i, -1] &lt; 0:
+                ph = self.region[i, -1] + 360
+            else:
+                ph = self.region[i, -1]
+
+            Fin, id_in = self.index_find(ph, 4)
+            Fout, id_out = self.index_find(ph, 3)
+
+            if Fin == Fout:
+                idx.append(i)
+            elif Fin &gt; Fout:
+                HKL.append(hkl[id_in])
+                s.append(1)
+            else:
+                HKL.append(hkl[id_out])
+                s.append(-1)
+
+        self.peaks = np.delete(self.peaks, idx)
+        self.region = np.delete(self.region, idx, axis=0)
+        self.index = np.column_stack((HKL, s))
+
+    def plot_peaks(self):
+
+        &#34;&#34;&#34;Plot the selected peaks and corresponding region of fit.&#34;&#34;&#34;
+
+        plt.plot(self.phi, self.counts, c=&#39;k&#39;)
+
+        for i in range(len(self.region[:, -1])):
+            N = np.abs(self.phi - self.region[i, 0]).argmin()
+            M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+            x = self.phi[N:M]
+            y = self.counts[N:M]
+
+            plt.plot(x, y, &#34;r&#34;)
+
+        plt.xlabel(&#39;ɸ (deg)&#39;)
+        plt.ylabel(&#39;counts&#39;)
+        plt.xlim(0.85 * self.phi.min(), 1.005 * self.phi.max())
+        plt.ylim(0, 1.1 * self.counts.max())
+        plt.draw()
+        while True:
+            if plt.waitforbuttonpress(0):
+                plt.close()
+                break
+
+    def data_fitter(self, nsamples: int = 1000):
+
+        &#34;&#34;&#34;Determine the slope and slope error list.
+
+        Args:
+            nsamples (int): Number of samples to calculate the slope error.
+        &#34;&#34;&#34;
+
+        slope_err = np.zeros((len(self.peaks), 2))
+        for i in tqdm(range(len(self.peaks))):
+            N = np.abs(self.phi - self.region[i, 0]).argmin()
+            M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+            x = self.phi[N:M]
+            y = np.log10(self.counts[N:M])
+
+            slope_err[i, 0] = peak_fit(x, y)
+
+            sample = pd.DataFrame(np.column_stack((x, y)))
+            slope_err[i, 1] = bootstrap_resampling(sample, nsamples)
+
+        self.slope_data = slope_err
+
+    def asymmetry_assigner(self, sbar: float = 0.1, tau: float = 0.4):
+
+        &#34;&#34;&#34;Determines the asymmetry list.
+
+        Args:
+            sbar (float): Minimum value of relative slope. Default = 10%.
+            tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
+        &#34;&#34;&#34;
+
+        ratio = self.slope_data[:, 0] / self.slope_data[:, 0].max()
+        idx1 = np.where(np.abs(ratio) &lt; sbar)
+        self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                                   self.slope_data,
+                                                                   self.region,
+                                                                   idx=idx1)
+
+        ratio = self.slope_data[:, 1] / self.slope_data[:, 0]
+        idx2 = np.where(np.abs(ratio) &gt; tau)
+        self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                                   self.slope_data,
+                                                                   self.region,
+                                                                   idx=idx2)
+
+        asy = np.zeros((len(self.slope_data[:, 0]), 2), dtype=str)
+        asy[np.where(self.slope_data[:, 0] &lt; 0), :] = &#39;H&#39;, &#39;L&#39;
+        asy[np.where(self.slope_data[:, 0] &gt; 0), :] = &#39;L&#39;, &#39;H&#39;
+        asy = [&#39;&#39;.join(row) for row in asy]
+
+        self.asy = asy
+
+    def save_output(self, fout: str = &#39;&#39;):
+
+        &#34;&#34;&#34;Save file with output of experimental data analysis.
+
+        Args:
+            fout (str): File name to save. Default:`asymmetries_NAME_E_value_G_indexes.dat`
+        &#34;&#34;&#34;
+
+        sbar = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
+        tau = np.abs(self.slope_data[:, 1] / self.slope_data[:, 0])
+        M = np.column_stack((np.round(self.region[:, -1], 4), self.index,
+                             self.asy, np.round(self.slope_data, 4),
+                             np.round(sbar, 2), np.round(tau, 2)))
+
+        form = &#39;%10s %10s %5s %10s %10s %10s %10s %10s&#39;
+
+        header = &#39;    phi         hkl     s     asymmetry   slope   slope error&#39;
+        header += &#39;  sbar (%)    tau (%)&#39;
+
+        if fout == &#39;&#39;:
+            fout = &#39;data&#39; + self.name.upper() + &#39;_E&#39; + str(self.energy)
+            fout += &#39;_G&#39; + &#34;&#34;.join((self.primary.astype(int)).astype(str)) + &#39;.dat&#39;
+
+        np.savetxt(fout, M, fmt=form, header=header)
+
+        return fout
+
+    def peak_definer(self, peak_number: int, points: int) -&gt; tuple:
+
+        &#34;&#34;&#34;Return the indexes of first and last points of peak.
+
+        Args:
+            peak_number (int): Index of peak point on angles array.
+            points (int): Max number of points defining a peak.
+        Returns:
+            tuple: First and last points of peak.
+        &#34;&#34;&#34;
+
+        p = int(points / 2)
+
+        if peak_number - p &lt; 0:
+            m = 0
+        else:
+            m = peak_number - p
+        if peak_number + p &gt; len(self.counts):
+            n = len(self.counts) - 1
+        else:
+            n = peak_number + p
+
+        return m, n
+
+    def index_find(self, ph: float, col: int) -&gt; tuple:
+
+        &#34;&#34;&#34;Returns the closer multiple-diffraction case of certain phi.
+
+        Args:
+            ph (float): Angle on Renninger scan.
+            col (int): 3 or 4 (in-out or out-in BC lines).
+        Returns:
+            tuple: FHFGH value and array index of closer case.
+        &#34;&#34;&#34;
+
+        M = np.where(np.abs(self.BC[:, col] - ph) &lt; 0.2)
+        m = []
+
+        if self.BC[M, -1].size != 0:
+
+            if len(M[0]) &gt; 1:
+
+                idk = np.argsort(np.abs(self.BC[M, col] - ph))[::-1]
+                phi1 = self.BC[M[0][idk][0][0], col]
+                phi2 = self.BC[M[0][idk][0][1], col]
+                W1 = self.BC[M[0][idk][0][0], 5]
+                W2 = self.BC[M[0][idk][0][1], 5]
+                Wd = np.abs(W1 - W2)
+
+                if np.abs(phi1 - phi2) &lt; 0.01 and (Wd &lt; W1 / 2 or Wd &lt; W2 / 2):
+                    F, k = 0, 0
+                else:
+                    F = self.BC[M, -1].max()
+                    k = self.BC[M, -1].argmax()
+                    m = M[0][k]
+            else:
+                F = self.BC[M, -1].max()
+                k = self.BC[M, -1].argmax()
+                m = M[0][k]
+        else:
+            F, k = 0, 0
+
+        return F, m
+
+    def analyze(self, fname: str, M: list, Fmin: float, p_find: float = 0.03,
+                p_clean: float = 0.2, points: int = 60, sbar: float = 0.1,
+                tau: float = 0.4, fout: str = &#39;&#39;):
+
+        &#34;&#34;&#34;Executes the entire peak analysis.
+
+        Args:
+            fname (str): Structure file name (the same used by Crystal class).
+            M (list): Reference direction (eg, [1, 0, 0]).
+            Fmin (float): Minimum cutoff value for W (absolute).
+            p_find (float): Minimum value of intensity to define a peak (percentage of maximum value of spectrum).
+            3% by default.
+            p_clean (float): Minimum value of intensity to define a peak (percentage of maximum value of region).
+            20% by default.
+            points (int): Max number of points defining a peak.
+            sbar (float): Minimum value of relative slope. Default = 10%.
+            tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
+            fout (str): File name to save. Default:`asymmetries_NAME_E_value_G_indexes.dat`
+        Notes:
+            This method does not work properly on notebooks.
+        &#34;&#34;&#34;
+
+        f = Figlet(font=&#39;banner3-D&#39;, width=50, justify=&#34;center&#34;)
+        print(colored(f.renderText(&#39;xrdd_asy&#39;), &#39;green&#39;))
+
+        spinner = Halo(text=&#39;Finding peaks...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.peak_finder(p_find)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Finding peaks:\033[1m\033[92m Success&#39;)
+        print(&#39;\t Minimum of counts = &#39;, int(p_find * self.counts.max()))
+        print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; found peaks.&#39; + &#39;\033[0m&#39;)
+
+        spinner = Halo(text=&#39;Automatic cleaning the data...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.data_cleaner(p_clean, points=points)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Automatic cleaning the data:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; selected peaks.&#39; + &#39;\033[0m&#39;)
+
+        spinner = Halo(text=&#39;Manual cleaning the data...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.data_review()
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Manual cleaning the data:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; selected peaks.&#39; + &#39;\033[0m&#39;)
+
+        spinner = Halo(text=&#39;Defining region of fit...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.region_of_fit(points=points)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Defining region of fit:\033[1m\033[92m Success&#39;)
+
+        spinner = Halo(text=&#39;Indexing peaks...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.MD_indexer(fname, M, Fmin)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Indexing peaks:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + &#39;Data set with &#39; + str(len(self.peaks)) + &#39; peaks.&#39; + &#39;\033[0m&#39;)
+        print(&#39;\tMinimum value of FHFGH = &#39;, Fmin)
+        self.plot_peaks()
+
+        print(&#39;:: Fitting peaks...&#39;)
+        self.data_fitter()
+        sys.stdout.write(&#34;\033[2F&#34;)
+        print(&#39;🗸 Fitting peaks:\033[1m\033[92m Success&#39;)
+
+        spinner = Halo(text=&#39;Assigning asymmetry type...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        self.asymmetry_assigner(sbar, tau)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Assigning asymmetry type:\033[1m\033[92m Success&#39;)
+        print(&#39;\tCUTOFF: slope &gt; &#39;, sbar)
+        print(&#39;\t            τ &lt; &#39;, tau)
+
+        spinner = Halo(text=&#39;Saving file...&#39;, spinner=&#39;dots&#39;)
+        spinner.start()
+        fn = self.save_output(fout)
+        spinner.stop()
+        spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                                 text=&#39;Saving file:\033[1m\033[92m Success&#39;)
+        print(&#39;\t\033[1m&#39; + fn + &#39;\033[0m&#39;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pkg.xrdd.ExpData.plot"><code class="name flex">
+<span>def <span class="ident">plot</span></span>(<span>self) ‑> <module 'plotly.graph_objects' from '/home/rafaela/.local/lib/python3.10/site-packages/plotly/graph_objects/__init__.py'></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot the experimental data.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>plotly.graph_objects</code></dt>
+<dd>Interactive plot.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot(self) -&gt; plotly.graph_objects:
+
+    &#34;&#34;&#34;Plot the experimental data.
+
+    Returns:
+        plotly.graph_objects: Interactive plot.
+    &#34;&#34;&#34;
+
+    df_exp = pd.DataFrame(np.column_stack((self.phi, self.counts)),
+                          columns=[&#39;phi&#39;, &#39;I&#39;])
+
+    fig = px.scatter(df_exp, x=&#39;phi&#39;, y=&#39;I&#39;,
+                     labels={&#39;phi&#39;: &#39;𝜙 (deg)&#39;, &#39;I&#39;: &#39;Counts&#39;})
+    fig.data[0].update(mode=&#39;markers+lines&#39;)
+    fig.update_traces(marker=dict(color=&#39;black&#39;, size=6),
+                      line=dict(color=&#39;black&#39;, width=2))
+
+    fig.update_yaxes(title_text=&#39;Counts&#39;,
+                     range=[0, 1.1 * self.counts.max()])
+    fig.update_xaxes(range=[0.85 * self.phi.min(), 1.005 * self.phi.max()])
+    fig.update_layout(legend_title_text=&#39;&#39;, template=&#39;plotly_white&#39;,
+                      font=dict(size=16))
+    fig.show()</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.BC_plot"><code class="name flex">
+<span>def <span class="ident">BC_plot</span></span>(<span>self, fname: str, M: list, Fmin: float) ‑> <module 'plotly.graph_objects' from '/home/rafaela/.local/lib/python3.10/site-packages/plotly/graph_objects/__init__.py'></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot the experimental data and BC lines.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Structure file name (the same used by Crystal class).</dd>
+<dt><strong><code>M</code></strong> :&ensp;<code>list</code></dt>
+<dd>Reference direction (eg, [1, 0, 0]).</dd>
+<dt><strong><code>Fmin</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum cutoff value for W (absolute).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>plotly.graph_objects</code></dt>
+<dd>Interactive plot.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def BC_plot(self, fname: str, M: list, Fmin: float) -&gt; plotly.graph_objects:
+
+    &#34;&#34;&#34;Plot the experimental data and BC lines.
+
+    Args:
+        fname (str): Structure file name (the same used by Crystal class).
+        M (list): Reference direction (eg, [1, 0, 0]).
+        Fmin (float): Minimum cutoff value for W (absolute).
+    Returns:
+        plotly.graph_objects: Interactive plot.
+    &#34;&#34;&#34;
+
+    M = np.array(M)
+    struc = Crystal(fname)
+    struc.klines(self.energy, self.primary, M, Fmin)
+
+    fname = &#34;G_&#34; + &#34;&#34;.join((self.primary.astype(int)).astype(str))
+    fname += &#34;_M_&#34; + &#34;&#34;.join((M.astype(int)).astype(str))
+    fname += &#34;_E_&#34; + str(self.energy) + &#34;.dat&#34;
+    thG, FHFGH, df_in = dataframe_BClines(&#39;IN_&#39; + fname)
+    thG, FHFGH, df_out = dataframe_BClines(&#39;OUT_&#39; + fname)
+
+    subfigure = sp.make_subplots(rows=2, cols=1,
+                                 shared_xaxes=True,
+                                 vertical_spacing=0.02)
+
+    # Experimental data subplot
+    df_exp = pd.DataFrame(np.column_stack((self.phi, self.counts)),
+                          columns=[&#39;phi&#39;, &#39;I&#39;])
+
+    fig = px.scatter(df_exp, x=&#39;phi&#39;, y=&#39;I&#39;,
+                     labels={&#39;phi&#39;: &#39;𝜙 (deg)&#39;, &#39;I&#39;: &#39;Counts&#39;})
+    fig.data[0].update(mode=&#39;markers+lines&#39;)
+    fig.update_traces(marker=dict(color=&#39;black&#39;, size=5),
+                      line=dict(color=&#39;black&#39;, width=2))
+
+    fig_traces = []
+    for trace in range(len(fig[&#39;data&#39;])):
+        fig_traces.append(fig[&#39;data&#39;][trace])
+    for traces in fig_traces:
+        subfigure.append_trace(traces, row=1, col=1)
+
+    subfigure.update_yaxes(title_text=&#39;Counts&#39;,
+                           range=[0, 1.1 * self.counts.max()],
+                           row=1, col=1)
+    subfigure.update_xaxes(range=[self.phi.min(), self.phi.max()],
+                           row=1, col=1)
+    subfigure.update_layout(legend_title_text=&#39;&#39;, template=&#39;plotly_white&#39;)
+
+    # BC lines subplot
+    fig = px.line()
+    for i in range(1, len(FHFGH)):
+        hover_in = &#39;&lt;i&gt;𝜙&lt;/i&gt;: %{x:.3f} &lt;br&gt;&lt;b&gt;F&lt;/b&gt;:&#39; + str(FHFGH[i - 1])
+        hover_in += &#39;&lt;br&gt;&lt;b&gt;hkl&lt;/b&gt;:&#39; + df_in.columns[i]
+
+        fig.add_scatter(x=df_in[df_in.columns[i]], y=df_in[&#39;ω&#39;], name=&#39;&#39;,
+                        hovertemplate=hover_in,
+                        line=dict(color=&#39;Red&#39;,
+                                  width=10 * FHFGH[i - 1] / np.max(FHFGH)))
+
+        hover_out = &#39;&lt;i&gt;𝜙&lt;/i&gt;: %{x:.3f} &lt;br&gt;&lt;b&gt;F&lt;/b&gt;:&#39; + str(FHFGH[i - 1])
+        hover_out += &#39;&lt;br&gt;&lt;b&gt;hkl&lt;/b&gt;:&#39; + df_out.columns[i]
+
+        fig.add_scatter(x=df_out[df_out.columns[i]], y=df_out[&#39;ω&#39;], name=&#39;&#39;,
+                        hovertemplate=hover_out,
+                        line=dict(color=&#39;Blue&#39;,
+                                  width=10 * FHFGH[i - 1] / np.max(FHFGH)))
+
+    fig_traces = []
+    for trace in range(len(fig[&#34;data&#34;])):
+        fig_traces.append(fig[&#34;data&#34;][trace])
+    for traces in fig_traces:
+        subfigure.append_trace(traces, row=2, col=1)
+
+    subfigure.add_shape(type=&#39;line&#39;, x0=self.phi.min(), y0=thG,
+                        x1=self.phi.max(), y1=thG,
+                        line=dict(color=&#39;black&#39;),
+                        row=2, col=1)
+    subfigure.update_xaxes(title_text=&#39;𝜙 (deg)&#39;,
+                           range=[self.phi.min(), self.phi.max()],
+                           row=2, col=1,
+                           showgrid=False)
+    subfigure.update_yaxes(title_text=&#39;ω (deg)&#39;,
+                           range=[thG - 0.1, thG + 0.1],
+                           row=2, col=1,
+                           showgrid=False)
+    subfigure.update_layout(showlegend=False, template=&#39;plotly_white&#39;,
+                            font=dict(size=16))
+
+    subfigure.show()</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.peak_finder"><code class="name flex">
+<span>def <span class="ident">peak_finder</span></span>(<span>self, minimum_intensity_p: float = 0.03)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Defines the peak list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>minimum_intensity_p</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of intensity to define a peak given as percentage of maximum
+value of spectrum. 3% by default.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def peak_finder(self, minimum_intensity_p: float = 0.03):
+
+    &#34;&#34;&#34;Defines the peak list.
+
+    Args:
+        minimum_intensity_p (float): Minimum value of intensity to define a peak given as percentage of maximum
+            value of spectrum. 3% by default.
+    &#34;&#34;&#34;
+
+    yf = gaussian_filter1d(self.counts, 2)
+    peaks, _ = find_peaks(yf, prominence=100,
+                          height=self.counts.max() * minimum_intensity_p)
+
+    self.peaks = peaks</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.data_cleaner"><code class="name flex">
+<span>def <span class="ident">data_cleaner</span></span>(<span>self, minimum_intensity_p: float = 0.2, points: int = 60)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update the peak list after automatic clean the data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>minimum_intensity_p</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of intensity to define a peak given as percentage of maximum
+value of region. 20% by default.</dd>
+<dt><strong><code>points</code></strong> :&ensp;<code>int</code></dt>
+<dd>Max number of points defining a peak.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def data_cleaner(self, minimum_intensity_p: float = 0.2, points: int = 60):
+
+    &#34;&#34;&#34;Update the peak list after automatic clean the data.
+
+    Args:
+        minimum_intensity_p (float): Minimum value of intensity to define a peak given as percentage of maximum
+            value of region. 20% by default.
+        points (int): Max number of points defining a peak.
+    &#34;&#34;&#34;
+
+    idx, i = [], 0
+    for j in self.peaks:
+
+        m, n = self.peak_definer(j, points)
+        y = self.counts[m:n]
+
+        height = (y.max() + (y[0] + y[-1]) / 2) * minimum_intensity_p
+        pk, _ = find_peaks(gaussian_filter1d(y, 2), height=height)
+
+        if len(pk) != 1:
+            idx.append(i)
+        i += 1
+
+    self.peaks = np.delete(self.peaks, idx)</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.data_review"><code class="name flex">
+<span>def <span class="ident">data_review</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot the experimental data highlighting peaks. Delete the peaks
+selected by external user.</p>
+<h2 id="note">Note</h2>
+<p>To select a peak, stop the mouse over the maximum and press <code>SPACE</code>.
+To unselect, stop the mouse over the maximum and press <code>DEL</code>.
+Feel free to zoom in or out.
+After finishing the selection, press <code>ENTER</code>. Then, press `ENTER: int
+to close the figure.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def data_review(self):
+
+    &#34;&#34;&#34;Plot the experimental data highlighting peaks. Delete the peaks
+    selected by external user.
+
+    Note:
+            To select a peak, stop the mouse over the maximum and press `SPACE`.
+            To unselect, stop the mouse over the maximum and press `DEL`.
+            Feel free to zoom in or out.
+            After finishing the selection, press `ENTER`. Then, press `ENTER: int
+            to close the figure.
+    &#34;&#34;&#34;
+
+    plt.plot(self.phi, self.counts, c=&#39;k&#39;)
+    plt.plot(self.phi[self.peaks], self.counts[self.peaks], &#34;*b&#34;)
+    plt.xlabel(&#39;ɸ (deg)&#39;)
+    plt.ylabel(&#39;counts&#39;)
+    plt.xlim(self.phi.min(), self.phi.max())
+    mk = plt.ginput(n=0, timeout=0, mouse_add=None,
+                    mouse_pop=None, mouse_stop=None)
+    plt.draw()
+    while True:
+        if plt.waitforbuttonpress(0):
+            plt.close()
+            break
+
+    mk = np.array(mk)
+
+    if len(mk) != 0:
+
+        phi_mk = mk[:, 0]
+
+        idx = []
+        for j in range(len(phi_mk)):
+            diff = np.abs(self.phi[self.peaks] - phi_mk[j])
+            idx.append(int(diff.argmin()))
+
+        self.peaks = np.delete(self.peaks, idx)</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.region_of_fit"><code class="name flex">
+<span>def <span class="ident">region_of_fit</span></span>(<span>self, interval: int = 6, points: int = 60)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Defines the region of fit list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>interval</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of standard deviations defining the region of fit. By default, 6-sigma is used.</dd>
+<dt><strong><code>points</code></strong> :&ensp;<code>int</code></dt>
+<dd>Max number of points defining a peak.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def region_of_fit(self, interval: int = 6, points: int = 60):
+
+    &#34;&#34;&#34;Defines the region of fit list.
+
+    Args:
+        interval (int): Number of standard deviations defining the region of fit. By default, 6-sigma is used.
+        points (int): Max number of points defining a peak.
+    &#34;&#34;&#34;
+
+    region, i = np.zeros((len(self.peaks), 4)), 0
+    for j in self.peaks:
+        m, n = self.peak_definer(j, points)
+        x = self.phi[m:n]
+        y = self.counts[m:n]
+
+        s, d, f = fwhm(x, np.log10(y))
+
+        N = np.abs(x - (d - interval * s)).argmin()
+        M = np.abs(x - (d + interval * s)).argmin()
+
+        region[i, :] = x[N], x[M], f, d
+        i += 1
+
+        self.region = region</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.MD_indexer"><code class="name flex">
+<span>def <span class="ident">MD_indexer</span></span>(<span>self, fname: str, M: list, Fmin: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds the secondary reflection list corresponding to each founded
+peak.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Structure file name (the same used by Crystal class).</dd>
+<dt><strong><code>M</code></strong> :&ensp;<code>list</code></dt>
+<dd>Reference direction (eg, [1, 0, 0]).</dd>
+<dt><strong><code>Fmin</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum cutoff value for W (absolute).</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>In case 2 reflections distance by less than 0.01º and the W
+difference between them is bigger than the half value of the one of
+them, this case is <strong>UNINDEXABLE</strong>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MD_indexer(self, fname: str, M: list, Fmin: float):
+
+    &#34;&#34;&#34;Finds the secondary reflection list corresponding to each founded
+    peak.
+
+    Args:
+        fname (str): Structure file name (the same used by Crystal class).
+        M (list): Reference direction (eg, [1, 0, 0]).
+        Fmin (float): Minimum cutoff value for W (absolute).
+
+    Notes:
+        In case 2 reflections distance by less than 0.01º and the W
+        difference between them is bigger than the half value of the one of
+        them, this case is **UNINDEXABLE**.
+    &#34;&#34;&#34;
+
+    struc = Crystal(fname)
+    self.BC = struc.klines(self.energy, self.primary, M, Fmin)
+
+    hkl = (self.BC[:, 0:3].astype(int)).astype(str)
+    for i in range(len(hkl)):
+        hkl[i] = &#34; &#34;.join(hkl[i])
+    hkl = hkl[:, 0]
+
+    idx = []
+    s = []
+    HKL = []
+    for i in range(len(self.region[:, 0])):
+
+        if self.region[i, -1] &lt; 0:
+            ph = self.region[i, -1] + 360
+        else:
+            ph = self.region[i, -1]
+
+        Fin, id_in = self.index_find(ph, 4)
+        Fout, id_out = self.index_find(ph, 3)
+
+        if Fin == Fout:
+            idx.append(i)
+        elif Fin &gt; Fout:
+            HKL.append(hkl[id_in])
+            s.append(1)
+        else:
+            HKL.append(hkl[id_out])
+            s.append(-1)
+
+    self.peaks = np.delete(self.peaks, idx)
+    self.region = np.delete(self.region, idx, axis=0)
+    self.index = np.column_stack((HKL, s))</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.plot_peaks"><code class="name flex">
+<span>def <span class="ident">plot_peaks</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot the selected peaks and corresponding region of fit.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_peaks(self):
+
+    &#34;&#34;&#34;Plot the selected peaks and corresponding region of fit.&#34;&#34;&#34;
+
+    plt.plot(self.phi, self.counts, c=&#39;k&#39;)
+
+    for i in range(len(self.region[:, -1])):
+        N = np.abs(self.phi - self.region[i, 0]).argmin()
+        M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+        x = self.phi[N:M]
+        y = self.counts[N:M]
+
+        plt.plot(x, y, &#34;r&#34;)
+
+    plt.xlabel(&#39;ɸ (deg)&#39;)
+    plt.ylabel(&#39;counts&#39;)
+    plt.xlim(0.85 * self.phi.min(), 1.005 * self.phi.max())
+    plt.ylim(0, 1.1 * self.counts.max())
+    plt.draw()
+    while True:
+        if plt.waitforbuttonpress(0):
+            plt.close()
+            break</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.data_fitter"><code class="name flex">
+<span>def <span class="ident">data_fitter</span></span>(<span>self, nsamples: int = 1000)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determine the slope and slope error list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>nsamples</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of samples to calculate the slope error.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def data_fitter(self, nsamples: int = 1000):
+
+    &#34;&#34;&#34;Determine the slope and slope error list.
+
+    Args:
+        nsamples (int): Number of samples to calculate the slope error.
+    &#34;&#34;&#34;
+
+    slope_err = np.zeros((len(self.peaks), 2))
+    for i in tqdm(range(len(self.peaks))):
+        N = np.abs(self.phi - self.region[i, 0]).argmin()
+        M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+        x = self.phi[N:M]
+        y = np.log10(self.counts[N:M])
+
+        slope_err[i, 0] = peak_fit(x, y)
+
+        sample = pd.DataFrame(np.column_stack((x, y)))
+        slope_err[i, 1] = bootstrap_resampling(sample, nsamples)
+
+    self.slope_data = slope_err</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.asymmetry_assigner"><code class="name flex">
+<span>def <span class="ident">asymmetry_assigner</span></span>(<span>self, sbar: float = 0.1, tau: float = 0.4)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines the asymmetry list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sbar</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of relative slope. Default = 10%.</dd>
+<dt><strong><code>tau</code></strong> :&ensp;<code>float</code></dt>
+<dd>Maximum value for ratio slope_error/slope. Default = 40%.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def asymmetry_assigner(self, sbar: float = 0.1, tau: float = 0.4):
+
+    &#34;&#34;&#34;Determines the asymmetry list.
+
+    Args:
+        sbar (float): Minimum value of relative slope. Default = 10%.
+        tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
+    &#34;&#34;&#34;
+
+    ratio = self.slope_data[:, 0] / self.slope_data[:, 0].max()
+    idx1 = np.where(np.abs(ratio) &lt; sbar)
+    self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                               self.slope_data,
+                                                               self.region,
+                                                               idx=idx1)
+
+    ratio = self.slope_data[:, 1] / self.slope_data[:, 0]
+    idx2 = np.where(np.abs(ratio) &gt; tau)
+    self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                               self.slope_data,
+                                                               self.region,
+                                                               idx=idx2)
+
+    asy = np.zeros((len(self.slope_data[:, 0]), 2), dtype=str)
+    asy[np.where(self.slope_data[:, 0] &lt; 0), :] = &#39;H&#39;, &#39;L&#39;
+    asy[np.where(self.slope_data[:, 0] &gt; 0), :] = &#39;L&#39;, &#39;H&#39;
+    asy = [&#39;&#39;.join(row) for row in asy]
+
+    self.asy = asy</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.save_output"><code class="name flex">
+<span>def <span class="ident">save_output</span></span>(<span>self, fout: str = '')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save file with output of experimental data analysis.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fout</code></strong> :&ensp;<code>str</code></dt>
+<dd>File name to save. Default:<code>asymmetries_NAME_E_value_G_indexes.dat</code></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_output(self, fout: str = &#39;&#39;):
+
+    &#34;&#34;&#34;Save file with output of experimental data analysis.
+
+    Args:
+        fout (str): File name to save. Default:`asymmetries_NAME_E_value_G_indexes.dat`
+    &#34;&#34;&#34;
+
+    sbar = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
+    tau = np.abs(self.slope_data[:, 1] / self.slope_data[:, 0])
+    M = np.column_stack((np.round(self.region[:, -1], 4), self.index,
+                         self.asy, np.round(self.slope_data, 4),
+                         np.round(sbar, 2), np.round(tau, 2)))
+
+    form = &#39;%10s %10s %5s %10s %10s %10s %10s %10s&#39;
+
+    header = &#39;    phi         hkl     s     asymmetry   slope   slope error&#39;
+    header += &#39;  sbar (%)    tau (%)&#39;
+
+    if fout == &#39;&#39;:
+        fout = &#39;data&#39; + self.name.upper() + &#39;_E&#39; + str(self.energy)
+        fout += &#39;_G&#39; + &#34;&#34;.join((self.primary.astype(int)).astype(str)) + &#39;.dat&#39;
+
+    np.savetxt(fout, M, fmt=form, header=header)
+
+    return fout</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.peak_definer"><code class="name flex">
+<span>def <span class="ident">peak_definer</span></span>(<span>self, peak_number: int, points: int) ‑> tuple</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the indexes of first and last points of peak.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>peak_number</code></strong> :&ensp;<code>int</code></dt>
+<dd>Index of peak point on angles array.</dd>
+<dt><strong><code>points</code></strong> :&ensp;<code>int</code></dt>
+<dd>Max number of points defining a peak.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>First and last points of peak.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def peak_definer(self, peak_number: int, points: int) -&gt; tuple:
+
+    &#34;&#34;&#34;Return the indexes of first and last points of peak.
+
+    Args:
+        peak_number (int): Index of peak point on angles array.
+        points (int): Max number of points defining a peak.
+    Returns:
+        tuple: First and last points of peak.
+    &#34;&#34;&#34;
+
+    p = int(points / 2)
+
+    if peak_number - p &lt; 0:
+        m = 0
+    else:
+        m = peak_number - p
+    if peak_number + p &gt; len(self.counts):
+        n = len(self.counts) - 1
+    else:
+        n = peak_number + p
+
+    return m, n</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.index_find"><code class="name flex">
+<span>def <span class="ident">index_find</span></span>(<span>self, ph: float, col: int) ‑> tuple</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the closer multiple-diffraction case of certain phi.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>ph</code></strong> :&ensp;<code>float</code></dt>
+<dd>Angle on Renninger scan.</dd>
+<dt><strong><code>col</code></strong> :&ensp;<code>int</code></dt>
+<dd>3 or 4 (in-out or out-in BC lines).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>FHFGH value and array index of closer case.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def index_find(self, ph: float, col: int) -&gt; tuple:
+
+    &#34;&#34;&#34;Returns the closer multiple-diffraction case of certain phi.
+
+    Args:
+        ph (float): Angle on Renninger scan.
+        col (int): 3 or 4 (in-out or out-in BC lines).
+    Returns:
+        tuple: FHFGH value and array index of closer case.
+    &#34;&#34;&#34;
+
+    M = np.where(np.abs(self.BC[:, col] - ph) &lt; 0.2)
+    m = []
+
+    if self.BC[M, -1].size != 0:
+
+        if len(M[0]) &gt; 1:
+
+            idk = np.argsort(np.abs(self.BC[M, col] - ph))[::-1]
+            phi1 = self.BC[M[0][idk][0][0], col]
+            phi2 = self.BC[M[0][idk][0][1], col]
+            W1 = self.BC[M[0][idk][0][0], 5]
+            W2 = self.BC[M[0][idk][0][1], 5]
+            Wd = np.abs(W1 - W2)
+
+            if np.abs(phi1 - phi2) &lt; 0.01 and (Wd &lt; W1 / 2 or Wd &lt; W2 / 2):
+                F, k = 0, 0
+            else:
+                F = self.BC[M, -1].max()
+                k = self.BC[M, -1].argmax()
+                m = M[0][k]
+        else:
+            F = self.BC[M, -1].max()
+            k = self.BC[M, -1].argmax()
+            m = M[0][k]
+    else:
+        F, k = 0, 0
+
+    return F, m</code></pre>
+</details>
+</dd>
+<dt id="pkg.xrdd.ExpData.analyze"><code class="name flex">
+<span>def <span class="ident">analyze</span></span>(<span>self, fname: str, M: list, Fmin: float, p_find: float = 0.03, p_clean: float = 0.2, points: int = 60, sbar: float = 0.1, tau: float = 0.4, fout: str = '')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Executes the entire peak analysis.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Structure file name (the same used by Crystal class).</dd>
+<dt><strong><code>M</code></strong> :&ensp;<code>list</code></dt>
+<dd>Reference direction (eg, [1, 0, 0]).</dd>
+<dt><strong><code>Fmin</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum cutoff value for W (absolute).</dd>
+<dt><strong><code>p_find</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of intensity to define a peak (percentage of maximum value of spectrum).</dd>
+<dt>3% by default.</dt>
+<dt><strong><code>p_clean</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of intensity to define a peak (percentage of maximum value of region).</dd>
+<dt>20% by default.</dt>
+<dt><strong><code>points</code></strong> :&ensp;<code>int</code></dt>
+<dd>Max number of points defining a peak.</dd>
+<dt><strong><code>sbar</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum value of relative slope. Default = 10%.</dd>
+<dt><strong><code>tau</code></strong> :&ensp;<code>float</code></dt>
+<dd>Maximum value for ratio slope_error/slope. Default = 40%.</dd>
+<dt><strong><code>fout</code></strong> :&ensp;<code>str</code></dt>
+<dd>File name to save. Default:<code>asymmetries_NAME_E_value_G_indexes.dat</code></dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This method does not work properly on notebooks.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def analyze(self, fname: str, M: list, Fmin: float, p_find: float = 0.03,
+            p_clean: float = 0.2, points: int = 60, sbar: float = 0.1,
+            tau: float = 0.4, fout: str = &#39;&#39;):
+
+    &#34;&#34;&#34;Executes the entire peak analysis.
+
+    Args:
+        fname (str): Structure file name (the same used by Crystal class).
+        M (list): Reference direction (eg, [1, 0, 0]).
+        Fmin (float): Minimum cutoff value for W (absolute).
+        p_find (float): Minimum value of intensity to define a peak (percentage of maximum value of spectrum).
+        3% by default.
+        p_clean (float): Minimum value of intensity to define a peak (percentage of maximum value of region).
+        20% by default.
+        points (int): Max number of points defining a peak.
+        sbar (float): Minimum value of relative slope. Default = 10%.
+        tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
+        fout (str): File name to save. Default:`asymmetries_NAME_E_value_G_indexes.dat`
+    Notes:
+        This method does not work properly on notebooks.
+    &#34;&#34;&#34;
+
+    f = Figlet(font=&#39;banner3-D&#39;, width=50, justify=&#34;center&#34;)
+    print(colored(f.renderText(&#39;xrdd_asy&#39;), &#39;green&#39;))
+
+    spinner = Halo(text=&#39;Finding peaks...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    self.peak_finder(p_find)
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Finding peaks:\033[1m\033[92m Success&#39;)
+    print(&#39;\t Minimum of counts = &#39;, int(p_find * self.counts.max()))
+    print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; found peaks.&#39; + &#39;\033[0m&#39;)
+
+    spinner = Halo(text=&#39;Automatic cleaning the data...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    self.data_cleaner(p_clean, points=points)
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Automatic cleaning the data:\033[1m\033[92m Success&#39;)
+    print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; selected peaks.&#39; + &#39;\033[0m&#39;)
+
+    spinner = Halo(text=&#39;Manual cleaning the data...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    self.data_review()
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Manual cleaning the data:\033[1m\033[92m Success&#39;)
+    print(&#39;\t\033[1m&#39; + &#39; &#39; + str(len(self.peaks)) + &#39; selected peaks.&#39; + &#39;\033[0m&#39;)
+
+    spinner = Halo(text=&#39;Defining region of fit...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    self.region_of_fit(points=points)
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Defining region of fit:\033[1m\033[92m Success&#39;)
+
+    spinner = Halo(text=&#39;Indexing peaks...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    self.MD_indexer(fname, M, Fmin)
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Indexing peaks:\033[1m\033[92m Success&#39;)
+    print(&#39;\t\033[1m&#39; + &#39;Data set with &#39; + str(len(self.peaks)) + &#39; peaks.&#39; + &#39;\033[0m&#39;)
+    print(&#39;\tMinimum value of FHFGH = &#39;, Fmin)
+    self.plot_peaks()
+
+    print(&#39;:: Fitting peaks...&#39;)
+    self.data_fitter()
+    sys.stdout.write(&#34;\033[2F&#34;)
+    print(&#39;🗸 Fitting peaks:\033[1m\033[92m Success&#39;)
+
+    spinner = Halo(text=&#39;Assigning asymmetry type...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    self.asymmetry_assigner(sbar, tau)
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Assigning asymmetry type:\033[1m\033[92m Success&#39;)
+    print(&#39;\tCUTOFF: slope &gt; &#39;, sbar)
+    print(&#39;\t            τ &lt; &#39;, tau)
+
+    spinner = Halo(text=&#39;Saving file...&#39;, spinner=&#39;dots&#39;)
+    spinner.start()
+    fn = self.save_output(fout)
+    spinner.stop()
+    spinner.stop_and_persist(symbol=&#39;🗸&#39;,
+                             text=&#39;Saving file:\033[1m\033[92m Success&#39;)
+    print(&#39;\t\033[1m&#39; + fn + &#39;\033[0m&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pkg" href="index.html">pkg</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pkg.xrdd.phase_comparison" href="#pkg.xrdd.phase_comparison">phase_comparison</a></code></li>
+<li><code><a title="pkg.xrdd.phase_triplet_comparison" href="#pkg.xrdd.phase_triplet_comparison">phase_triplet_comparison</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pkg.xrdd.Crystal" href="#pkg.xrdd.Crystal">Crystal</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pkg.xrdd.Crystal.show_lattice" href="#pkg.xrdd.Crystal.show_lattice">show_lattice</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.bragg" href="#pkg.xrdd.Crystal.bragg">bragg</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.hkl2Q" href="#pkg.xrdd.Crystal.hkl2Q">hkl2Q</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.Fhkl" href="#pkg.xrdd.Crystal.Fhkl">Fhkl</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.hkl_generate" href="#pkg.xrdd.Crystal.hkl_generate">hkl_generate</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.diffraction" href="#pkg.xrdd.Crystal.diffraction">diffraction</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.triplet_relation" href="#pkg.xrdd.Crystal.triplet_relation">triplet_relation</a></code></li>
+<li><code><a title="pkg.xrdd.Crystal.klines" href="#pkg.xrdd.Crystal.klines">klines</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pkg.xrdd.ExpData" href="#pkg.xrdd.ExpData">ExpData</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pkg.xrdd.ExpData.plot" href="#pkg.xrdd.ExpData.plot">plot</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.BC_plot" href="#pkg.xrdd.ExpData.BC_plot">BC_plot</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.peak_finder" href="#pkg.xrdd.ExpData.peak_finder">peak_finder</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.data_cleaner" href="#pkg.xrdd.ExpData.data_cleaner">data_cleaner</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.data_review" href="#pkg.xrdd.ExpData.data_review">data_review</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.region_of_fit" href="#pkg.xrdd.ExpData.region_of_fit">region_of_fit</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.MD_indexer" href="#pkg.xrdd.ExpData.MD_indexer">MD_indexer</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.plot_peaks" href="#pkg.xrdd.ExpData.plot_peaks">plot_peaks</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.data_fitter" href="#pkg.xrdd.ExpData.data_fitter">data_fitter</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.asymmetry_assigner" href="#pkg.xrdd.ExpData.asymmetry_assigner">asymmetry_assigner</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.save_output" href="#pkg.xrdd.ExpData.save_output">save_output</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.peak_definer" href="#pkg.xrdd.ExpData.peak_definer">peak_definer</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.index_find" href="#pkg.xrdd.ExpData.index_find">index_find</a></code></li>
+<li><code><a title="pkg.xrdd.ExpData.analyze" href="#pkg.xrdd.ExpData.analyze">analyze</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
