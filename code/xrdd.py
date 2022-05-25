@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 """XRDD is a tool for help to plan X-ray dynamical diffraction experiments,
 generating structural models, analyze experimental data and constructing
@@ -360,7 +360,7 @@ class Crystal:
 
         return np.real(W) / np.absolute(W), np.absolute(W)
 
-    def klines(self, E: float, G: list or ndarray, M: list or ndarray, Fmin: float, dw: float = 0.1) -> np.ndarray:
+    def klines(self, E: float, G: list or ndarray, M: list or ndarray, Fmin: float, dw: float = 0.1):
 
         """Saves the Bragg Cones crossing the primary reflection.
 
@@ -370,8 +370,6 @@ class Crystal:
             M (list or ndarray): Reference direction (eg, [1, 0, 0]).
             Fmin (float): Minimum cutoff value for W.
             dw (float): Maximum Bragg angle distance between secondary and primary.
-        Returns:
-            np.ndarray: Array of reflections, in-out, out-in angles, W values.
         Notes:
             The BC lines are saved on `IN/OUT/THG_G_array_M_array_E_value.dat` files.
         """
@@ -384,6 +382,7 @@ class Crystal:
         FH = np.absolute(FH)
 
         idx = search_reflection(HKL, G)
+        FG = FH[idx]
         thG = np.round(np.arcsin(wl / (2 * d[idx])) * 180 / np.pi, 4)
 
         HKL, FH, th = delete_multiple(HKL, FH, th, idx=idx)  # Exclude primary
@@ -391,7 +390,7 @@ class Crystal:
 
         th = np.delete(th, idx)
 
-        F = FGH * FH
+        F = FGH * FH / FG
         HKL, F, th = delete_multiple(HKL, F, th, idx=np.argwhere(F <= Fmin))
 
         Z = np.matmul(G, np.array([self.Ar, self.Br, self.Cr]))  # Rotation axis
@@ -472,10 +471,10 @@ class Crystal:
             if omg == thG:  # BC lines crossing primary
 
                 M = np.zeros((len(PHI_IN) - 1, 6))
-                M[:, :3] = PHI_IN[1:, :3]
-                M[:, 3] = phi1[:]
-                M[:, 4] = phi2[:]
-                M[:, 5] = F[:]
+                M[:, :3] = np.copy(PHI_IN[1:, :3])
+                M[:, 3] = np.copy(phi1[:])
+                M[:, 4] = np.copy(phi2[:])
+                M[:, 5] = np.copy(F[:])
 
                 header = "h   k   l     out-in     in-out     FH*FGH"
                 fmt = "%3.f %3.f %3.f %10.4f %10.4f %10.f"
@@ -493,8 +492,6 @@ class Crystal:
         line2 += "phi (out-in)        -       following lines"
         header = '\n'.join([line1, line2])
         np.savetxt('OUT_' + fileout, PHI_OUT, fmt="%10.4f", header=header)
-
-        return M
 
 
 class ExpData:
@@ -544,7 +541,7 @@ class ExpData:
 
         fig.update_yaxes(title_text='Counts',
                          range=[0, 1.1 * self.counts.max()])
-        fig.update_xaxes(range=[0.85 * self.phi.min(), 1.005 * self.phi.max()])
+        fig.update_xaxes(range=[self.phi.min(), self.phi.max()])
         fig.update_layout(legend_title_text='', template='plotly_white',
                           font=dict(size=16))
         fig.show()
@@ -755,13 +752,26 @@ class ExpData:
             Fmin (float): Minimum cutoff value for W (absolute).
 
         Notes:
-            In case 2 reflections distance by less than 0.01º and the W
-            difference between them is bigger than the half value of the one of
-            them, this case is **UNINDEXABLE**.
+            Case two or more lattice planes are excited at the same angle with the same geometry:
+            all will be displayed in the output file. If the geometries are opposite, the peak is
+            not indexable (so it's excluded from the peak list). It's also not indexable the case
+            with two excited reflections that distance themselves by less than 0.05º, whose smallest
+            W value is at least half of the largest value. Except for these cases, the peak is indexed
+            by the stronger reflection that is up to 0.1º of distance from the peak position.
         """
 
-        struc = Crystal(fname)
-        self.BC = struc.klines(self.energy, self.primary, M, Fmin)
+        M = np.array(M)
+
+        fthg = "THG_G_" + "".join((self.primary.astype(int)).astype(str))
+        fthg += "_M_" + "".join((M.astype(int)).astype(str))
+        fthg += "_E_" + str(self.energy) + ".dat"
+
+        try:
+            self.BC = np.loadtxt(fthg)
+        except (OSError, IOError, ValueError):
+            struc = Crystal(fname)
+            struc.klines(self.energy, self.primary, M, Fmin)
+            self.BC = np.loadtxt(fthg)
 
         hkl = (self.BC[:, 0:3].astype(int)).astype(str)
         for i in range(len(hkl)):
@@ -771,28 +781,82 @@ class ExpData:
         idx = []
         s = []
         HKL = []
-        for i in range(len(self.region[:, 0])):
+        for i in range(len(self.peaks)):
 
-            if self.region[i, -1] < 0:
-                ph = self.region[i, -1] + 360
-            else:
-                ph = self.region[i, -1]
+            ph = np.round(self.phi[self.peaks[i]], 3)
+            if ph < 0:
+                ph += 360
 
-            Fin, id_in = self.index_find(ph, 4)
-            Fout, id_out = self.index_find(ph, 3)
+            phi_in, fin, hkl_in = self.index_find(ph, 4, hkl)
+            phi_out, fout, hkl_out = self.index_find(ph, 3, hkl)
 
-            if Fin == Fout:
+            if fin == 0 and fout == 0:
+                HKL.append('')
+                s.append(0)
                 idx.append(i)
-            elif Fin > Fout:
-                HKL.append(hkl[id_in])
+            elif np.abs(phi_in - phi_out) < 0.05:
+                f = np.array([fin, fout])
+                miller = np.array([hkl_in, hkl_out])
+                diff = np.array([1, -1])
+                ratio = f.min() / f.max()
+                if not ratio >= 0.5:
+                    j = f.argmax()
+                    HKL.append(miller[j])
+                    s.append(diff[j])
+                else:
+                    HKL.append('')
+                    s.append(0)
+                    idx.append(i)
+            elif fin > fout:
+                HKL.append(hkl_in)
                 s.append(1)
-            else:
-                HKL.append(hkl[id_out])
+            elif fout > fin:
+                HKL.append(hkl_out)
                 s.append(-1)
 
+        self.plot_indexation(HKL, s, idx)
         self.peaks = np.delete(self.peaks, idx)
         self.region = np.delete(self.region, idx, axis=0)
-        self.index = np.column_stack((HKL, s))
+        self.index = np.column_stack((s, HKL))
+
+    def plot_indexation(self, hkl: list, s: list, idx: list):
+
+        """Plot the peaks and corresponding secondary reflection indexes.
+
+        Args:
+            hkl (list): Secondary reflections ('' are the unindexed cases).
+            s (list): Diffraction geometry (in-out or out-in).
+            idx (list): Unindexed cases index in peak list.
+        """
+
+        plt.plot(self.phi, self.counts, c='k')
+
+        for i in range(len(s)):
+
+            N = np.abs(self.phi - self.region[i, 0]).argmin()
+            M = np.abs(self.phi - self.region[i, 1]).argmin()
+
+            x = self.phi[N:M]
+            y = self.counts[N:M]
+
+            if i in idx:
+                plt.plot(x, y, "r")
+            else:
+                if s[i] == 1:
+                    c = "r"
+                else:
+                    c = "b"
+                plt.annotate(hkl[i], (self.phi[self.peaks[i]], self.counts[self.peaks[i]]), color=c)
+
+        plt.xlabel('ɸ (deg)')
+        plt.ylabel('counts')
+        plt.xlim(self.phi.min(), self.phi.max())
+        plt.ylim(0, 1.1 * self.counts.max())
+        plt.draw()
+        while True:
+            if plt.waitforbuttonpress(0):
+                plt.close()
+                break
 
     def plot_peaks(self):
 
@@ -811,7 +875,7 @@ class ExpData:
 
         plt.xlabel('ɸ (deg)')
         plt.ylabel('counts')
-        plt.xlim(0.85 * self.phi.min(), 1.005 * self.phi.max())
+        plt.xlim(self.phi.min(), self.phi.max())
         plt.ylim(0, 1.1 * self.counts.max())
         plt.draw()
         while True:
@@ -851,19 +915,22 @@ class ExpData:
             tau (float): Maximum value for ratio slope_error/slope. Default = 40%.
         """
 
-        ratio = self.slope_data[:, 0] / self.slope_data[:, 0].max()
+        ratio = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
         idx1 = np.where(np.abs(ratio) < sbar)
-        self.index, self.slope_data, self.region = delete_multiple(self.index,
-                                                                   self.slope_data,
-                                                                   self.region,
-                                                                   idx=idx1)
+
+        if not np.array(idx1).size == 0:
+            self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                                       self.slope_data,
+                                                                       self.region,
+                                                                       idx=idx1)
 
         ratio = self.slope_data[:, 1] / self.slope_data[:, 0]
         idx2 = np.where(np.abs(ratio) > tau)
-        self.index, self.slope_data, self.region = delete_multiple(self.index,
-                                                                   self.slope_data,
-                                                                   self.region,
-                                                                   idx=idx2)
+        if not np.array(idx2).size == 0:
+            self.index, self.slope_data, self.region = delete_multiple(self.index,
+                                                                       self.slope_data,
+                                                                       self.region,
+                                                                       idx=idx2)
 
         asy = np.zeros((len(self.slope_data[:, 0]), 2), dtype=str)
         asy[np.where(self.slope_data[:, 0] < 0), :] = 'H', 'L'
@@ -882,20 +949,26 @@ class ExpData:
 
         sbar = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
         tau = np.abs(self.slope_data[:, 1] / self.slope_data[:, 0])
-        M = np.column_stack((np.round(self.region[:, -1], 4), self.index,
+
+        hkl = []
+        for i in range(len(self.index[:, 1:])):
+            hkl.append(self.index[i, -1].split('/ ')[0])
+
+        M = np.column_stack((np.round(self.region[:, -1], 4),
                              self.asy, np.round(self.slope_data, 4),
-                             np.round(sbar, 2), np.round(tau, 2)))
+                             np.round(sbar, 2), np.round(tau, 2),
+                             self.index[:, 0], hkl, self.index[:, 1:]))
 
-        form = '%10s %10s %5s %10s %10s %10s %10s %10s'
-
-        header = '    phi         hkl     s     asymmetry   slope   slope error'
-        header += '  sbar (%)    tau (%)'
+        header = '    phi    asy     slope   slope error   sbar (%)    tau (%)   s       hkl'
 
         if fout == '':
             fout = 'data' + self.name.upper() + '_E' + str(self.energy)
             fout += '_G' + "".join((self.primary.astype(int)).astype(str)) + '.dat'
 
-        np.savetxt(fout, M, fmt=form, header=header)
+        with open(fout, 'wb') as f:
+            np.savetxt(f, [], header=header)
+            for line in np.matrix(M):
+                np.savetxt(f, line, fmt='%10s %5s %10s %10s %10s %10s %5s %10s %32s')
 
         return fout
 
@@ -923,45 +996,66 @@ class ExpData:
 
         return m, n
 
-    def index_find(self, ph: float, col: int) -> tuple:
+    def index_find(self, ph: float, col: int, hkl: np.ndarray) -> tuple:
 
         """Returns the closer multiple-diffraction case of certain phi.
 
         Args:
             ph (float): Angle on Renninger scan.
             col (int): 3 or 4 (in-out or out-in BC lines).
+            hkl (np.ndarray): Miller indices.
         Returns:
-            tuple: FHFGH value and array index of closer case.
+            tuple: Angle position, W amplitude, reflection indices.
         """
 
-        M = np.where(np.abs(self.BC[:, col] - ph) < 0.2)
-        m = []
+        k = np.where(np.abs(np.round(self.BC[:, col], 3) - ph) < 0.1)
 
-        if self.BC[M, -1].size != 0:
+        if not np.array(k).size == 0:
+            m = np.argsort(np.abs(np.round(self.BC[k, col], 3) - ph))[::-1]
+            phi_values = np.round(self.BC[k[0], col], 3)
+            w_values = self.BC[k[0], -1]
 
-            if len(M[0]) > 1:
+            equal = np.all(phi_values == phi_values[m[0]][0])
+            if equal:  # all BCs crossing in the same phi
+                PHI = phi_values[m[0]][0]
+                W = w_values[m[0]][0]
+                miller = '/ '.join(hkl[k][m][0])
 
-                idk = np.argsort(np.abs(self.BC[M, col] - ph))[::-1]
-                phi1 = self.BC[M[0][idk][0][0], col]
-                phi2 = self.BC[M[0][idk][0][1], col]
-                W1 = self.BC[M[0][idk][0][0], 5]
-                W2 = self.BC[M[0][idk][0][1], 5]
-                Wd = np.abs(W1 - W2)
+            elif phi_values[m[0]][0] - phi_values[m[0]][1] < 0.01:  # does not cross in the same phi, but close of that
+                phi1 = phi_values[m[0]][0]
+                phi2 = phi_values[m[0]][1]
+                W1 = w_values[m[0]][0]
+                W2 = w_values[m[0]][1]
 
-                if np.abs(phi1 - phi2) < 0.01 and (Wd < W1 / 2 or Wd < W2 / 2):
-                    F, k = 0, 0
+                if phi1 == phi2 and W1 == W2:
+                    miller = '/ '.join(hkl[k][m][0][:2])
+                    PHI = phi1
+                    W = W1
+                elif np.abs(phi1 - phi2) < 0.05:
+                    Wf = np.array([W1, W2])
+                    if not Wf.min() / Wf.max() >= 0.5:
+                        miller = hkl[k][m][0][Wf.argmax()]
+                        PHI = phi_values[m[0]][Wf.argmax()]
+                        W = w_values[m[0]][Wf.argmax()]
+                    else:
+                        miller = ''
+                        PHI = 0
+                        W = 0
                 else:
-                    F = self.BC[M, -1].max()
-                    k = self.BC[M, -1].argmax()
-                    m = M[0][k]
-            else:
-                F = self.BC[M, -1].max()
-                k = self.BC[M, -1].argmax()
-                m = M[0][k]
-        else:
-            F, k = 0, 0
+                    miller = hkl[k][w_values.argmax()]
+                    PHI = phi_values[w_values.argmax()]
+                    W = w_values[w_values.argmax()]
 
-        return F, m
+            else:  # does not cross so close
+                miller = hkl[k][w_values.argmax()]
+                PHI = phi_values[w_values.argmax()]
+                W = w_values[w_values.argmax()]
+        else: # does not cross
+            miller = ''
+            PHI = 0
+            W = 0
+
+        return PHI, W, miller
 
     def analyze(self, fname: str, M: list, Fmin: float, p_find: float = 0.03,
                 p_clean: float = 0.2, points: int = 60, sbar: float = 0.1,
@@ -1054,7 +1148,6 @@ class ExpData:
 
 
 def phase_comparison(data1: np.ndarray, data2: np.ndarray) -> plotly.graph_objects:
-
     """Display and plot the structure factor phase variation between two models.
 
     Args:
@@ -1112,7 +1205,6 @@ def phase_comparison(data1: np.ndarray, data2: np.ndarray) -> plotly.graph_objec
 
 
 def phase_triplet_comparison(data1: np.ndarray, data2: np.ndarray, G: list, wmin: float = 5) -> plotly.graph_objects:
-
     """Display and plot the phase triplet variation between two models for a given primary reflection.
 
     Args:

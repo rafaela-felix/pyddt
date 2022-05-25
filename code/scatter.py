@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 """These tools are used by the main script XRDD. They perform the calculation of atomic scattering factor and
 resonance amplitude."""
@@ -17,6 +17,7 @@ def asfQ(atom: str, Q: list or float) -> np.ndarray or float:
     Returns:
         np.ndarray or float: Atomic scattering factor values.
     """
+
 
     el = np.loadtxt('f0_CromerMann.txt', dtype='str', usecols=0)
     coef = np.loadtxt('f0_CromerMann.txt',

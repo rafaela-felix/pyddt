@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
-"""These tools are used by the main script XRDD. They perform simplemanipulation, output or plot operations."""
+"""These tools are used by the main script XRDD. They perform simple
+manipulation, output or plot operations."""
 
 import numpy as np
 import plotly
@@ -81,7 +82,7 @@ def save_diffraction(HKL: list, F: list, th: list, d: list, fout: str):
     np.savetxt(fout, M, fmt=form, header=header)
 
 
-def delete_multiple(*args: ndarray or list[ndarray], idx: list or np.ndarray or int) -> list[ndarray]:
+def delete_multiple(*args: ndarray or list[ndarray], idx: list or np.ndarray or int) -> ndarray:
 
     """Delete the same positions of multiple arrays after.
 
@@ -89,7 +90,7 @@ def delete_multiple(*args: ndarray or list[ndarray], idx: list or np.ndarray or 
         args (list[ndarray]): Arrays to delete positions (eg 'arr1, arr2, arr3...').
         idx (list or ndarray or int): Index of positions to delete. Please use 'idx=' on function call.
     Returns:
-         list[ndarray]: Arrays after deleting positions.
+         ndarray: Arrays after deleting positions.
     """
 
     arr = []
@@ -230,6 +231,8 @@ def dataframe_BClines(fname: str) -> tuple:
 
     data = np.loadtxt(fname)
     thG, FHFGH, omega, phi = data[0, 3], data[1:, 3], data[0, 4:], data[1:, 4:]
+
+    phi[np.where(phi > 180)] -= 360
 
     s = ['ω']
     hkl = (data[1:, 0:3].astype(int)).astype(str)
