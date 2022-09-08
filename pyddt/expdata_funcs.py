@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-**Functions required by the Expdata class.**
+Functions required by the ``Expdata class``. In general, unuseful for external users.
 """
 
 import numpy as np
@@ -26,7 +26,7 @@ def dataframe_BClines(fname: str) -> tuple:
         fname (str): Filename with BC lines.
 
     Returns:
-        tuple: Bragg angle of primary reflection, FHFGH values, `pd.DataFrame` with BC lines.
+        tuple: Bragg angle of primary reflection, FHFGH values, ``pd.DataFrame`` with BC lines.
     """
 
     data = np.loadtxt(fname)
@@ -108,7 +108,7 @@ def bootstrap_resampling(sample: pd.DataFrame, n: int) -> float:
         n (int): Number of samples.
 
     Returns:
-        float: Width of slope distribution.
+        float: Width of the slope distribution.
     """
 
     S = np.zeros(n)

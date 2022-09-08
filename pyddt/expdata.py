@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""**Analysis of Renninger scans.**"""
+"""This class is used for analyzing Renninger scans."""
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -30,7 +30,7 @@ class ExpData:
 
     def __init__(self, E: float, G: list, fname: str, colx: int = 0, coly: int = 1, name: str = ''):
 
-        """Given the experimental data, returns a new `exp` object.
+        """Given the experimental data, returns a new ``exp`` object.
 
         Args:
             E (float): X-ray energy (eV).
@@ -38,7 +38,7 @@ class ExpData:
             fname (str): Filename containing the data.
             colx (int): Column number of angle values. **Default**: 0 (1st column).
             coly (int): Column number of intensity values. **Default**: 1 (2nd column).
-            name (str): Label for current work. **Default**: None.
+            name (str): Label for the current work. **Default**: None.
         """
 
         self.asy = None
@@ -82,8 +82,8 @@ class ExpData:
             npoints (int): Number of points of the 2D-cone representation.
 
         Notes:
-            * By default, the `plotly.graph_objects` will be displayed in an installed browser or notebook.
-            * BC lines ranging from -180 to 180.
+            * By default, the ``plotly.graph_objects`` will be displayed in an installed browser or notebook.
+            * BC lines ranging from -180 to 180 deg.
         """
 
         M = np.array(M)
@@ -137,7 +137,7 @@ class ExpData:
             fig.add_scatter(x=xin, y=yin, name='',
                             hovertemplate=hover_in, mode='lines',
                             line=dict(color='Red', 
-                            width=3*FHFGH[i - 1] / np.max(FHFGH)))
+                            width=10*FHFGH[i - 1] / np.max(FHFGH)))
                                       
             fig.update_traces(connectgaps=False)
 
@@ -152,7 +152,7 @@ class ExpData:
             fig.add_scatter(x=xout, y=yout, name='',
                             hovertemplate=hover_out, mode='lines',
                             line=dict(color='Blue', 
-                            width=3*FHFGH[i - 1] / np.max(FHFGH)))
+                            width=10*FHFGH[i - 1] / np.max(FHFGH)))
                                       
             fig.update_traces(connectgaps=False)
 
@@ -184,11 +184,13 @@ class ExpData:
         """Manual selection of MD peaks.
 
         Notes:
-                To select a peak, stop the mouse over the maximum and press `SPACE`.
-                To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * To select a peak, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
         """
 
         self.plot()
@@ -236,14 +238,16 @@ class ExpData:
 
     def review(self):
 
-        """Plots experimental data highlighting the selected MD peaks.
+        """Plots the experimental data highlighting the selected MD peaks for user review.
 
         Notes:
-                To select a peak, stop the mouse over the maximum and press `SPACE`.
-                To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * To select a peak, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
         """
 
         self.plot()
@@ -272,14 +276,17 @@ class ExpData:
         Args:
             interval (int): Number of fwhm defining the region of fit. **Default**: 15.
             points (int): Max number of points defining a peak.
-            flag (int): If `flag != 0`, plots the data highlighting calculated regions. **Default**: 0.
+            flag (int): If ``flag != 0``, plots the data highlighting the calculated regions. **Default**: 0.
 
         Notes:
-                If `flag != 0`, it's possible delete peaks. To select a peak, stop the mouse over the maximum and
-                press `SPACE`. To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * If `flag != 0`, it's possible to delete peaks.
+                * To select a peak, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
         """
 
         region, i = np.zeros((len(self.peaks), 4)), 0
@@ -306,14 +313,16 @@ class ExpData:
 
     def region_plot(self):
 
-        """Plots the calculated regions for fitting.
+        """Plots the calculated regions of fit for user review.
 
         Notes:
-                To select a peak, stop the mouse over the maximum and
-                press `SPACE`. To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * To select a peak, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
         """
 
         self.plot()
@@ -366,19 +375,20 @@ class ExpData:
         """Finds the secondary reflection related to each selected MD peak.
 
         Args:
-            fname (str): Structure filename (the same used by `Crystal` class).
+            fname (str): Structure filename (the same used by ``Crystal`` class).
             M (list): Reference direction (eg `[1, 0, 0]`).
             Fmin (float): Cutoff for W (minimum absolute value).
             dmin (float): Maximum difference between MD peak and BC line crossing the primary. **Default**: 0.1 deg
             flag (int): If `flag != 0`, plots the secondary reflection indices. **Default**: 0.
 
         Notes:
-            Case two or more lattice planes are excited at the same angle with the same geometry:
-            all will be displayed in the output file. If the geometries are opposite, the peak is
-            not **indexable** (so it's excluded from the peak list). It's also not **indexable** the case
-            with two excited reflections that distance themselves by less than 0.05º, whose smallest
-            W value is at least half of the largest value. Except for these cases, the peak is indexed
-            by the stronger reflection that is up to `dmin` of distance from the MD peak position.
+            * Case two or more lattice planes are excited at the same angle with the same geometry:
+              all will be displayed in the output file.
+            * If the geometries are opposite, the peak is not **indexable** (so it's excluded from the peak list).
+            * It's also not **indexable** the case with two excited reflections that distance themselves by less than
+              0.05º, whose smallest W value is at least half of the largest value. Except for these cases,
+              the peak is indexed by the stronger reflection that is up to ``dmin`` of distance from the MD
+              peak position.
         """
 
         M = np.array(M)
@@ -445,7 +455,7 @@ class ExpData:
 
     def indexation_plot(self, hkl: list, s: list, idx: list):
 
-        """Plots the phi-scan and corresponding MD indexing.
+        """Plots the phi-scan and corresponding MD indexing  for user review.
 
         Args:
             hkl (list): Secondary reflections.
@@ -453,11 +463,13 @@ class ExpData:
             idx (list): Index of **unindexable** cases in peak list.
 
         Notes:
-                To select a peak, stop the mouse over the maximum and
-                press `SPACE`. To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * To select a peak, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
         """
 
         self.plot()
@@ -482,13 +494,13 @@ class ExpData:
 
     def fitter(self, nsamples: int = 1000):
 
-        """Calculates the slope and slope error.
+        """Calculates the slope and slope error for each MD peak.
 
         Args:
             nsamples (int): Number of samples for bootstrap resampling.
 
         Notes:
-            If `nsamples = 0`, the slope error isn't calculated.
+            If ``nsamples = 0``, the slope error isn't calculated.
         """
 
         slope_err = np.zeros((len(self.peaks), 2))
@@ -519,14 +531,18 @@ class ExpData:
         Args:
             sbar (float): Minimum value of the relative slope. **Default**: 0.1 (10%)
             tau (float): Maximum value for the ratio slope_error/slope. **Default**: 0.4 (40%)
-            flag (int): If `flag != 0`, plots the data with asymmetry types. **Default**: 0.
+            flag (int): If ``flag != 0``, plots the data with read asymmetry types. **Default**: 0.
 
         Notes:
-                If `flag != 0`, it's possible delete peaks. To select a peak, stop the mouse over the maximum and
-                press `SPACE`. To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * If `flag != 0`, it's possible to delete peaks.
+                * To select a peak, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
+
         """
 
         ratio = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
@@ -564,11 +580,14 @@ class ExpData:
         """Plots the phi-scan and corresponding asymmetry type assigned for each selected MD peak.
 
         Notes:
-                To invert the assigned asymmetry of a MD peak, stop the mouse over the maximum and
-                press `SPACE`. To unselect, stop the mouse over the maximum and press `DEL`.
-                Feel free to zoom in or out.
-                After finishing the selection, press `ENTER`. Then, close the figure (mouse or press `q`).
-                ATTENTION: Press 'ENTER' before closing the plot, even if no peak was selected.
+                * To invert the assigned asymmetry of an MD peak,, stop the mouse over the maximum and press **SPACE**.
+                * To unselect, stop the mouse over the maximum and press **DEL**.
+                * Feel free to zoom in or out.
+                * After finishing the selection, press **ENTER**. Then, close the figure (mouse or press **q**).
+
+        Attention:
+            Press **ENTER** before closing the plot, even if no peak was selected.
+
         """
 
         self.plot()
@@ -604,10 +623,10 @@ class ExpData:
             fout (str): Filename of the output data. **Default**: *NAME_E_value_G_indexes.ext/.red*
 
         Notes:
-            * *.ext* file presenting high-verbosity information: azimuth position, hkl, slope, slope error, statistical
-                properties, asymmetry type and excitation geometry.
-            * *.red* file presenting low-verbosity: *hkl*, asymmetry and diffraction geometry, besides primary indices
-                and energy in 1st line.
+            * The *.ext* file presents the azimuth position, *hkl*, slope, slope error, statistical
+              properties, asymmetry type and excitation geometry.
+            * The *.red* file only presents *hkl*, asymmetry and diffraction geometry, besides primary indices
+              and energy in 1st line.
         """
 
         sbar = self.slope_data[:, 0] / np.abs(self.slope_data[:, 0].max())
@@ -651,10 +670,10 @@ class ExpData:
 
     def _peak_definer(self, peak_number: int, points: int) -> tuple:
 
-        """Finds the indices of first and last points of a MD peak.
+        """Finds the indices of first and last points of an MD peak.
 
         Args:
-            peak_number (int): Index of peak center in the angles array.
+            peak_number (int): Index of the peak center in the angles array.
             points (int): Max number of points defining a peak.
 
         Returns:

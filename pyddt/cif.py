@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-**Converts CIF to structure file (*.in*)**.
+This module converts a Crystallographic Information File (CIF) into a structure file (*.in*).
 """
 
 import nglview as nv
@@ -47,20 +47,24 @@ def to_in(fcif: str):
 
 def to_struc(fcif: str):
 
-    """Saves the structure information (*.struc* file).
+    """Saves the *.struc* file.
 
     Args:
-        fcif (str): CIF file name.
+        fcif (str): CIF filename.
 
     Notes:
-        * *.struc* file presenting some structural and electronic properties (space group, number of asymmetric units
-        within standard unit cell, electronic distribution per atom). Furthermore, the list of the indices of
-        each atom on the *.in* file is available.
 
-        * Guesses of ionic charge (based on `pymatgen.core.composition_oxi_state_guesses`)
-        are presented for inorganic crystals. If organic, the indices of equivalent atoms are shown.
+        * The *.struc* file presents some structural and electronic properties which might be useful for structural
+          modelling.
+        * Guesses of ionic charge (based on `pymatgen.core.composition_oxi_state_guesses`_) are presented for
+          inorganic crystals. If organic, the indices of the equivalent atoms are shown.
 
-        * **WARNING**: The number of asymmetric units probably isn't correct for hydrated crystals.
+    Attention:
+        The number of asymmetric units probably isn't correct for hydrated crystals.
+
+    .. _pymatgen.core.composition_oxi_state_guesses:
+        https://pymatgen.org/pymatgen.core.composition.html
+
     """
 
     parser = CifParser(fcif)
@@ -143,18 +147,18 @@ def to_struc(fcif: str):
 
 def visualizer_cif(fcif: str) -> nv.widget.NGLWidget:
 
-    """Visualizes the CIF structure.
+    """Visualizes the CIF structure. This method is available exclusively in Jupyter Notebooks.
 
     Args:
         fcif (str): CIF filename.
 
     Returns:
-        nv.widget.NGLWidget: Interactive visualization of conventional unit cell.
+        nv.widget.NGLWidget: Interactive visualization of the conventional unit cell.
 
-    Notes:
-        * Available exclusively in Jupyter Notebooks.
-        * ATTENTION: We found bugs in this method, so it's highly recommended to assign it to a variable
-            (x = Structure.visualize_in()) and close the figure after the visualization (x.close()).
+    Attention:
+        To avoid bugs, it's highly recommended to assign this method to a variable, then close the figure after
+        the visualization using ``variable_name.close()``.
+
     """
 
     parser = CifParser(fcif)

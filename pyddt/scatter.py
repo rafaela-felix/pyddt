@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 """
-**Calculation of atomic scattering amplitudes**.
+This module provides the calculation of atomic scattering amplitudes (see `Computer Simulation Tools for X-ray Analysis: Scattering and Diffraction Methods <https://link.springer.com/book/10.1007/978-3-319-19554-4>`_
+for reference).
 """
 
 from difflib import SequenceMatcher
@@ -20,19 +21,20 @@ __status__ = "Production"
 
 def asfQ(atom: str, Q: list or float or np.ndarray) -> np.ndarray or float:
 
-    """Calculates the atomic scattering factor within the spherosymmetric charge density approximation.
+    """Calculates the atomic scattering factor using the Cromer–Mann coefficients (highly inaccurate for
+    Q > 30 1/angstrom).
 
     Args:
         atom (str): Atom or ion symbol.
-        Q (list or float or np.ndarray): Reciprocal vector amplitude (angstrom) divided by 4pi.
+        Q (list or float or np.ndarray): Reciprocal vector amplitude (1/angstrom) divided by 4pi.
 
     Returns:
         np.ndarray or float: Atomic scattering factor values.
 
     Usage:
-        * `asfQ('Na3+', np.linspace(0, 10, 1000))`
-        * `asfQ('H', 3)`
-        * `asfQ('Se', [0, 10, 20])`
+        * ``asfQ('Na1+', np.linspace(0, 10, 1000))``
+        * ``asfQ('H', 3)``
+        * ``asfQ('Se', [0, 10, 20])``
     """
 
     crom = Path(__file__).parent / "f0_CromerMann.txt"
@@ -70,18 +72,19 @@ def asfQ(atom: str, Q: list or float or np.ndarray) -> np.ndarray or float:
 
 def aresE(atom: str, E: np.ndarray or float) -> np.ndarray or float:
 
-    """Calculates the resonance amplitude.
+    """Calculates the atomic resonance amplitude by using linear interpolation of tabulated values.
 
     Args:
-        atom (st)r: Element symbol.
-        E (np.ndarray or float): X-ray energy (eV) ranging between 1004.16 and 70000 eV.
+        atom (str): Element symbol.
+        E (np.ndarray or float): X-ray energy (from 1004.16 to 70000 eV).
 
     Returns:
         np.ndarray or float: Complex resonance amplitude.
 
     Usage:
-        * `aresE('Na', np.linspace(3000, 10000, 1000))`
-        * `aresE('O', 8048)`
+        * ``aresE('Na', np.linspace(3000, 10000, 1000))``
+        * ``aresE('O', 8048)``
+
     """
 
     at = Path(__file__).parent / "atomnm.txt"

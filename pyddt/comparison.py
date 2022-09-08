@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-**Phase comparison between structures.**
+This module performs the phase comparison between structural models.
 """
 
 from datetime import datetime
@@ -26,13 +26,13 @@ def phase(data1: np.ndarray, data2: np.ndarray, min: float = 15):
     """Comparison of the structure factor phase with respect to two structural models.
 
     Args:
-        data1 (np.ndarray): List of structure factors for 1st structure.
-        data2 (np.ndarray): List of structure factors for 2nd structure.
+        data1 (np.ndarray): List of structure factors for the 1st structure.
+        data2 (np.ndarray): List of structure factors for the 2nd structure.
         min (float): Minimum phase difference (degrees). **Default**: 15.
 
     Notes:
-        * List of structure factors can be obtained by `crystal.Crystal.diffraction()` method.
-        * By default, the `plotly.graph_objects` will be displayed in an installed browser.
+        * The list of structure factors can be obtained by the ``Crystal.diffraction()`` method.
+        * By default, the ``plotly.graph_objects`` will be displayed in an installed browser.
     """
 
     HKL1, F1, d1 = data1[0], data1[1], data1[2]
@@ -90,15 +90,15 @@ def triplet(data1: np.ndarray, data2: np.ndarray, G: list, wmin: float = 5):
     """Comparison of the phase triplet with respect to two structural models for a given primary reflection.
 
     Args:
-        data1 (np.ndarray): List of structure factors for 1st structure.
-        data2 (np.ndarray): List of structure factors for 2nd structure.
-        G (list): Indices of primary reflection (eg  `[1, 0, 0]`).
-        wmin (float): Cutoff for triplet amplitude (% ranging from 0 to 100). **Default**: 5.
+        data1 (np.ndarray): List of structure factors for the 1st structure.
+        data2 (np.ndarray): List of structure factors for the 2nd structure.
+        G (list): Indices of the primary reflection (eg  `[1, 0, 0]`).
+        wmin (float): Cutoff for the triplet amplitude (% ranging from 0 to 100). **Default**: 5.
 
     Notes:
-        * List of structure factors can be obtained by `crystal.Crystal.diffraction()` method.
-        * By default, the `plotly.graph_objects` will be displayed in an installed browser.
-        * The method returns `None` for null or absent primary reflection.
+        * The list of structure factors can be obtained by the ``Crystal.diffraction()`` method.
+        * By default, the ``plotly.graph_objects`` will be displayed in an installed browser.
+        * The method returns ``None`` for null or absent primary reflection.
     """
 
     G = np.array(G)

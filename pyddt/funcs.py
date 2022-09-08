@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-*Functions required by the main classes. Unuseful for external users.**
+Functions required by the main classes. Unuseful for external users.
 """
 
 from functools import reduce
@@ -30,12 +30,12 @@ def delete_multiple(*args: np.ndarray or list[np.ndarray], idx: list or np.ndarr
          ndarray: New array after deleting the indicated indices.
 
     Usage:
-        * `delete_multiple(arr1, arr2, arr3, arr4, ...,  idx=0)`
-        * `delete_multiple(arr1, arr2, arr3, arr4, ...,  idx=[0, 1, 2])`
-        * `delete_multiple(arr1, arr2, ...,  idx=np.arange(0, 100))`
+        * ``delete_multiple(arr1, arr2, arr3, arr4, ...,  idx=0)``
+        * ``delete_multiple(arr1, arr2, arr3, arr4, ...,  idx=[0, 1, 2])``
+        * ``delete_multiple(arr1, arr2, ...,  idx=np.arange(0, 100))``
 
     Notes:
-        Please use explicitly `idx=` when calling this function.
+        Call this function explicitly using ``idx=``.
     """
 
     arr = []
@@ -49,7 +49,7 @@ def search_reflection(HKL: np.ndarray, G: np.ndarray) -> int or list:
     """Finds the primary reflection.
 
     Args:
-        HKL (np.ndarray): Miller indices array.
+        HKL (np.ndarray): Array of Miller indices.
         G (np.ndarray): Miller indices of the primary reflection (eg `[1, 0, 0]`).
 
     Returns:
@@ -74,14 +74,14 @@ def coupling_reflection(F: np.ndarray, H: np.ndarray, G: np.ndarray) -> tuple[np
     """Defines the coupling reflections and finds the corresponding structure factors.
 
     Args:
-        F (np.ndarray): Complex structure factors (secondary reflections).
+        F (np.ndarray): Complex structure factors of the secondary reflections.
         H (np.ndarray): Secondary reflections.
         G (np.ndarray): Primary reflection.
 
     Returns:
         tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, list[int]]: Secondary reflections, structure factors of
-             secondary reflections, coupling reflections, structure factors of coupling reflections,
-             index of not available coupling reflections.
+        secondary reflections, coupling reflections, structure factors of coupling reflections, index of not found
+        coupling reflections.
     """
 
     GH = G - H
@@ -114,9 +114,9 @@ def comparison_plot(dataframe: pd.DataFrame, zlabel: str, xlabel: str,
 
     Args:
         dataframe (pd.DataFrame): Dataframe with x, y and z coordinates labeled as F, Q and Z.
-        zlabel (str): Title for Z axes.
-        xlabel (str): Title for X axes.
-        color (str): Color of markers. **Default**: `'darkred'`.
+        zlabel (str): Title for Z axes (phase difference).
+        xlabel (str): Title for X axes (scattering amplitude - F or W).
+        color (str): Color of markers. **Default**: darkred.
     """
 
     x = np.array(dataframe['F'], dtype=float)

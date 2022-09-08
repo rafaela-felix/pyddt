@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""**X-ray diffraction calculation for crystalline structures.**"""
+"""This class is used for performing crystallographic calculations."""
 
 import re
 
@@ -23,15 +23,15 @@ class Crystal:
 
     def __init__(self, struc_obj: str or Structure):
 
-        """Given a structure file, returns a new `crystal` object.
+        """Given a structure, returns a new ``crystal`` object.
 
         Args:
-            struc_obj (str or Structure): File name or Structure object.
+            struc_obj (str or Structure): Filename or Structure object.
 
         Notes:
-            * **Expected *.in* file**: atom or ion symbols, fractional coordinates, occupancy numbers
-            and B-factors in columns. The first line must present the lattice parameters. Use the `cif`
-             module to generate this file from CIF.
+            * *.in* file columns: atom or ion symbols, fractional coordinates, occupancy numbers and B-factors.
+              The first line must present the lattice parameters. Use the ``cif`` module to generate this file
+              from CIF.
         """
 
         if type(struc_obj) == str:
@@ -55,7 +55,7 @@ class Crystal:
 
         Args:
             E (float): X-ray energy (eV).
-            hkl (list): Miller indices (e.g [1, 0, 0]).
+            hkl (list): Miller indices (e.g `[1, 0, 0]`).
 
         Returns:
             np.ndarray: Interplanar distance and Bragg angle.
@@ -79,8 +79,8 @@ class Crystal:
             np.ndarray: Q values (1/angstrom).
 
         Usage:
-            * `hkl2Q([[1, 0, 0], [0, 1, 1]])`
-            * `hkl2Q([1, 0, 0])`
+            * ``hkl2Q([[1, 0, 0], [0, 1, 1]])``
+            * ``hkl2Q([1, 0, 0])``
         """
 
         hkl = np.array(hkl)
@@ -100,19 +100,19 @@ class Crystal:
         """Calculates the complex structure factor.
 
         Args:
-            E (float or ndarray): X-ray energy (eV).
-            H (ndarray): Miller indices.
+            E (float or np.ndarray): X-ray energy (eV).
+            H (np.ndarray): Miller indices.
 
         Returns:
             np.ndarray: List of structure factors (complex).
 
         Notes:
-            This method accepts an array of energy for a specific reflection or
-            a fixed energy value jointly an array of reflections.
+            This method accepts an array of energy for a fixed reflection or
+            a fixed energy jointly a set of reflections.
 
         Usage:
-            * `Fhkl(8048, [[1, 0, 0], [0, 1, 1]])`
-            * `Fhkl([8048, 10004], [1, 0, 0])`
+            * ``Fhkl(8048, [[1, 0, 0], [0, 1, 1]])``
+            * ``Fhkl([8048, 10004], [1, 0, 0])``
         """
 
         E = np.array(E)
@@ -193,7 +193,7 @@ class Crystal:
 
         return F
 
-    def hkl_generate(self, E: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def hkl_generator(self, E: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 
         """Determines the Miller indices of all structure-allowed lattice planes.
 
@@ -296,14 +296,14 @@ class Crystal:
 
         Args:
             E (float): X-ray energy (eV).
-            fout (str): Filename for output. **Default**: None - don't save.
+            fout (str): Filename for output. **Default**: None - it doesn't save.
 
         Returns:
             tuple[np.ndarray, np.ndarray, np.ndarray]: Reflections, structure factors and interplanar distances.
 
         """
 
-        HKL, th, d = self.hkl_generate(E)
+        HKL, th, d = self.hkl_generator(E)
 
         F = self.Fhkl(E, HKL)
 
@@ -320,10 +320,10 @@ class Crystal:
 
     def triplet_relation(self, E: float, G_H: list) -> tuple[float, float]:
 
-        """Calculates the phase triplet relation.
+        """Calculates the phase triplet.
 
         Args:
-            E (float): Beam energy (eV).
+            E (float): X-ray energy (eV).
             G_H (list): Indices of primary and secondary reflection (in this order).
 
         Returns:
@@ -344,20 +344,21 @@ class Crystal:
 
         Args:
             E (float): X-ray energy (eV).
-            G (list or ndarray): Primary reflection indices.
-            M (list or ndarray): Reference direction.
+            G (list or ndarray): Primary reflection (eg `[1, 0, 0]`).
+            M (list or ndarray): Reference direction (eg `[1, 0, -1]`).
             Fmin (float): Cutoff value for W (minimum).
             dw (float): Maximum distance between BC lines and primary reflection.
-            npoints (int): Number of points of 2D-cone representation.
+            npoints (int): Number of points of the 2D-cone representation.
 
         Notes:
-            The BC lines are saved in *IN/OUT/THG_G_array_M_array_E_value.dat* files.
-            - IN_G_array_M_array_E_value.dat: BC lines entering the Ewald sphere.
-            - OUT_G_array_M_array_E_value.dat: BC lines exiting the Ewald sphere.
-            - THG_G_array_M_array_E_value.dat: MD positions (in-out and out-in geometries).
+            The BC lines are saved in *IN/OUT/THG_G_array_M_array_E_value.dat* files:
+
+                * *IN_G_array_M_array_E_value.dat*: BC lines entering the Ewald sphere.
+                * *OUT_G_array_M_array_E_value.dat*: BC lines exiting the Ewald sphere.
+                * *THG_G_array_M_array_E_value.dat*: MD positions (in-out and out-in geometries).
 
         Usage:
-            * `klines(8048, [1, 1, 1], [1, 0, 0], 10)`
+            * ``klines(8048, [1, 1, 1], [1, 0, 0], 10)``
         """
 
         M, G = np.array(M), np.array(G)

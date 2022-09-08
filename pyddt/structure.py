@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""**Structural modelling from *.in* files.**"""
+"""This class is used for structural modelling from *.in* files."""
 
 import re
 
@@ -24,10 +24,10 @@ class Structure:
 
     def __init__(self, fname: str):
 
-        """Given a *.in* file, returns a new `struc` object.
+        """Given a *.in* file, returns a new ``struc`` object.
 
         Args:
-            fname (str): Structure file name.
+            fname (str): Structure filename.
         """
 
         self.name = fname
@@ -39,15 +39,15 @@ class Structure:
 
     def visualizer_in(self) -> nv.widget.NGLWidget:
 
-        """Visualizes the structure.
+        """Visualizes the structure. This method is available exclusively in Jupyter Notebooks.
 
         Returns:
-            nv.widget.NGLWidget: Interactive visualization of the  conventional unit cell.
+            nv.widget.NGLWidget: Interactive visualization of the conventional unit cell.
 
-        Notes:
-            * Available exclusively in Jupyter Notebooks.
-            * ATTENTION: We found bugs in this method, so it's highly recommended to assign it to a variable
-                (x = Structure.visualize_in()) and close the figure after the visualization (x.close()).
+        Attention:
+            To avoid bugs, it's highly recommended to assign this method to a variable, then close the figure after
+            the visualization using ``variable_name.close()``.
+
         """
 
         at = np.copy(self.atoms)  # just atoms (ions don't contribute to resonance)
@@ -81,17 +81,17 @@ class Structure:
 
         Notes:
             * There are many ways to pass indices as arguments: a number, numbers separated by commas, an interval
-            of indices (first and last indices separated by ":" ) and intervals separated by commas. A string is
-            expected.
-            * If the new symbol isn't in the available CromerMann list, the symbol is replaced by the most similar and a
-            warning will be displayed.
+              of indices (first and last indices separated by ":" ) and intervals separated by commas. A string is
+              expected.
+            * If the new symbol isn't in the current CromerMann list, the symbol is replaced by the most similar and a
+              warning will be displayed.
 
         Usage:
-            * `replace_ion('Ce', 'Ce3+')`
-            * `replace_ion('1', 'O1-')`
-            * `replace_ion('1, 2, 3', 'O1-')`
-            * `replace_ion('1:3', 'Fe2+')`
-            * `replace_ion('1:3, 5:6, 7:8', 'N3-')`
+            * ``replace_ion('Ce', 'Ce3+')``
+            * ``replace_ion('1', 'O1-')``
+            * ``replace_ion('1, 2, 3', 'O1-')``
+            * ``replace_ion('1:3', 'Fe2+')``
+            * ``replace_ion('1:3, 5:6, 7:8', 'N3-')``
         """
         crom = Path(__file__).parent / "f0_CromerMann.txt"
 
@@ -133,10 +133,10 @@ class Structure:
             expected.
 
         Usage:
-            * `replace_occupancy('1', 0.78)`
-            * `replace_occupancy('1, 2, 3', 0.92)`
-            * `replace_occupancy('1:3', 0)`
-            * `replace_occupancy('1:3, 5:6, 7:8', 0.5)`
+            * ``replace_occupancy('1', 0.78)``
+            * ``replace_occupancy('1, 2, 3', 0.92)``
+            * ``replace_occupancy('1:3', 0)``
+            * ``replace_occupancy('1:3, 5:6, 7:8', 0.5)``
         """
 
         if index.count(':') == 0:
@@ -166,10 +166,10 @@ class Structure:
             expected.
 
         Usage:
-            * `replace_bfactor('1', 3.14)`
-            * `replace_bfactor('1, 2, 3', 0.92)`
-            * `replace_bfactor('1:3', 10.015)`
-            * `replace_bfactor('1:3, 5:6, 7:8', 0.5)`
+            * ``replace_bfactor('1', 3.14)``
+            * ``replace_bfactor('1, 2, 3', 0.92)``
+            * ``replace_bfactor('1:3', 10.015)``
+            * ``replace_bfactor('1:3, 5:6, 7:8', 0.5)``
         """
 
         if index == ':':
@@ -195,7 +195,7 @@ class Structure:
             info (list): Atom or ion symbol, fractional coordinates (x, y and z), occupancy number and B-factor.
 
         Usage:
-            * `append_atom(['Fe2+', 0.5, 0.5, 0.5, 1, 3.14])`
+            * ``append_atom(['Fe2+', 0.5, 0.5, 0.5, 1, 3.14])``
 
         Notes:
             * The new atom will be allocated in the last index of the atoms array.
@@ -228,10 +228,10 @@ class Structure:
             expected.
 
         Usage:
-            * `delete_atom('1')`
-            * `delete_atom('1, 2, 3')`
-            * `delete_atom('1:3')`
-            * `delete_atom('1:3, 5:6, 7:8')`
+            * ``delete_atom('1')``
+            * ``delete_atom('1, 2, 3')``
+            * ``delete_atom('1:3')``
+            * ``delete_atom('1:3, 5:6, 7:8')``
         """
 
         if index.count(':') == 0:
@@ -256,7 +256,7 @@ class Structure:
 
     def save_infile(self, fout=''):
 
-        """Saves *.in* file.
+        """Saves the *.in* file.
 
         Args:
             fout (str): Filename. **Default**: `datetime_fname`

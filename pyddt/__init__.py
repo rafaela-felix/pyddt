@@ -12,4 +12,5 @@ from .amd import AMD
 from .crystal import Crystal
 from .expdata import ExpData
 from .structure import Structure
+from .comparison import phase, triplet
 

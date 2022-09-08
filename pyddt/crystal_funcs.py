@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-**Functions required by the crystal class.**
+Functions required by the ``Crystal`` class. In general, unuseful for external users.
 """
 
 import numpy as np
@@ -16,21 +16,19 @@ __status__ = "Production"
 
 def lattice(a: float, b: float, c: float, alpha: float, beta: float, gamma: float) -> tuple:
 
-    """Calculates the direct and reciprocal vectors.
+    """Calculates the direct and reciprocal lattice vectors.
 
     Args:
-        a (float): 1st lattice parameter (amplitude).
-        b (float): 2nd lattice parameter (amplitude).
-        c (float): 3rd lattice parameter (amplitude).
-        alpha (float): 1st lattice angle.
-        beta (float): 2nd lattice angle.
-        gamma (float): 3rd lattice angle.
+        a (float): 1st lattice parameter (amplitude - angstrom).
+        b (float): 2nd lattice parameter (amplitude - angstrom).
+        c (float): 3rd lattice parameter (amplitude - angstrom).
+        alpha (float): 1st lattice angle (degrees).
+        beta (float): 2nd lattice angle (degrees).
+        gamma (float): 3rd lattice angle (degrees).
 
     Returns:
         tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]: Direct and reciprocal vectors.
 
-    Notes:
-        **Expected units**: angstrom and degrees.
     """
 
     alpha, beta, gamma = np.radians(alpha), np.radians(beta), np.radians(gamma)
@@ -53,14 +51,14 @@ def lattice(a: float, b: float, c: float, alpha: float, beta: float, gamma: floa
 
 def save_diffraction(HKL: list, F: list, th: list, d: list, fout: str):
 
-    """Setting the output for the diffraction method.
+    """Setting the output for the ``diffraction`` method.
 
     Args:
         HKL (list): Miller indices.
         F (list): Structure factors.
         th (list): Bragg angles.
         d (list): Interplanar distances.
-        fout (str): File name for output.
+        fout (str): Filename for output.
     """
 
     M = np.zeros((len(F), 10))
@@ -89,14 +87,14 @@ def phase_triplet(FG: np.ndarray, FH: np.ndarray, FGH: np.ndarray) -> tuple[np.n
 
     Args:
         FG (np.ndarray): Structure factor (complex) of primary reflection.
-        FH (np.ndarray): List of structure factors (complex) for secondary reflection(s).
-        FGH (np.ndarray): List of structure factors (complex) of coupling reflections(s).
+        FH (np.ndarray): List of structure factors (complex) for the secondary reflection(s).
+        FGH (np.ndarray): List of structure factors (complex) of the coupling reflections(s).
 
     Returns:
         tuple[np.ndarray, np.ndarray, np.ndarray]: Cosine of phase triplet, phase triplet (radians) and W.
 
     Notes:
-         For unknown structure factors, use the `triplet_relation` method from `crystal` module.
+         For unknown structure factors, use the ``triplet_relation`` method from ``Crystal`` class.
     """
 
     W = (FH * FGH) / FG
