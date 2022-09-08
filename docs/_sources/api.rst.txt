@@ -1,0 +1,117 @@
+.. _api:
+
+API Documentation
+=================
+
+
+pyddt.cif module
+----------------
+
+
+.. automodule:: pyddt.cif
+    :members: to_in, to_struc, visualizer_cif
+    
+
+----
+
+
+pyddt.scatter module
+--------------------
+
+.. automodule:: pyddt.scatter
+    :members: asfQ, aresE
+    
+
+----
+
+
+
+pyddt.comparison module
+-----------------------
+
+.. automodule:: pyddt.comparison
+    :members: phase, triplet
+    
+
+----
+
+
+
+pyddt.Crystal class
+-----------------------
+
+This class is used for performing crystallographic calculations.
+
+.. autoclass:: pyddt.Crystal
+    :members: bragg, hkl2Q, Fhkl, hkl_generator, diffraction, triplet_relation, klines
+    
+
+----
+
+
+    
+pyddt.crystal_funcs module
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: pyddt.crystal_funcs
+    :members: lattice, save_diffraction, phase_triplet
+    
+
+----
+
+    
+
+pyddt.ExpData class
+-----------------------
+
+This class is used for analyzing Renninger scans.
+
+.. autoclass:: pyddt.ExpData
+    :members: plot, BC_plot, peak_picker, peak_finder, review, region_of_fit, region_plot, indexer, indexation_plot, fitter, asymmetry_assigner, asymmetry_plot, save, _peak_definer, _index_find 
+    
+
+----
+
+    
+
+pyddt.expdata_funcs module
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: pyddt.expdata_funcs
+    :members: dataframe_BClines, fwhm, peak_fit, bootstrap_resampling
+    
+
+----
+
+    
+    
+pyddt.Structure class
+-----------------------
+
+This class is used for structural modelling from *.in* files.
+
+.. autoclass:: pyddt.Structure
+    :members: visualizer_in, replace_ion, replace_occupancy, replace_bfactor, append_atom, delete_atom, save_infile
+    
+
+----
+
+    
+
+pyddt.AMD class
+---------------
+
+This class is used for performing compatibility analysis.
+
+.. autoclass:: pyddt.AMD
+    :members: experimental_asymmetries, diagram_positions, theoretical_asymmetries, matching_matrix, twovariable_plot, onevariable_plot
+    
+
+----
+
+
+pyddt.funcs module
+-------------------
+
+.. automodule:: pyddt.funcs
+    :members: delete_multiple, search_reflection, coupling_reflection, comparison_plot, str_append

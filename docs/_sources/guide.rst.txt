@@ -1,0 +1,16 @@
+.. _guide:
+
+User Guide
+==========
+
+
+This guide provides an overview of the general approach for exploiting X-ray dynamical diffraction, which motivated the pyddt development, besides the installation instructions and some tutorial notebooks.
+
+.. toctree::
+   :maxdepth: 1
+   
+   overview
+   install
+   tutorial
+
+

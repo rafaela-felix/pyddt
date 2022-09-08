@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyddt.expdata_funcs &mdash; pyddt 0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/2ndlogo_transparent.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyddt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pyddt.expdata_funcs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyddt.expdata_funcs</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions required by the ``Expdata class``. In general, unuseful for external users.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">from</span> <span class="nn">lmfit.models</span> <span class="kn">import</span> <span class="n">LinearModel</span><span class="p">,</span> <span class="n">GaussianModel</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">resample</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Rafaela Felix&quot;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Rafaela Felix&quot;</span><span class="p">,</span> <span class="s2">&quot;Sergio Morelhão&quot;</span><span class="p">}</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Rafaela Felix&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;rafaelafelixp@usp.br&quot;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Production&quot;</span>
+
+
+<div class="viewcode-block" id="dataframe_BClines"><a class="viewcode-back" href="../../api.html#pyddt.expdata_funcs.dataframe_BClines">[docs]</a><span class="k">def</span> <span class="nf">dataframe_BClines</span><span class="p">(</span><span class="n">fname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Constructs the required dataframe for BC lines plot.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fname (str): Filename with BC lines.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Bragg angle of primary reflection, FHFGH values, ``pd.DataFrame`` with BC lines.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">thG</span><span class="p">,</span> <span class="n">FHFGH</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">4</span><span class="p">:]</span>
+
+    <span class="n">phi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">phi</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">)]</span> <span class="o">-=</span> <span class="mi">360</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ω&#39;</span><span class="p">]</span>
+    <span class="n">hkl</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hkl</span><span class="p">)):</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hkl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">omega</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">phi</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">thG</span><span class="p">,</span> <span class="n">FHFGH</span><span class="p">,</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="fwhm"><a class="viewcode-back" href="../../api.html#pyddt.expdata_funcs.fwhm">[docs]</a><span class="k">def</span> <span class="nf">fwhm</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Calculates the full width at half maximum of a peak.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (np.ndarray): Data points - azimuth angle.</span>
+<span class="sd">        y (np.ndarray): Data points - intensity.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: *full width at half maximum* (fwhm).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">xbar</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">ybar</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+
+    <span class="n">yave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ybar</span><span class="p">)</span>
+    <span class="n">ymed</span> <span class="o">=</span> <span class="p">(</span><span class="n">ybar</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">yave</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">yave</span>
+    <span class="n">idxbar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ybar</span> <span class="o">-</span> <span class="n">ymed</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">[</span><span class="n">idxbar</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">f</span></div>
+
+
+<div class="viewcode-block" id="peak_fit"><a class="viewcode-back" href="../../api.html#pyddt.expdata_funcs.peak_fit">[docs]</a><span class="k">def</span> <span class="nf">peak_fit</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Fits the Gaussian + linear model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (np.ndarray): Data points (angle values).</span>
+<span class="sd">        y (np.ndarray): Data points (intensity values).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Slope value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">gauss</span> <span class="o">=</span> <span class="n">GaussianModel</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;g_&#39;</span><span class="p">)</span>
+    <span class="n">linear</span> <span class="o">=</span> <span class="n">LinearModel</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;l_&#39;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">gauss</span> <span class="o">+</span> <span class="n">linear</span>
+
+    <span class="n">pars</span> <span class="o">=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">guess</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">pars</span> <span class="o">+=</span> <span class="n">linear</span><span class="o">.</span><span class="n">guess</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pars</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;l_slope&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="bootstrap_resampling"><a class="viewcode-back" href="../../api.html#pyddt.expdata_funcs.bootstrap_resampling">[docs]</a><span class="k">def</span> <span class="nf">bootstrap_resampling</span><span class="p">(</span><span class="n">sample</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Calculates the slope error using the bootstrap resampling.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sample (pd.DataFrame): Dataframe with x and y values.</span>
+<span class="sd">        n (int): Number of samples.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Width of the slope distribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">boot</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
+        <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_fit</span><span class="p">(</span><span class="n">boot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">boot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">st</span><span class="o">.</span><span class="n">tstd</span><span class="p">(</span><span class="n">S</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rafaela Felix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

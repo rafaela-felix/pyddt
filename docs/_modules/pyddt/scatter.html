@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyddt.scatter &mdash; pyddt 0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/2ndlogo_transparent.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyddt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pyddt.scatter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyddt.scatter</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides the calculation of atomic scattering amplitudes (see `Computer Simulation Tools for X-ray Analysis: Scattering and Diffraction Methods &lt;https://link.springer.com/book/10.1007/978-3-319-19554-4&gt;`_</span>
+<span class="sd">for reference).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">difflib</span> <span class="kn">import</span> <span class="n">SequenceMatcher</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Rafaela Felix&quot;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Rafaela Felix&quot;</span><span class="p">,</span> <span class="s2">&quot;Sergio Morelhão&quot;</span><span class="p">}</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Rafaela Felix&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;rafaelafelixp@usp.br&quot;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Production&quot;</span>
+
+
+<div class="viewcode-block" id="asfQ"><a class="viewcode-back" href="../../api.html#pyddt.scatter.asfQ">[docs]</a><span class="k">def</span> <span class="nf">asfQ</span><span class="p">(</span><span class="n">atom</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">float</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Calculates the atomic scattering factor using the Cromer–Mann coefficients (highly inaccurate for</span>
+<span class="sd">    Q &gt; 30 1/angstrom).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        atom (str): Atom or ion symbol.</span>
+<span class="sd">        Q (list or float or np.ndarray): Reciprocal vector amplitude (1/angstrom) divided by 4pi.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray or float: Atomic scattering factor values.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        * ``asfQ(&#39;Na1+&#39;, np.linspace(0, 10, 1000))``</span>
+<span class="sd">        * ``asfQ(&#39;H&#39;, 3)``</span>
+<span class="sd">        * ``asfQ(&#39;Se&#39;, [0, 10, 20])``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">crom</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;f0_CromerMann.txt&quot;</span>
+
+    <span class="n">el</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">crom</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">coef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">crom</span><span class="p">,</span>
+                      <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">el</span> <span class="o">==</span> <span class="n">atom</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">atom</span><span class="p">,</span> <span class="n">el</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">ratio</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">el</span><span class="p">))])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">atom</span><span class="p">,</span> <span class="s1">&#39;is not included in Cromermann factors. Replaced by&#39;</span><span class="p">,</span> <span class="n">el</span><span class="p">[</span><span class="n">rank</span><span class="o">.</span><span class="n">argmax</span><span class="p">()])</span>  <span class="c1"># logging</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">el</span> <span class="o">==</span> <span class="n">el</span><span class="p">[</span><span class="n">rank</span><span class="o">.</span><span class="n">argmax</span><span class="p">()])</span>
+
+    <span class="n">an</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">bn</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">Q</span><span class="p">):</span>
+
+        <span class="n">f0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">an</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">bn</span> <span class="o">*</span> <span class="n">Q</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">c</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+        <span class="n">f0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Q</span><span class="p">))</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">Q</span><span class="p">):</span>
+            <span class="n">f0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">an</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">bn</span> <span class="o">*</span> <span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="n">c</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">f0</span></div>
+
+
+<div class="viewcode-block" id="aresE"><a class="viewcode-back" href="../../api.html#pyddt.scatter.aresE">[docs]</a><span class="k">def</span> <span class="nf">aresE</span><span class="p">(</span><span class="n">atom</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">E</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Calculates the atomic resonance amplitude by using linear interpolation of tabulated values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        atom (str): Element symbol.</span>
+<span class="sd">        E (np.ndarray or float): X-ray energy (from 1004.16 to 70000 eV).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray or float: Complex resonance amplitude.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        * ``aresE(&#39;Na&#39;, np.linspace(3000, 10000, 1000))``</span>
+<span class="sd">        * ``aresE(&#39;O&#39;, 8048)``</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">at</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;atomnm.txt&quot;</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;dispersion.txt&quot;</span>
+
+    <span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">el</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">el</span> <span class="o">==</span> <span class="n">atom</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]:</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:]</span>
+
+        <span class="n">f1</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">W</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">W</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="n">f2</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">W</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">W</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">f1</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">f2</span><span class="p">(</span><span class="n">E</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rafaela Felix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

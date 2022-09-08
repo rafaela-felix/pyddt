@@ -1,0 +1,34 @@
+Welcome to pyddt's documentation!
+=================================
+
+pyddt stands for Python Dynamical Diffraction Toolkit. 
+
+It is an open-source Python package for exploiting dynamic X-ray diffraction in single crystals. It allows experiment planning aimed at structure refinement of known materials, complete analysis of experimental data set, and elaboration of improved model structure compatible with phase triplet information extracted by the incorporated data analysis tools. 
+
+
+pyddt features include:
+
+* Calculation of atomic scattering amplitudes.
+* Calculation of structure factors.
+* Structural modelling from CIF.
+* Easy probing of the dynamical-diffraction susceptibility for virtually any crystalline system.
+* Identification of optimum resonant diffraction conditions.
+* Extracting all structure factor phase information available in the dataset.
+* Comparison of experimental and theoretical phase triplets.
+
+-----
+
+This manual is organized in two parts: 1) the :ref:`guide` for how to install and use pyddt, and 2) the API documentation which provides detailed information of all objects included in the package. 
+
+
+.. toctree::
+   :maxdepth: 1
+   
+   guide
+   api
+
+Indices
+=======
+
+* :ref:`genindex`
+

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyddt.cif &mdash; pyddt 0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/2ndlogo_transparent.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyddt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pyddt.cif</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyddt.cif</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module converts a Crystallographic Information File (CIF) into a structure file (*.in*).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">nglview</span> <span class="k">as</span> <span class="nn">nv</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pymatgen.symmetry.analyzer</span> <span class="k">as</span> <span class="nn">sy</span>
+<span class="kn">from</span> <span class="nn">pymatgen.io.cif</span> <span class="kn">import</span> <span class="n">CifParser</span>
+<span class="kn">from</span> <span class="nn">.funcs</span> <span class="kn">import</span> <span class="n">str_append</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Rafaela Felix&quot;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Rafaela Felix&quot;</span><span class="p">,</span> <span class="s2">&quot;Sergio Morelhão&quot;</span><span class="p">}</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Rafaela Felix&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;rafaelafelixp@usp.br&quot;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Production&quot;</span>
+
+
+<div class="viewcode-block" id="to_in"><a class="viewcode-back" href="../../api.html#pyddt.cif.to_in">[docs]</a><span class="k">def</span> <span class="nf">to_in</span><span class="p">(</span><span class="n">fcif</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Generates *.in* file from CIF.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fcif (str): CIF filename.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fin</span> <span class="o">=</span> <span class="n">fcif</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.in&#39;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">CifParser</span><span class="p">(</span><span class="n">fcif</span><span class="p">)</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structures</span><span class="p">(</span><span class="n">primitive</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">fst_row</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">10.4f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">10.4f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s1">10.4f</span><span class="si">}</span><span class="s1"> &#39;</span> \
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">10.4f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">10.4f</span><span class="si">}</span><span class="s1"> &#39;</span> \
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s1">10.4f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fst_row</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">species</span><span class="p">)):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">symbol</span><span class="si">:</span><span class="s2">&gt;10s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">frac_coords</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> &quot;</span> \
+                   <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">frac_coords</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">frac_coords</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> &quot;</span> \
+                   <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="mf">1.000</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="mf">1.000</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">to_struc</span><span class="p">(</span><span class="n">fcif</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="to_struc"><a class="viewcode-back" href="../../api.html#pyddt.cif.to_struc">[docs]</a><span class="k">def</span> <span class="nf">to_struc</span><span class="p">(</span><span class="n">fcif</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Saves the *.struc* file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fcif (str): CIF filename.</span>
+
+<span class="sd">    Notes:</span>
+
+<span class="sd">        * The *.struc* file presents some structural and electronic properties which might be useful for structural</span>
+<span class="sd">          modelling.</span>
+<span class="sd">        * Guesses of ionic charge (based on `pymatgen.core.composition_oxi_state_guesses`_) are presented for</span>
+<span class="sd">          inorganic crystals. If organic, the indices of the equivalent atoms are shown.</span>
+
+<span class="sd">    Attention:</span>
+<span class="sd">        The number of asymmetric units probably isn&#39;t correct for hydrated crystals.</span>
+
+<span class="sd">    .. _pymatgen.core.composition_oxi_state_guesses:</span>
+<span class="sd">        https://pymatgen.org/pymatgen.core.composition.html</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">CifParser</span><span class="p">(</span><span class="n">fcif</span><span class="p">)</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structures</span><span class="p">(</span><span class="n">primitive</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">fcif</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.struc&#39;</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">fcif</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="n">fcif</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.in</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">composition</span><span class="o">.</span><span class="n">reduced_formula</span><span class="p">))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39; (conventional cell = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">composition</span><span class="o">.</span><span class="n">get_reduced_formula_and_factor</span><span class="p">()[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39; molecules, &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">composition</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; atoms)</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;Space group: &#39;</span> <span class="o">+</span> <span class="n">structure</span><span class="o">.</span><span class="n">get_space_group_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">get_space_group_info</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;Total charge = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">charge</span><span class="p">))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Electronic structure:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">species</span>
+    <span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nam</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">electronic_structure</span><span class="p">)</span>
+        <span class="n">nam</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">symbol</span><span class="p">)</span>
+
+    <span class="n">arr</span><span class="p">,</span> <span class="n">nam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lst</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nam</span><span class="p">)</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">nam</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">nam</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Indices:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">symbol_set</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">indices_from_symbol</span><span class="p">(</span><span class="n">a</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">sym</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">SpacegroupAnalyzer</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span><span class="o">.</span><span class="n">get_symmetrized_structure</span><span class="p">()</span>
+    <span class="n">equil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sym</span><span class="o">.</span><span class="n">equivalent_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>  <span class="c1"># molecular crystal</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">sym</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">equil</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="o">*</span><span class="n">equil</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">equil</span><span class="p">))]</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Equivalent indices:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">molc</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>  <span class="c1"># inorganic crystal</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">molc</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">oxi</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">composition</span><span class="o">.</span><span class="n">oxi_state_guesses</span><span class="p">()[:</span><span class="mi">15</span><span class="p">]</span>
+    <span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oxi</span><span class="p">)):</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">k</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">oxi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">molc</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Possible oxidation states:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">structure</span><span class="o">.</span><span class="n">add_oxidation_state_by_guess</span><span class="p">()</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Structure of .in file with charge (by oxidation state guesses):</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span>
+                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">2.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">11.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">species</span><span class="p">)):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">str_append</span><span class="p">(</span><span class="n">text</span><span class="p">,</span>
+                              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">to_pretty_string</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;7s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">frac_coords</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+                              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">frac_coords</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">frac_coords</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="mf">1.000</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+                              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="mf">1.000</span><span class="si">:</span><span class="s2">10.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="visualizer_cif"><a class="viewcode-back" href="../../api.html#pyddt.cif.visualizer_cif">[docs]</a><span class="k">def</span> <span class="nf">visualizer_cif</span><span class="p">(</span><span class="n">fcif</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nv</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">NGLWidget</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Visualizes the CIF structure. This method is available exclusively in Jupyter Notebooks.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fcif (str): CIF filename.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nv.widget.NGLWidget: Interactive visualization of the conventional unit cell.</span>
+
+<span class="sd">    Attention:</span>
+<span class="sd">        To avoid bugs, it&#39;s highly recommended to assign this method to a variable, then close the figure after</span>
+<span class="sd">        the visualization using ``variable_name.close()``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">CifParser</span><span class="p">(</span><span class="n">fcif</span><span class="p">)</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structures</span><span class="p">(</span><span class="n">primitive</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">nv</span><span class="o">.</span><span class="n">show_pymatgen</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="s1">&#39;point&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">&#39;0.6&#39;</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">labelType</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span>
+                   <span class="n">labelText</span><span class="o">=</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">species</span><span class="p">))],</span>
+                   <span class="n">zOffset</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">attachment</span><span class="o">=</span><span class="s1">&#39;middle_center&#39;</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">add_unitcell</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">view</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rafaela Felix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

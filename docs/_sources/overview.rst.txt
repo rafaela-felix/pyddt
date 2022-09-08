@@ -1,0 +1,50 @@
+.. _overview:
+
+Overview 
+========
+
+It is well-known that X-ray dynamical diffraction (XRDD) allows direct measurements of diffracted wavefield phases [1]_ [2]_. In addition, using case-specific tools, previous works have demonstrated the feasibility of structural analysis exclusively based on 
+the line profile asymmetries of the XRDD peaks [3]_ [4]_. However, proper and helpful use of this technique in its current conception requires structural modeling, suitable experimental conditions, and adequate laboratory logistics for sample selection and pre-alignment. Following the requirements for successful application of XRDD can be quite difficult for inexperienced users without a feasible strategy and *ready-to-use* computer tools for crystallographic calculations.
+
+
+.. figure:: pyddt.png
+  :align: center
+  :width: 500
+  :alt: Simplified fluxogram of pyddt operation and capabilities.
+
+|
+
+
+Our approach for using XRDD in virtually any crystalline system is presented as implemented into pyddt. The above figure provides an overview of its functionalities.
+The typical workflow would involve a user converting data from a Crystallographic Information File (CIF) into structural models (*.in* files). From these models, the susceptibility of XRDD to structural details are easily investigated through structure factor phase and phase triplet comparisons. 
+
+
+After a successful data collection, fast semi-automatic data analysis is carried out. First, a peak-finder algorithm from Scipy_  finds the center position of all peaks showing a user-defined minimum of counts. The users can add or delete peaks in this stage of selection. Reviewing the selected cases before proceeding to fit is highly recommended, being the only unautomated part of experimental data analysis. Then, the multiple-diffraction peaks are indexed using Bragg cones and the asymmetry reading is performed by using the lmfit_ package. pyddt also provides one helpful tool for constructing asymmetry matching diagrams (AMDs) which allows visualizing the compatibility between the experimental and theoretical asymmetries.
+
+This way, pyddt establishes standard procedures for using this approach of X-ray dynamical diffraction, which now are reproducible by other researchers and
+transferable to other systems, being a big step toward the spread of the technique.
+
+
+.. _Scipy: https://scipy.org/
+
+.. _lmfit: https://lmfit.github.io/lmfit-py/
+
+
+.. [1] Q. Shen and K. D. Finkelstein, Solving the crystallographic phase problem 
+   with reference-beam diffraction. Phys. Rev. Lett. 65, 3337 (1990) 
+
+.. [2] S. L. Morelhão, S. Kycia. Enhanced X-Ray Phase Determination by Three-Beam   
+   Diffraction. Phys. Rev. Lett. 89, 015501 (2002).
+   
+.. [3] S. L. Morelhão, C. M. R. Remédios, G. A. Calligaris, G. Nisbet. X-ray dynamical  
+   diffraction in amino acid crystals: a step towards improving structural resolution of 
+   biological molecules via physical phase measurements. J. Appl. Cryst. 50, 689–700  
+   (2017).
+   
+.. [4] A. Valério, R. F. S. Penacchio, M. B. Estradiote, M. R. Cantarino, F. A. Garcia, 
+   S. L. Morelhão, N. Rafter, S. W. Kycia, G. A. Calligaris, C. M. R. Remédios. Phonon 
+   scattering mechanism in thermoelectric materials revised via resonant x-ray dynamical 
+   diffraction. MRS Communications 10, 265-271 (2020).
+   
+
+

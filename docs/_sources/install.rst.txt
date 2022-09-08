@@ -1,0 +1,36 @@
+.. _install:
+
+Installation 
+============
+
+First, use:: 
+
+  git clone https://github.com/rafaela-felix/pyddt.git
+
+for obtaining the source code. Then, installing pyddt by executing::
+
+  pip install .
+
+inside the source folder on the command line.
+
+
+Python package configuration
+----------------------------
+
+Considering that pyddt has been installed in a directory unknown to your Python distribution, you have to indicate Python where to look for it. So, you might:
+
+* add the installation directory to your PYTHONPATH environment variable.
+* add the path to *sys.path* in the *.pythonrc* file placed in your home directory.
+* add the path to *sys.path* in every script where you want to use the package before importing it
+
+.. code-block:: python
+
+  import sys
+  sys.path.append("path to pyddt")
+  import pyddt
+
+
+Testing 
+-------
+
+For now, pyddt does not contain formal tests. If you can run the tutorial notebooks, you have successfully installed the package. 

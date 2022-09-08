@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; pyddt 0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/require.min.js"></script>
+        <script src="_static/custom.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="User Guide" href="guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/2ndlogo_transparent.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guide.html">User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">Walkthrough</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyddt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="guide.html">User Guide</a> &raquo;</li>
+      <li>Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="overview">
+<span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h1>
+<p>It is well-known that X-ray dynamical diffraction (XRDD) allows direct measurements of diffracted wavefield phases <a class="footnote-reference brackets" href="#id6" id="id2">1</a> <a class="footnote-reference brackets" href="#id7" id="id3">2</a>. In addition, using case-specific tools, previous works have demonstrated the feasibility of structural analysis exclusively based on
+the line profile asymmetries of the XRDD peaks <a class="footnote-reference brackets" href="#id8" id="id4">3</a> <a class="footnote-reference brackets" href="#id9" id="id5">4</a>. However, proper and helpful use of this technique in its current conception requires structural modeling, suitable experimental conditions, and adequate laboratory logistics for sample selection and pre-alignment. Following the requirements for successful application of XRDD can be quite difficult for inexperienced users without a feasible strategy and <em>ready-to-use</em> computer tools for crystallographic calculations.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/pyddt.png"><img alt="Simplified fluxogram of pyddt operation and capabilities." src="_images/pyddt.png" style="width: 500px;" /></a>
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Our approach for using XRDD in virtually any crystalline system is presented as implemented into pyddt. The above figure provides an overview of its functionalities.
+The typical workflow would involve a user converting data from a Crystallographic Information File (CIF) into structural models (<em>.in</em> files). From these models, the susceptibility of XRDD to structural details are easily investigated through structure factor phase and phase triplet comparisons.</p>
+<p>After a successful data collection, fast semi-automatic data analysis is carried out. First, a peak-finder algorithm from <a class="reference external" href="https://scipy.org/">Scipy</a>  finds the center position of all peaks showing a user-defined minimum of counts. The users can add or delete peaks in this stage of selection. Reviewing the selected cases before proceeding to fit is highly recommended, being the only unautomated part of experimental data analysis. Then, the multiple-diffraction peaks are indexed using Bragg cones and the asymmetry reading is performed by using the <a class="reference external" href="https://lmfit.github.io/lmfit-py/">lmfit</a> package. pyddt also provides one helpful tool for constructing asymmetry matching diagrams (AMDs) which allows visualizing the compatibility between the experimental and theoretical asymmetries.</p>
+<p>This way, pyddt establishes standard procedures for using this approach of X-ray dynamical diffraction, which now are reproducible by other researchers and
+transferable to other systems, being a big step toward the spread of the technique.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Q. Shen and K. D. Finkelstein, Solving the crystallographic phase problem
+with reference-beam diffraction. Phys. Rev. Lett. 65, 3337 (1990)</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>S. L. Morelhão, S. Kycia. Enhanced X-Ray Phase Determination by Three-Beam
+Diffraction. Phys. Rev. Lett. 89, 015501 (2002).</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>S. L. Morelhão, C. M. R. Remédios, G. A. Calligaris, G. Nisbet. X-ray dynamical
+diffraction in amino acid crystals: a step towards improving structural resolution of
+biological molecules via physical phase measurements. J. Appl. Cryst. 50, 689–700
+(2017).</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>A. Valério, R. F. S. Penacchio, M. B. Estradiote, M. R. Cantarino, F. A. Garcia,
+S. L. Morelhão, N. Rafter, S. W. Kycia, G. A. Calligaris, C. M. R. Remédios. Phonon
+scattering mechanism in thermoelectric materials revised via resonant x-ray dynamical
+diffraction. MRS Communications 10, 265-271 (2020).</p>
+</dd>
+</dl>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guide.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rafaela Felix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

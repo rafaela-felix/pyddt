@@ -1,0 +1,18 @@
+.. _tutorial:
+
+Walkthrough
+===========
+
+Here are some tutorials to help you get started with pyddt.
+
+.. note::
+	Each of these tutorials is contained within a Jupyter Notebook. You can 
+	download them and the required files from the `docs/notebooks directory <https://github.com/rafaela-felix/pyddt>`_.
+
+
+.. toctree::
+   :maxdepth: 1
+  
+   notebooks/pyddt_T1.ipynb
+   notebooks/pyddt_T2.ipynb
+   notebooks/pyddt_T3.ipynb

@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Documentation &mdash; pyddt 0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/require.min.js"></script>
+        <script src="_static/custom.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Performing data and compatibility analysis" href="pyddt_T3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/2ndlogo_transparent.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyddt.cif">pyddt.cif module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyddt.scatter">pyddt.scatter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyddt.comparison">pyddt.comparison module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pyddt-crystal-class">pyddt.Crystal class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyddt.crystal_funcs">pyddt.crystal_funcs module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pyddt-expdata-class">pyddt.ExpData class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyddt.expdata_funcs">pyddt.expdata_funcs module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pyddt-structure-class">pyddt.Structure class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pyddt-amd-class">pyddt.AMD class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyddt.funcs">pyddt.funcs module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyddt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>API Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="api-documentation">
+<span id="api"></span><h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading"></a></h1>
+<section id="module-pyddt.cif">
+<span id="pyddt-cif-module"></span><h2>pyddt.cif module<a class="headerlink" href="#module-pyddt.cif" title="Permalink to this heading"></a></h2>
+<p>This module converts a Crystallographic Information File (CIF) into a structure file (<em>.in</em>).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.cif.to_in">
+<span class="sig-prename descclassname"><span class="pre">pyddt.cif.</span></span><span class="sig-name descname"><span class="pre">to_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fcif</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/cif.html#to_in"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.cif.to_in" title="Permalink to this definition"></a></dt>
+<dd><p>Generates <em>.in</em> file from CIF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fcif</strong> (<em>str</em>) – CIF filename.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.cif.to_struc">
+<span class="sig-prename descclassname"><span class="pre">pyddt.cif.</span></span><span class="sig-name descname"><span class="pre">to_struc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fcif</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/cif.html#to_struc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.cif.to_struc" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the <em>.struc</em> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fcif</strong> (<em>str</em>) – CIF filename.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>The <em>.struc</em> file presents some structural and electronic properties which might be useful for structural
+modelling.</p></li>
+<li><p>Guesses of ionic charge (based on <a class="reference external" href="https://pymatgen.org/pymatgen.core.composition.html">pymatgen.core.composition_oxi_state_guesses</a>) are presented for
+inorganic crystals. If organic, the indices of the equivalent atoms are shown.</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The number of asymmetric units probably isn’t correct for hydrated crystals.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.cif.visualizer_cif">
+<span class="sig-prename descclassname"><span class="pre">pyddt.cif.</span></span><span class="sig-name descname"><span class="pre">visualizer_cif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fcif</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NGLWidget</span></span></span><a class="reference internal" href="_modules/pyddt/cif.html#visualizer_cif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.cif.visualizer_cif" title="Permalink to this definition"></a></dt>
+<dd><p>Visualizes the CIF structure. This method is available exclusively in Jupyter Notebooks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fcif</strong> (<em>str</em>) – CIF filename.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Interactive visualization of the conventional unit cell.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nv.widget.NGLWidget</p>
+</dd>
+</dl>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>To avoid bugs, it’s highly recommended to assign this method to a variable, then close the figure after
+the visualization using <code class="docutils literal notranslate"><span class="pre">variable_name.close()</span></code>.</p>
+</div>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-pyddt.scatter">
+<span id="pyddt-scatter-module"></span><h2>pyddt.scatter module<a class="headerlink" href="#module-pyddt.scatter" title="Permalink to this heading"></a></h2>
+<p>This module provides the calculation of atomic scattering amplitudes (see <a class="reference external" href="https://link.springer.com/book/10.1007/978-3-319-19554-4">Computer Simulation Tools for X-ray Analysis: Scattering and Diffraction Methods</a>
+for reference).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.scatter.asfQ">
+<span class="sig-prename descclassname"><span class="pre">pyddt.scatter.</span></span><span class="sig-name descname"><span class="pre">asfQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/pyddt/scatter.html#asfQ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.scatter.asfQ" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the atomic scattering factor using the Cromer–Mann coefficients (highly inaccurate for
+Q &gt; 30 1/angstrom).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom</strong> (<em>str</em>) – Atom or ion symbol.</p></li>
+<li><p><strong>Q</strong> (<em>list</em><em> or </em><em>float</em><em> or </em><em>np.ndarray</em>) – Reciprocal vector amplitude (1/angstrom) divided by 4pi.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Atomic scattering factor values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray or float</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">asfQ('Na1+',</span> <span class="pre">np.linspace(0,</span> <span class="pre">10,</span> <span class="pre">1000))</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asfQ('H',</span> <span class="pre">3)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asfQ('Se',</span> <span class="pre">[0,</span> <span class="pre">10,</span> <span class="pre">20])</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.scatter.aresE">
+<span class="sig-prename descclassname"><span class="pre">pyddt.scatter.</span></span><span class="sig-name descname"><span class="pre">aresE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/pyddt/scatter.html#aresE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.scatter.aresE" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the atomic resonance amplitude by using linear interpolation of tabulated values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom</strong> (<em>str</em>) – Element symbol.</p></li>
+<li><p><strong>E</strong> (<em>np.ndarray</em><em> or </em><em>float</em>) – X-ray energy (from 1004.16 to 70000 eV).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Complex resonance amplitude.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray or float</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aresE('Na',</span> <span class="pre">np.linspace(3000,</span> <span class="pre">10000,</span> <span class="pre">1000))</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aresE('O',</span> <span class="pre">8048)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-pyddt.comparison">
+<span id="pyddt-comparison-module"></span><h2>pyddt.comparison module<a class="headerlink" href="#module-pyddt.comparison" title="Permalink to this heading"></a></h2>
+<p>This module performs the phase comparison between structural models.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.comparison.phase">
+<span class="sig-prename descclassname"><span class="pre">pyddt.comparison.</span></span><span class="sig-name descname"><span class="pre">phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/comparison.html#phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.comparison.phase" title="Permalink to this definition"></a></dt>
+<dd><p>Comparison of the structure factor phase with respect to two structural models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data1</strong> (<em>np.ndarray</em>) – List of structure factors for the 1st structure.</p></li>
+<li><p><strong>data2</strong> (<em>np.ndarray</em>) – List of structure factors for the 2nd structure.</p></li>
+<li><p><strong>min</strong> (<em>float</em>) – Minimum phase difference (degrees). <strong>Default</strong>: 15.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>The list of structure factors can be obtained by the <code class="docutils literal notranslate"><span class="pre">Crystal.diffraction()</span></code> method.</p></li>
+<li><p>By default, the <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code> will be displayed in an installed browser.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.comparison.triplet">
+<span class="sig-prename descclassname"><span class="pre">pyddt.comparison.</span></span><span class="sig-name descname"><span class="pre">triplet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/comparison.html#triplet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.comparison.triplet" title="Permalink to this definition"></a></dt>
+<dd><p>Comparison of the phase triplet with respect to two structural models for a given primary reflection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data1</strong> (<em>np.ndarray</em>) – List of structure factors for the 1st structure.</p></li>
+<li><p><strong>data2</strong> (<em>np.ndarray</em>) – List of structure factors for the 2nd structure.</p></li>
+<li><p><strong>G</strong> (<em>list</em>) – Indices of the primary reflection (eg  <cite>[1, 0, 0]</cite>).</p></li>
+<li><p><strong>wmin</strong> (<em>float</em>) – Cutoff for the triplet amplitude (% ranging from 0 to 100). <strong>Default</strong>: 5.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>The list of structure factors can be obtained by the <code class="docutils literal notranslate"><span class="pre">Crystal.diffraction()</span></code> method.</p></li>
+<li><p>By default, the <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code> will be displayed in an installed browser.</p></li>
+<li><p>The method returns <code class="docutils literal notranslate"><span class="pre">None</span></code> for null or absent primary reflection.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="pyddt-crystal-class">
+<h2>pyddt.Crystal class<a class="headerlink" href="#pyddt-crystal-class" title="Permalink to this heading"></a></h2>
+<p>This class is used for performing crystallographic calculations.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyddt.Crystal">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyddt.</span></span><span class="sig-name descname"><span class="pre">Crystal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struc_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal" title="Permalink to this definition"></a></dt>
+<dd><p>Given a structure, returns a new <code class="docutils literal notranslate"><span class="pre">crystal</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>struc_obj</strong> (<em>str</em><em> or </em><a class="reference internal" href="#pyddt.Structure" title="pyddt.Structure"><em>Structure</em></a>) – Filename or Structure object.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p><em>.in</em> file columns: atom or ion symbols, fractional coordinates, occupancy numbers and B-factors.
+The first line must present the lattice parameters. Use the <code class="docutils literal notranslate"><span class="pre">cif</span></code> module to generate this file
+from CIF.</p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.bragg">
+<span class="sig-name descname"><span class="pre">bragg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hkl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.bragg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.bragg" title="Permalink to this definition"></a></dt>
+<dd><p>Determines the interplanar distance and Bragg angle from Miller indices and X-ray energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<em>float</em>) – X-ray energy (eV).</p></li>
+<li><p><strong>hkl</strong> (<em>list</em>) – Miller indices (e.g <cite>[1, 0, 0]</cite>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Interplanar distance and Bragg angle.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.hkl2Q">
+<span class="sig-name descname"><span class="pre">hkl2Q</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hkl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.hkl2Q"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.hkl2Q" title="Permalink to this definition"></a></dt>
+<dd><p>Determines the reciprocal vector from Miller indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hkl</strong> (<em>np.ndarray</em>) – Miller indices</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Q values (1/angstrom).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hkl2Q([[1,</span> <span class="pre">0,</span> <span class="pre">0],</span> <span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">1]])</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hkl2Q([1,</span> <span class="pre">0,</span> <span class="pre">0])</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.Fhkl">
+<span class="sig-name descname"><span class="pre">Fhkl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.Fhkl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.Fhkl" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the complex structure factor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<em>float</em><em> or </em><em>np.ndarray</em>) – X-ray energy (eV).</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – Miller indices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of structure factors (complex).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This method accepts an array of energy for a fixed reflection or
+a fixed energy jointly a set of reflections.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Fhkl(8048,</span> <span class="pre">[[1,</span> <span class="pre">0,</span> <span class="pre">0],</span> <span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">1]])</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Fhkl([8048,</span> <span class="pre">10004],</span> <span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0])</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.hkl_generator">
+<span class="sig-name descname"><span class="pre">hkl_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.hkl_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.hkl_generator" title="Permalink to this definition"></a></dt>
+<dd><p>Determines the Miller indices of all structure-allowed lattice planes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>E</strong> (<em>float</em>) – X-ray energy (eV).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Miller indices, Bragg angles and interplanar distances.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.diffraction">
+<span class="sig-name descname"><span class="pre">diffraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.diffraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.diffraction" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the complex structure factor and interplanar distance of all structure-allowed lattice planes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<em>float</em>) – X-ray energy (eV).</p></li>
+<li><p><strong>fout</strong> (<em>str</em>) – Filename for output. <strong>Default</strong>: None - it doesn’t save.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reflections, structure factors and interplanar distances.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.triplet_relation">
+<span class="sig-name descname"><span class="pre">triplet_relation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G_H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.triplet_relation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.triplet_relation" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the phase triplet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<em>float</em>) – X-ray energy (eV).</p></li>
+<li><p><strong>G_H</strong> (<em>list</em>) – Indices of primary and secondary reflection (in this order).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cosine of phase triplet and interference amplitude W.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple[float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Crystal.klines">
+<span class="sig-name descname"><span class="pre">klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Fmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/crystal.html#Crystal.klines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Crystal.klines" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Bragg Cones (BC lines) of all reflections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<em>float</em>) – X-ray energy (eV).</p></li>
+<li><p><strong>G</strong> (<em>list</em><em> or </em><em>ndarray</em>) – Primary reflection (eg <cite>[1, 0, 0]</cite>).</p></li>
+<li><p><strong>M</strong> (<em>list</em><em> or </em><em>ndarray</em>) – Reference direction (eg <cite>[1, 0, -1]</cite>).</p></li>
+<li><p><strong>Fmin</strong> (<em>float</em>) – Cutoff value for W (minimum).</p></li>
+<li><p><strong>dw</strong> (<em>float</em>) – Maximum distance between BC lines and primary reflection.</p></li>
+<li><p><strong>npoints</strong> (<em>int</em>) – Number of points of the 2D-cone representation.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The BC lines are saved in <em>IN/OUT/THG_G_array_M_array_E_value.dat</em> files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>IN_G_array_M_array_E_value.dat</em>: BC lines entering the Ewald sphere.</p></li>
+<li><p><em>OUT_G_array_M_array_E_value.dat</em>: BC lines exiting the Ewald sphere.</p></li>
+<li><p><em>THG_G_array_M_array_E_value.dat</em>: MD positions (in-out and out-in geometries).</p></li>
+</ul>
+</div></blockquote>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">klines(8048,</span> <span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">1],</span> <span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0],</span> <span class="pre">10)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<section id="module-pyddt.crystal_funcs">
+<span id="pyddt-crystal-funcs-module"></span><h3>pyddt.crystal_funcs module<a class="headerlink" href="#module-pyddt.crystal_funcs" title="Permalink to this heading"></a></h3>
+<p>Functions required by the <code class="docutils literal notranslate"><span class="pre">Crystal</span></code> class. In general, unuseful for external users.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.crystal_funcs.lattice">
+<span class="sig-prename descclassname"><span class="pre">pyddt.crystal_funcs.</span></span><span class="sig-name descname"><span class="pre">lattice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/pyddt/crystal_funcs.html#lattice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.crystal_funcs.lattice" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the direct and reciprocal lattice vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – 1st lattice parameter (amplitude - angstrom).</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – 2nd lattice parameter (amplitude - angstrom).</p></li>
+<li><p><strong>c</strong> (<em>float</em>) – 3rd lattice parameter (amplitude - angstrom).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – 1st lattice angle (degrees).</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – 2nd lattice angle (degrees).</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) – 3rd lattice angle (degrees).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Direct and reciprocal vectors.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.crystal_funcs.save_diffraction">
+<span class="sig-prename descclassname"><span class="pre">pyddt.crystal_funcs.</span></span><span class="sig-name descname"><span class="pre">save_diffraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HKL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/crystal_funcs.html#save_diffraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.crystal_funcs.save_diffraction" title="Permalink to this definition"></a></dt>
+<dd><p>Setting the output for the <code class="docutils literal notranslate"><span class="pre">diffraction</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>HKL</strong> (<em>list</em>) – Miller indices.</p></li>
+<li><p><strong>F</strong> (<em>list</em>) – Structure factors.</p></li>
+<li><p><strong>th</strong> (<em>list</em>) – Bragg angles.</p></li>
+<li><p><strong>d</strong> (<em>list</em>) – Interplanar distances.</p></li>
+<li><p><strong>fout</strong> (<em>str</em>) – Filename for output.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.crystal_funcs.phase_triplet">
+<span class="sig-prename descclassname"><span class="pre">pyddt.crystal_funcs.</span></span><span class="sig-name descname"><span class="pre">phase_triplet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FG</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FH</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FGH</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pyddt/crystal_funcs.html#phase_triplet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.crystal_funcs.phase_triplet" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the phase triplet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>FG</strong> (<em>np.ndarray</em>) – Structure factor (complex) of primary reflection.</p></li>
+<li><p><strong>FH</strong> (<em>np.ndarray</em>) – List of structure factors (complex) for the secondary reflection(s).</p></li>
+<li><p><strong>FGH</strong> (<em>np.ndarray</em>) – List of structure factors (complex) of the coupling reflections(s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cosine of phase triplet, phase triplet (radians) and W.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>For unknown structure factors, use the <code class="docutils literal notranslate"><span class="pre">triplet_relation</span></code> method from <code class="docutils literal notranslate"><span class="pre">Crystal</span></code> class.</p>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<hr class="docutils" />
+<section id="pyddt-expdata-class">
+<h2>pyddt.ExpData class<a class="headerlink" href="#pyddt-expdata-class" title="Permalink to this heading"></a></h2>
+<p>This class is used for analyzing Renninger scans.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyddt.ExpData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyddt.</span></span><span class="sig-name descname"><span class="pre">ExpData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData" title="Permalink to this definition"></a></dt>
+<dd><p>Given the experimental data, returns a new <code class="docutils literal notranslate"><span class="pre">exp</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<em>float</em>) – X-ray energy (eV).</p></li>
+<li><p><strong>G</strong> (<em>list</em>) – Primary reflection (eg <cite>[1, 1, 1]</cite>).</p></li>
+<li><p><strong>fname</strong> (<em>str</em>) – Filename containing the data.</p></li>
+<li><p><strong>colx</strong> (<em>int</em>) – Column number of angle values. <strong>Default</strong>: 0 (1st column).</p></li>
+<li><p><strong>coly</strong> (<em>int</em>) – Column number of intensity values. <strong>Default</strong>: 1 (2nd column).</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Label for the current work. <strong>Default</strong>: None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Figure</span></span></span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the phi-scan.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Interactive plot.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>matplotlib.figure.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.BC_plot">
+<span class="sig-name descname"><span class="pre">BC_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Fmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.BC_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.BC_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the phi-scan and BC lines for visual indexing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<em>str</em>) – Structure filename (<cite>.in</cite>).</p></li>
+<li><p><strong>M</strong> (<em>list</em>) – Reference direction (eg <cite>[1, 0, 0]</cite>).</p></li>
+<li><p><strong>Fmin</strong> (<em>float</em>) – Cutoff for W (minimum absolute value).</p></li>
+<li><p><strong>dw</strong> (<em>float</em>) – Maximum distance between BC lines and primary reflection.</p></li>
+<li><p><strong>npoints</strong> (<em>int</em>) – Number of points of the 2D-cone representation.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>By default, the <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code> will be displayed in an installed browser or notebook.</p></li>
+<li><p>BC lines ranging from -180 to 180 deg.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.peak_picker">
+<span class="sig-name descname"><span class="pre">peak_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.peak_picker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.peak_picker" title="Permalink to this definition"></a></dt>
+<dd><p>Manual selection of MD peaks.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>To select a peak, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.peak_finder">
+<span class="sig-name descname"><span class="pre">peak_finder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minimum_intensity_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.03</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.peak_finder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.peak_finder" title="Permalink to this definition"></a></dt>
+<dd><p>Automatic definition of the MD peak list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>minimum_intensity_p</strong> (<em>float</em>) – Minimum intensity for considering a peak (% of the maximum intensity ranging
+between 0 and 1). <strong>Default</strong>: 0.03.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.review">
+<span class="sig-name descname"><span class="pre">review</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.review"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.review" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the experimental data highlighting the selected MD peaks for user review.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>To select a peak, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.region_of_fit">
+<span class="sig-name descname"><span class="pre">region_of_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.region_of_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.region_of_fit" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the region of fit for each selected MD peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>int</em>) – Number of fwhm defining the region of fit. <strong>Default</strong>: 15.</p></li>
+<li><p><strong>points</strong> (<em>int</em>) – Max number of points defining a peak.</p></li>
+<li><p><strong>flag</strong> (<em>int</em>) – If <code class="docutils literal notranslate"><span class="pre">flag</span> <span class="pre">!=</span> <span class="pre">0</span></code>, plots the data highlighting the calculated regions. <strong>Default</strong>: 0.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>If <cite>flag != 0</cite>, it’s possible to delete peaks.</p></li>
+<li><p>To select a peak, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.region_plot">
+<span class="sig-name descname"><span class="pre">region_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.region_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.region_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the calculated regions of fit for user review.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>To select a peak, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.indexer">
+<span class="sig-name descname"><span class="pre">indexer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Fmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.indexer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.indexer" title="Permalink to this definition"></a></dt>
+<dd><p>Finds the secondary reflection related to each selected MD peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<em>str</em>) – Structure filename (the same used by <code class="docutils literal notranslate"><span class="pre">Crystal</span></code> class).</p></li>
+<li><p><strong>M</strong> (<em>list</em>) – Reference direction (eg <cite>[1, 0, 0]</cite>).</p></li>
+<li><p><strong>Fmin</strong> (<em>float</em>) – Cutoff for W (minimum absolute value).</p></li>
+<li><p><strong>dmin</strong> (<em>float</em>) – Maximum difference between MD peak and BC line crossing the primary. <strong>Default</strong>: 0.1 deg</p></li>
+<li><p><strong>flag</strong> (<em>int</em>) – If <cite>flag != 0</cite>, plots the secondary reflection indices. <strong>Default</strong>: 0.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>Case two or more lattice planes are excited at the same angle with the same geometry:
+all will be displayed in the output file.</p></li>
+<li><p>If the geometries are opposite, the peak is not <strong>indexable</strong> (so it’s excluded from the peak list).</p></li>
+<li><p>It’s also not <strong>indexable</strong> the case with two excited reflections that distance themselves by less than
+0.05º, whose smallest W value is at least half of the largest value. Except for these cases,
+the peak is indexed by the stronger reflection that is up to <code class="docutils literal notranslate"><span class="pre">dmin</span></code> of distance from the MD
+peak position.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.indexation_plot">
+<span class="sig-name descname"><span class="pre">indexation_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hkl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.indexation_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.indexation_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the phi-scan and corresponding MD indexing  for user review.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hkl</strong> (<em>list</em>) – Secondary reflections.</p></li>
+<li><p><strong>s</strong> (<em>list</em>) – Diffraction geometry of excitation.</p></li>
+<li><p><strong>idx</strong> (<em>list</em>) – Index of <strong>unindexable</strong> cases in peak list.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>To select a peak, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.fitter">
+<span class="sig-name descname"><span class="pre">fitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsamples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.fitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.fitter" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the slope and slope error for each MD peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nsamples</strong> (<em>int</em>) – Number of samples for bootstrap resampling.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">nsamples</span> <span class="pre">=</span> <span class="pre">0</span></code>, the slope error isn’t calculated.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.asymmetry_assigner">
+<span class="sig-name descname"><span class="pre">asymmetry_assigner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sbar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.asymmetry_assigner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.asymmetry_assigner" title="Permalink to this definition"></a></dt>
+<dd><p>Assigns the asymmetry type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sbar</strong> (<em>float</em>) – Minimum value of the relative slope. <strong>Default</strong>: 0.1 (10%)</p></li>
+<li><p><strong>tau</strong> (<em>float</em>) – Maximum value for the ratio slope_error/slope. <strong>Default</strong>: 0.4 (40%)</p></li>
+<li><p><strong>flag</strong> (<em>int</em>) – If <code class="docutils literal notranslate"><span class="pre">flag</span> <span class="pre">!=</span> <span class="pre">0</span></code>, plots the data with read asymmetry types. <strong>Default</strong>: 0.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>If <cite>flag != 0</cite>, it’s possible to delete peaks.</p></li>
+<li><p>To select a peak, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.asymmetry_plot">
+<span class="sig-name descname"><span class="pre">asymmetry_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.asymmetry_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.asymmetry_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the phi-scan and corresponding asymmetry type assigned for each selected MD peak.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>To invert the assigned asymmetry of an MD peak,, stop the mouse over the maximum and press <strong>SPACE</strong>.</p></li>
+<li><p>To unselect, stop the mouse over the maximum and press <strong>DEL</strong>.</p></li>
+<li><p>Feel free to zoom in or out.</p></li>
+<li><p>After finishing the selection, press <strong>ENTER</strong>. Then, close the figure (mouse or press <strong>q</strong>).</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Press <strong>ENTER</strong> before closing the plot, even if no peak was selected.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData.save" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the current work.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fout</strong> (<em>str</em>) – Filename of the output data. <strong>Default</strong>: <em>NAME_E_value_G_indexes.ext/.red</em></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>The <em>.ext</em> file presents the azimuth position, <em>hkl</em>, slope, slope error, statistical
+properties, asymmetry type and excitation geometry.</p></li>
+<li><p>The <em>.red</em> file only presents <em>hkl</em>, asymmetry and diffraction geometry, besides primary indices
+and energy in 1st line.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData._peak_definer">
+<span class="sig-name descname"><span class="pre">_peak_definer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData._peak_definer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData._peak_definer" title="Permalink to this definition"></a></dt>
+<dd><p>Finds the indices of first and last points of an MD peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peak_number</strong> (<em>int</em>) – Index of the peak center in the angles array.</p></li>
+<li><p><strong>points</strong> (<em>int</em>) – Max number of points defining a peak.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>First and last points of the MD peak.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.ExpData._index_find">
+<span class="sig-name descname"><span class="pre">_index_find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hkl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/pyddt/expdata.html#ExpData._index_find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.ExpData._index_find" title="Permalink to this definition"></a></dt>
+<dd><p>Find the closer MD case of a defined azimuth angle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dmin</strong> (<em>float</em>) – Maximum difference between peak position and BCs crossing the primary reflection.</p></li>
+<li><p><strong>ph</strong> (<em>float</em>) – Angle on the Renninger scan.</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – 3 or 4 (in-out or out-in BC lines).</p></li>
+<li><p><strong>hkl</strong> (<em>np.ndarray</em>) – Miller indices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Azimuth position, W amplitude, secondary reflection indices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<section id="module-pyddt.expdata_funcs">
+<span id="pyddt-expdata-funcs-module"></span><h3>pyddt.expdata_funcs module<a class="headerlink" href="#module-pyddt.expdata_funcs" title="Permalink to this heading"></a></h3>
+<p>Functions required by the <code class="docutils literal notranslate"><span class="pre">Expdata</span> <span class="pre">class</span></code>. In general, unuseful for external users.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.expdata_funcs.dataframe_BClines">
+<span class="sig-prename descclassname"><span class="pre">pyddt.expdata_funcs.</span></span><span class="sig-name descname"><span class="pre">dataframe_BClines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/pyddt/expdata_funcs.html#dataframe_BClines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.expdata_funcs.dataframe_BClines" title="Permalink to this definition"></a></dt>
+<dd><p>Constructs the required dataframe for BC lines plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – Filename with BC lines.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bragg angle of primary reflection, FHFGH values, <code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> with BC lines.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.expdata_funcs.fwhm">
+<span class="sig-prename descclassname"><span class="pre">pyddt.expdata_funcs.</span></span><span class="sig-name descname"><span class="pre">fwhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/pyddt/expdata_funcs.html#fwhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.expdata_funcs.fwhm" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the full width at half maximum of a peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Data points - azimuth angle.</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Data points - intensity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>full width at half maximum</em> (fwhm).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.expdata_funcs.peak_fit">
+<span class="sig-prename descclassname"><span class="pre">pyddt.expdata_funcs.</span></span><span class="sig-name descname"><span class="pre">peak_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/pyddt/expdata_funcs.html#peak_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.expdata_funcs.peak_fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fits the Gaussian + linear model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Data points (angle values).</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Data points (intensity values).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Slope value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.expdata_funcs.bootstrap_resampling">
+<span class="sig-prename descclassname"><span class="pre">pyddt.expdata_funcs.</span></span><span class="sig-name descname"><span class="pre">bootstrap_resampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/pyddt/expdata_funcs.html#bootstrap_resampling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.expdata_funcs.bootstrap_resampling" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the slope error using the bootstrap resampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample</strong> (<em>pd.DataFrame</em>) – Dataframe with x and y values.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Number of samples.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Width of the slope distribution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<hr class="docutils" />
+<section id="pyddt-structure-class">
+<h2>pyddt.Structure class<a class="headerlink" href="#pyddt-structure-class" title="Permalink to this heading"></a></h2>
+<p>This class is used for structural modelling from <em>.in</em> files.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyddt.Structure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyddt.</span></span><span class="sig-name descname"><span class="pre">Structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure" title="Permalink to this definition"></a></dt>
+<dd><p>Given a <em>.in</em> file, returns a new <code class="docutils literal notranslate"><span class="pre">struc</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – Structure filename.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.visualizer_in">
+<span class="sig-name descname"><span class="pre">visualizer_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NGLWidget</span></span></span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.visualizer_in"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.visualizer_in" title="Permalink to this definition"></a></dt>
+<dd><p>Visualizes the structure. This method is available exclusively in Jupyter Notebooks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Interactive visualization of the conventional unit cell.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>nv.widget.NGLWidget</p>
+</dd>
+</dl>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>To avoid bugs, it’s highly recommended to assign this method to a variable, then close the figure after
+the visualization using <code class="docutils literal notranslate"><span class="pre">variable_name.close()</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.replace_ion">
+<span class="sig-name descname"><span class="pre">replace_ion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.replace_ion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.replace_ion" title="Permalink to this definition"></a></dt>
+<dd><p>Replaces atoms or ions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old</strong> (<em>str</em>) – Array indices or element symbol to be replaced.</p></li>
+<li><p><strong>new</strong> (<em>str</em>) – New atom/ion symbol.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>There are many ways to pass indices as arguments: a number, numbers separated by commas, an interval
+of indices (first and last indices separated by “:” ) and intervals separated by commas. A string is
+expected.</p></li>
+<li><p>If the new symbol isn’t in the current CromerMann list, the symbol is replaced by the most similar and a
+warning will be displayed.</p></li>
+</ul>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_ion('Ce',</span> <span class="pre">'Ce3+')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_ion('1',</span> <span class="pre">'O1-')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_ion('1,</span> <span class="pre">2,</span> <span class="pre">3',</span> <span class="pre">'O1-')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_ion('1:3',</span> <span class="pre">'Fe2+')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_ion('1:3,</span> <span class="pre">5:6,</span> <span class="pre">7:8',</span> <span class="pre">'N3-')</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.replace_occupancy">
+<span class="sig-name descname"><span class="pre">replace_occupancy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.replace_occupancy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.replace_occupancy" title="Permalink to this definition"></a></dt>
+<dd><p>Replaces a specific set of occupancy numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>str</em>) – Array indices of the occupancy numbers to be replaced.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – New values.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>There are many ways to pass indices as arguments: a number, numbers separated by commas, an interval
+of indices (first and last indices separated by “:” ) and intervals separated by commas. A string is
+expected.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_occupancy('1',</span> <span class="pre">0.78)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_occupancy('1,</span> <span class="pre">2,</span> <span class="pre">3',</span> <span class="pre">0.92)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_occupancy('1:3',</span> <span class="pre">0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_occupancy('1:3,</span> <span class="pre">5:6,</span> <span class="pre">7:8',</span> <span class="pre">0.5)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.replace_bfactor">
+<span class="sig-name descname"><span class="pre">replace_bfactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.replace_bfactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.replace_bfactor" title="Permalink to this definition"></a></dt>
+<dd><p>Replaces a specific set of B-factors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>str</em>) – Array indices of B-factors to be replaced.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – New values.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>There are many ways to pass indices as arguments: only a number, numbers separated by commas, an interval
+of indices (first and last indices separated by “:” ) and intervals separated by commas. A string is
+expected.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_bfactor('1',</span> <span class="pre">3.14)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_bfactor('1,</span> <span class="pre">2,</span> <span class="pre">3',</span> <span class="pre">0.92)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_bfactor('1:3',</span> <span class="pre">10.015)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_bfactor('1:3,</span> <span class="pre">5:6,</span> <span class="pre">7:8',</span> <span class="pre">0.5)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.append_atom">
+<span class="sig-name descname"><span class="pre">append_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.append_atom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.append_atom" title="Permalink to this definition"></a></dt>
+<dd><p>Appends a new atom to the structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>info</strong> (<em>list</em>) – Atom or ion symbol, fractional coordinates (x, y and z), occupancy number and B-factor.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">append_atom(['Fe2+',</span> <span class="pre">0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5,</span> <span class="pre">1,</span> <span class="pre">3.14])</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p>The new atom will be allocated in the last index of the atoms array.</p></li>
+<li><p>For the current version, append atoms one-by-one.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.delete_atom">
+<span class="sig-name descname"><span class="pre">delete_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.delete_atom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.delete_atom" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes a set of atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>str</em>) – Array indices of the atoms to be deleted.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>There are many ways to pass indices as arguments: only a number, numbers separated by commas, an interval
+of indices (first and last indices separated by “:” ) and intervals separated by commas.  A string is
+expected.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_atom('1')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_atom('1,</span> <span class="pre">2,</span> <span class="pre">3')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_atom('1:3')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_atom('1:3,</span> <span class="pre">5:6,</span> <span class="pre">7:8')</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.Structure.save_infile">
+<span class="sig-name descname"><span class="pre">save_infile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/structure.html#Structure.save_infile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.Structure.save_infile" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the <em>.in</em> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fout</strong> (<em>str</em>) – Filename. <strong>Default</strong>: <cite>datetime_fname</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="pyddt-amd-class">
+<h2>pyddt.AMD class<a class="headerlink" href="#pyddt-amd-class" title="Permalink to this heading"></a></h2>
+<p>This class is used for performing compatibility analysis.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyddt.AMD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyddt.</span></span><span class="sig-name descname"><span class="pre">AMD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fexp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mnames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD" title="Permalink to this definition"></a></dt>
+<dd><p>Given the experimental asymmetries and structural models, returns a new <code class="docutils literal notranslate"><span class="pre">amd</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fexp</strong> (<em>str</em>) – Filename of experimental asymmetries.</p></li>
+<li><p><strong>mnames</strong> (<em>list</em>) – Names of <em>.in</em> files (structural models).</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<ul class="simple">
+<li><p><cite>fexp</cite> file must present <em>hkl</em> indices, asymmetry type, and diffraction geometry in columns (this order),
+including primary reflection and X-ray energy in 1st line. This file is automatically generated by the
+<code class="docutils literal notranslate"><span class="pre">expdata</span></code> class (<em>.red</em> extension).</p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.AMD.experimental_asymmetries">
+<span class="sig-name descname"><span class="pre">experimental_asymmetries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cyan'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'gold'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD.experimental_asymmetries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD.experimental_asymmetries" title="Permalink to this definition"></a></dt>
+<dd><p>Shows the experimental asymmetries in the diagram.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hl</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color of HL asymmetries. <strong>Default</strong>: cyan.</p></li>
+<li><p><strong>lh</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color of LH asymmetries. <strong>Default</strong>: gold.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><cite>hl</cite> and <cite>lh</cite> must be color names or RGB values ranging between 0 and 1.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">exp_plot('red',</span> <span class="pre">'blue')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exp_plot((1,</span> <span class="pre">0,</span> <span class="pre">0),</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1))</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.AMD.diagram_positions">
+<span class="sig-name descname"><span class="pre">diagram_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD.diagram_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD.diagram_positions" title="Permalink to this definition"></a></dt>
+<dd><p>Shows the MD positions in the asymmetry matching diagram.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.AMD.theoretical_asymmetries">
+<span class="sig-name descname"><span class="pre">theoretical_asymmetries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD.theoretical_asymmetries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD.theoretical_asymmetries" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the theoretical asymmetries.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.AMD.matching_matrix">
+<span class="sig-name descname"><span class="pre">matching_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD.matching_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD.matching_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the matching matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.AMD.twovariable_plot">
+<span class="sig-name descname"><span class="pre">twovariable_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'x'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'y'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_empty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'whitesmoke'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showlegend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD.twovariable_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD.twovariable_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the asymmetry matching diagram (AMD) for structural models with two differential variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xmax</strong> (<em>float</em>) – Maximum value in horizontal axis.</p></li>
+<li><p><strong>xmin</strong> (<em>float</em>) – Minimum value in horizontal axis.</p></li>
+<li><p><strong>dx</strong> (<em>float</em>) – Step of the horizontal axis.</p></li>
+<li><p><strong>ymax</strong> (<em>float</em>) – Maximum value in vertical axis.</p></li>
+<li><p><strong>ymin</strong> (<em>float</em>) – Minimum value in vertical axis.</p></li>
+<li><p><strong>dy</strong> (<em>float</em>) – Step of the vertical axis.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em>) – Label for the horizontal axis. <strong>Default</strong>: <em>x</em>.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em>) – Label for the vertical axis. <strong>Default</strong>: <em>y</em>.</p></li>
+<li><p><strong>color_empty</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color of the empty cells. <strong>Default</strong>: whitesmoke.</p></li>
+<li><p><strong>incp</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color representing the incompatible cases. <strong>Default</strong>: red.</p></li>
+<li><p><strong>cp</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color representing the compatible cases. <strong>Default</strong>: lime.</p></li>
+<li><p><strong>showlegend</strong> (<em>bool</em>) – Display legend (True/False). <strong>Default</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><cite>color_empty</cite>, <cite>incp</cite> and <cite>cp</cite> must be color names or RGB values ranging between 0 and 1.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot(xmax=1,</span> <span class="pre">xmin=0,</span> <span class="pre">dx=0.1,</span> <span class="pre">ymax=60,</span> <span class="pre">ymin=10,</span> <span class="pre">dy=5,</span> <span class="pre">xlabel='H</span> <span class="pre">effective</span> <span class="pre">charge',</span>
+<span class="pre">ylabel='N</span> <span class="pre">displacement</span> <span class="pre">(pm)',</span> <span class="pre">color_empty='gray',</span> <span class="pre">incp='blue',</span> <span class="pre">cp='green')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot(xmax=1,</span> <span class="pre">xmin=0,</span> <span class="pre">dx=0.1,</span> <span class="pre">ymax=60,</span> <span class="pre">ymin=10,</span> <span class="pre">dy=5,</span> <span class="pre">xlabel='H</span> <span class="pre">effective</span> <span class="pre">charge',</span>
+<span class="pre">ylabel='N</span> <span class="pre">displacement</span> <span class="pre">(pm)',</span> <span class="pre">color_empty=(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5),</span> <span class="pre">incp=(0,</span> <span class="pre">0,</span> <span class="pre">1),</span> <span class="pre">cp=(0,</span> <span class="pre">1,</span> <span class="pre">0))</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyddt.AMD.onevariable_plot">
+<span class="sig-name descname"><span class="pre">onevariable_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_empty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'whitesmoke'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showlegend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/amd.html#AMD.onevariable_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.AMD.onevariable_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the asymmetry matching diagram (AMD) for structural models with one differential variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ncols</strong> (<em>int</em>) – Number of columns.</p></li>
+<li><p><strong>nrows</strong> (<em>int</em>) – Number of rows.</p></li>
+<li><p><strong>color_empty</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color of the empty cells. <strong>Default</strong>: whitesmoke.</p></li>
+<li><p><strong>incp</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color representing the incompatible cases. <strong>Default</strong>: red.</p></li>
+<li><p><strong>cp</strong> (<em>str</em><em> or </em><em>tuple</em>) – Color representing the compatible cases. <strong>Default</strong>: lime.</p></li>
+<li><p><strong>showlegend</strong> (<em>bool</em>) – Display legend (True/False).  <strong>Default</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><cite>color_empty</cite>, <cite>incp</cite> and <cite>cp</cite> must be color names or RGB values ranging between 0 and 1.</p>
+</div>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">onevariable_plot(5,</span> <span class="pre">2,</span> <span class="pre">color_empty=(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5),</span> <span class="pre">incp=(0,</span> <span class="pre">0,</span> <span class="pre">1),</span> <span class="pre">cp=(0,</span> <span class="pre">1,</span> <span class="pre">0))</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-pyddt.funcs">
+<span id="pyddt-funcs-module"></span><h2>pyddt.funcs module<a class="headerlink" href="#module-pyddt.funcs" title="Permalink to this heading"></a></h2>
+<p>Functions required by the main classes. Unuseful for external users.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.funcs.delete_multiple">
+<span class="sig-prename descclassname"><span class="pre">pyddt.funcs.</span></span><span class="sig-name descname"><span class="pre">delete_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pyddt/funcs.html#delete_multiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.funcs.delete_multiple" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes the same indices of multiple arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>list</em><em>[</em><em>np.ndarray</em><em>]</em>) – Arrays.</p></li>
+<li><p><strong>idx</strong> (<em>list</em><em> or </em><em>np.ndarray</em><em> or </em><em>int</em>) – Indices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New array after deleting the indicated indices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_multiple(arr1,</span> <span class="pre">arr2,</span> <span class="pre">arr3,</span> <span class="pre">arr4,</span> <span class="pre">...,</span>&#160; <span class="pre">idx=0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_multiple(arr1,</span> <span class="pre">arr2,</span> <span class="pre">arr3,</span> <span class="pre">arr4,</span> <span class="pre">...,</span>&#160; <span class="pre">idx=[0,</span> <span class="pre">1,</span> <span class="pre">2])</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete_multiple(arr1,</span> <span class="pre">arr2,</span> <span class="pre">...,</span>&#160; <span class="pre">idx=np.arange(0,</span> <span class="pre">100))</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Call this function explicitly using <code class="docutils literal notranslate"><span class="pre">idx=</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.funcs.search_reflection">
+<span class="sig-prename descclassname"><span class="pre">pyddt.funcs.</span></span><span class="sig-name descname"><span class="pre">search_reflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HKL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/pyddt/funcs.html#search_reflection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.funcs.search_reflection" title="Permalink to this definition"></a></dt>
+<dd><p>Finds the primary reflection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>HKL</strong> (<em>np.ndarray</em>) – Array of Miller indices.</p></li>
+<li><p><strong>G</strong> (<em>np.ndarray</em>) – Miller indices of the primary reflection (eg <cite>[1, 0, 0]</cite>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Position of the primary reflection in the <cite>HKL</cite> array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int or list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.funcs.coupling_reflection">
+<span class="sig-prename descclassname"><span class="pre">pyddt.funcs.</span></span><span class="sig-name descname"><span class="pre">coupling_reflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pyddt/funcs.html#coupling_reflection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.funcs.coupling_reflection" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the coupling reflections and finds the corresponding structure factors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>F</strong> (<em>np.ndarray</em>) – Complex structure factors of the secondary reflections.</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – Secondary reflections.</p></li>
+<li><p><strong>G</strong> (<em>np.ndarray</em>) – Primary reflection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Secondary reflections, structure factors of
+secondary reflections, coupling reflections, structure factors of coupling reflections, index of not found
+coupling reflections.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, list[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.funcs.comparison_plot">
+<span class="sig-prename descclassname"><span class="pre">pyddt.funcs.</span></span><span class="sig-name descname"><span class="pre">comparison_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'darkred'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyddt/funcs.html#comparison_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.funcs.comparison_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Comparison of phase (three-dimensional plot).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pd.DataFrame</em>) – Dataframe with x, y and z coordinates labeled as F, Q and Z.</p></li>
+<li><p><strong>zlabel</strong> (<em>str</em>) – Title for Z axes (phase difference).</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em>) – Title for X axes (scattering amplitude - F or W).</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – Color of markers. <strong>Default</strong>: darkred.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyddt.funcs.str_append">
+<span class="sig-prename descclassname"><span class="pre">pyddt.funcs.</span></span><span class="sig-name descname"><span class="pre">str_append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/pyddt/funcs.html#str_append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyddt.funcs.str_append" title="Permalink to this definition"></a></dt>
+<dd><p>Appends new text to an existent string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) – Existing string.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – New text.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Concatenation of <cite>s</cite> and <cite>text</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pyddt_T3.html" class="btn btn-neutral float-left" title="Performing data and compatibility analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rafaela Felix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

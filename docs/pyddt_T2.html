@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Structural modeling and experiment planning &mdash; pyddt 0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="_static/require.min.js"></script>
+        <script src="_static/custom.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Performing data and compatibility analysis" href="pyddt_T3.html" />
+    <link rel="prev" title="Crystallographic calculations" href="pyddt_T1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/2ndlogo_transparent.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guide.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="tutorial.html">Walkthrough</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyddt_T1.html">Crystallographic calculations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Structural modeling and experiment planning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CeFe_{4}P_{12}">CeFe<span class="math notranslate nohighlight">\(_{4}\)</span>P<span class="math notranslate nohighlight">\(_{12}\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#1.-Structural-modelling">1. Structural modelling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Experiment-planning">2. Experiment planning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyddt_T3.html">Performing data and compatibility analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyddt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="guide.html">User Guide</a> &raquo;</li>
+          <li><a href="tutorial.html">Walkthrough</a> &raquo;</li>
+      <li>Structural modeling and experiment planning</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pyddt_T2.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Structural-modeling-and-experiment-planning">
+<h1>Structural modeling and experiment planning<a class="headerlink" href="#Structural-modeling-and-experiment-planning" title="Permalink to this heading"></a></h1>
+<p>What are the accessible structural details of a given system by phase measurements? How to perform data acquisition? Identifying proper experimental conditions is fundamental for successfully exploiting the X-ray dynamical diffraction (in its current conception).</p>
+<p>Our approach for identifying those suitable multiple-diffraction cases is by elaborating structural models and comparing their structure factor phases. So, this step-by-step tutorial will show you how to use <strong>pyddt</strong> to perform these tasks.</p>
+<section id="CeFe_{4}P_{12}">
+<h2>CeFe<span class="math notranslate nohighlight">\(_{4}\)</span>P<span class="math notranslate nohighlight">\(_{12}\)</span><a class="headerlink" href="#CeFe_{4}P_{12}" title="Permalink to this heading"></a></h2>
+<p>For illustrative purposes, let’s consider the filled skutterudite CeFe<span class="math notranslate nohighlight">\(_{4}\)</span>P<span class="math notranslate nohighlight">\(_{12}\)</span> and search for suitable experimental conditions to resolve the Ce oxidation state. Download its CIF on <a class="reference external" href="https://materialsproject.org/materials/mp-16272/">Materials Project mp-16272</a>.</p>
+<p>This tutorial aims to show the experiment planning performed by Morelhão, S. et al. during the investigation of vibrational dynamics of filled skutterudites. See <a class="reference external" href="https://link.springer.com/article/10.1557/mrc.2020.37">Phonon scattering mechanism in thermoelectric materials revised via resonant x-ray dynamical diffraction</a> for a detailed reference.</p>
+<section id="0.-Importing-packages">
+<h3>0. Importing packages<a class="headerlink" href="#0.-Importing-packages" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;14&#39;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/home/rafaela/doutorado/pyddt&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pyddt</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="1.-Structural-modelling">
+<h2>1. Structural modelling<a class="headerlink" href="#1.-Structural-modelling" title="Permalink to this heading"></a></h2>
+<p>The structural modeling within <strong>pyddt</strong> is based on the <code class="docutils literal notranslate"><span class="pre">Structure</span></code> class.</p>
+<p>So, in a few words, it follows what we will do in this section: after converting the CIF into a <em>.in</em> file, we will instantiate a structure. Then, carry out the desired changes in the unit cell (replace the atoms with ions, vary their B-factors) and save the resultant models.</p>
+<section id="1.1-Converting-CIF-into-.in-file">
+<h3>1.1 Converting CIF into .in file<a class="headerlink" href="#1.1-Converting-CIF-into-.in-file" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pyddt</span><span class="o">.</span><span class="n">to_in</span><span class="p">(</span><span class="s1">&#39;Ce(FeP3)4.cif&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="1.2-Structure-object">
+<h3>1.2 Structure object<a class="headerlink" href="#1.2-Structure-object" title="Permalink to this heading"></a></h3>
+<p>It’s easy to generate a <code class="docutils literal notranslate"><span class="pre">structure</span></code> object from the <em>.in</em> file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span> <span class="o">=</span> <span class="n">pyddt</span><span class="o">.</span><span class="n">Structure</span><span class="p">(</span><span class="s1">&#39;Ce(FeP3)4.in&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s check the current oxidation states and B-factors.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">atoms</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Ce&#39;, &#39;Ce&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;Fe&#39;, &#39;P&#39;,
+       &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;,
+       &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;, &#39;P&#39;], dtype=&#39;&lt;U32&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">bfactors</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+</pre></div></div>
+</div>
+<p>Now, we will generate two simple models from this <code class="docutils literal notranslate"><span class="pre">structure</span></code> object: one presenting Ce<span class="math notranslate nohighlight">\(^{3+}\)</span> and the other Ce<span class="math notranslate nohighlight">\(^{4+}\)</span>. Both including Fe<span class="math notranslate nohighlight">\(^{2+}\)</span>, P<span class="math notranslate nohighlight">\(^{1-}\)</span>, and all atomic displacements equal to 0.1 <span class="math notranslate nohighlight">\(\mathring{A}\)</span> <span class="math notranslate nohighlight">\(\rightarrow\)</span> <span class="math notranslate nohighlight">\(B = 0.7896\;\mathring{A}\)</span><span class="math notranslate nohighlight">\(^{2}\)</span>.</p>
+<section id="1.2.1-Varying-the-B-factors">
+<h4>1.2.1 Varying the B-factors<a class="headerlink" href="#1.2.1-Varying-the-B-factors" title="Permalink to this heading"></a></h4>
+<p>Let’s start by changing all B-factors.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">replace_bfactor</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="mf">0.7896</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The first argument is the indices of B-factors to be replaced, while the second is the new value. In this case, we replace simultaneously all B-factors using <code class="docutils literal notranslate"><span class="pre">':'</span></code>. As a sanity check, verify the current values.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">bfactors</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896,
+       0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896,
+       0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896,
+       0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896, 0.7896,
+       0.7896, 0.7896])
+</pre></div></div>
+</div>
+</section>
+<section id="1.2.2-Replacing-Fe-and-P-atoms">
+<h4>1.2.2 Replacing Fe and P atoms<a class="headerlink" href="#1.2.2-Replacing-Fe-and-P-atoms" title="Permalink to this heading"></a></h4>
+<p>The procedure for replacing the atoms with the desired ions is very similar.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">replace_ion</span><span class="p">(</span><span class="s1">&#39;Fe&#39;</span><span class="p">,</span> <span class="s1">&#39;Fe2+&#39;</span><span class="p">)</span>
+<span class="n">cfp</span><span class="o">.</span><span class="n">replace_ion</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;P1-&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We said for <strong>pyddt</strong> to replace all <code class="docutils literal notranslate"><span class="pre">'Fe'</span></code> atoms with <code class="docutils literal notranslate"><span class="pre">'Fe2+'</span></code> ions, and the corresponding for phosphorous.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">atoms</span>  <span class="c1"># Sanity check</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Ce&#39;, &#39;Ce&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;,
+       &#39;Fe2+&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;], dtype=&#39;&lt;U32&#39;)
+</pre></div></div>
+</div>
+</section>
+<section id="1.2.3-Ce-oxidation-state">
+<h4>1.2.3 Ce oxidation state<a class="headerlink" href="#1.2.3-Ce-oxidation-state" title="Permalink to this heading"></a></h4>
+<p>Now, we will change the Ce atom to Ce<span class="math notranslate nohighlight">\(^{3+}\)</span> and save this structural model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">replace_ion</span><span class="p">(</span><span class="s1">&#39;Ce&#39;</span><span class="p">,</span> <span class="s1">&#39;Ce3+&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">atoms</span>  <span class="c1"># Sanity check</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Ce3+&#39;, &#39;Ce3+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;,
+       &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;],
+      dtype=&#39;&lt;U32&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">save_infile</span><span class="p">(</span><span class="s1">&#39;ce3.in&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The structural model <code class="docutils literal notranslate"><span class="pre">ce3.in</span></code> is saved in the current folder. Check this file. Are the ions and B-factors correct? If not, review this tutorial from section 1.2.</p>
+<p>By the end, replaces the Ce<span class="math notranslate nohighlight">\(^{3+}\)</span> ion with Ce<span class="math notranslate nohighlight">\(^{4+}\)</span> and save the other structural model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">replace_ion</span><span class="p">(</span><span class="s1">&#39;Ce3+&#39;</span><span class="p">,</span> <span class="s1">&#39;Ce4+&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">atoms</span>  <span class="c1"># Sanity check</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Ce4+&#39;, &#39;Ce4+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;,
+       &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;],
+      dtype=&#39;&lt;U32&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cfp</span><span class="o">.</span><span class="n">save_infile</span><span class="p">(</span><span class="s1">&#39;ce4.in&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Again, it’s highly recommend that you check the saved model before proceeding.</p>
+</section>
+</section>
+</section>
+<section id="2.-Experiment-planning">
+<h2>2. Experiment planning<a class="headerlink" href="#2.-Experiment-planning" title="Permalink to this heading"></a></h2>
+<p>We have generated two structural models by changing the Ce valence from 3+ to 4+. Now, it is necessary to search for structure factors with phases susceptible to this change in the models.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">pyddt.phase()</span></code> finds the susceptible cases from the structure factor list of both models. As we see in the previous tutorial, the structure factor list is obtained after creating <code class="docutils literal notranslate"><span class="pre">crystal</span></code> objects.</p>
+<section id="2.1-Crystal-objects">
+<h3>2.1 Crystal objects<a class="headerlink" href="#2.1-Crystal-objects" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ce3</span> <span class="o">=</span> <span class="n">pyddt</span><span class="o">.</span><span class="n">Crystal</span><span class="p">(</span><span class="s1">&#39;ce3.in&#39;</span><span class="p">)</span>
+<span class="n">ce4</span> <span class="o">=</span> <span class="n">pyddt</span><span class="o">.</span><span class="n">Crystal</span><span class="p">(</span><span class="s1">&#39;ce4.in&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Check if the created objects have the expected valence.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ce3</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">atoms</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Ce3+&#39;, &#39;Ce3+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;,
+       &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;],
+      dtype=&#39;&lt;U32&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ce4</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">atoms</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;Ce4+&#39;, &#39;Ce4+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;Fe2+&#39;,
+       &#39;Fe2+&#39;, &#39;Fe2+&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;,
+       &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;, &#39;P1-&#39;],
+      dtype=&#39;&lt;U32&#39;)
+</pre></div></div>
+</div>
+</section>
+<section id="2.2-Phase-comparison">
+<h3>2.2 Phase comparison<a class="headerlink" href="#2.2-Phase-comparison" title="Permalink to this heading"></a></h3>
+<p>For now, let’s consider X-rays of 7100 eV and perform the comparison of structure factor phases.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E</span> <span class="o">=</span> <span class="mi">7100</span>  <span class="c1"># eV</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pyddt</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ce3</span><span class="o">.</span><span class="n">diffraction</span><span class="p">(</span><span class="n">E</span><span class="p">),</span> <span class="n">ce4</span><span class="o">.</span><span class="n">diffraction</span><span class="p">(</span><span class="n">E</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<img alt="pyddt_t2_1" src="https://user-images.githubusercontent.com/106104347/187934482-f32cb04b-e819-4296-94dc-8f1820d6e054.png" />
+<p>The result is an interactive plot with the hover text presenting the Miller indices. All plotted information was saved in the current folder (filename displayed on the screen).</p>
+<p>The vertical axis presents the phase difference, so 002 is the best reflection for phase measurements.</p>
+</section>
+<section id="2.2-Optimum-resonance-condition">
+<h3>2.2 Optimum resonance condition<a class="headerlink" href="#2.2-Optimum-resonance-condition" title="Permalink to this heading"></a></h3>
+<p>In the previous tutorial, we calculated the Fe resonance amplitude near its absorption edge, and characteristic “jumps” are noted. How does it influence the structure factor phase?</p>
+<p>To check this, let’s calculate the phase of 002 as a function of energy.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">7300</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>  <span class="c1"># eV</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">ce3</span><span class="o">.</span><span class="n">Fhkl</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ce3+&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">ce4</span><span class="o">.</span><span class="n">Fhkl</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ce4+&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (eV)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Phase (deg)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/pyddt_T2_52_0.png" src="_images/pyddt_T2_52_0.png" />
+</div>
+</div>
+<p>Although the phase difference between the structural models is less than 10 degrees, the phase shift can be at 180° for just 100 eV of variation in the X-ray energy. This phenomenon allowed a multi-wavelength use of X-ray dynamical diffraction exploited by <a class="reference external" href="https://link.springer.com/article/10.1557/mrc.2020.37">Morelhão, S. et al</a>.</p>
+</section>
+<section id="2.3-Phase-triplets">
+<h3>2.3 Phase triplets<a class="headerlink" href="#2.3-Phase-triplets" title="Permalink to this heading"></a></h3>
+<p>Until now, we selected the 002 as the primary reflection and might acquire data using X-rays in the range of 7100 and 7200 eV.</p>
+<p>Lastly, check the three-beam cases predicted to show opposite profile asymmetries on each model structure for a fixed energy.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E</span> <span class="o">=</span> <span class="mi">7150</span>
+<span class="n">pyddt</span><span class="o">.</span><span class="n">triplet</span><span class="p">(</span><span class="n">ce3</span><span class="o">.</span><span class="n">diffraction</span><span class="p">(</span><span class="n">E</span><span class="p">),</span> <span class="n">ce4</span><span class="o">.</span><span class="n">diffraction</span><span class="p">(</span><span class="n">E</span><span class="p">),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<img alt="pyddt_t2_2" src="https://user-images.githubusercontent.com/106104347/187935676-81303ffe-6583-427a-b885-d1ad713afd0f.png" />
+<p>Again, the plotted information was saved in the current folder (filenames displayed on the screen).</p>
+<hr class="docutils" />
+</section>
+</section>
+<section id="Summary">
+<h2>Summary<a class="headerlink" href="#Summary" title="Permalink to this heading"></a></h2>
+<p>The first part of this tutorial has shown some tools for structural modeling. However, the functions for appending or deleting atoms and changing their occupancy numbers weren’t covered, as well the <code class="docutils literal notranslate"><span class="pre">visualizer_in</span></code> method. Please, check the <a class="reference internal" href="api.html"><span class="doc">API documentation</span></a> for more details. On the other hand, the second part covered all functions usually used for experiment planning. If you develop new tools using <strong>pyddt</strong> classes, please contribute to the project on
+<a class="reference external" href="https://github.com/rafaela-felix/pyddt">GitHub</a>.</p>
+<p>In the last tutorial, we will analyze two Renninger scans and indicate how compatibility analysis is carried out using <strong>pyddt</strong>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pyddt_T1.html" class="btn btn-neutral float-left" title="Crystallographic calculations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pyddt_T3.html" class="btn btn-neutral float-right" title="Performing data and compatibility analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rafaela Felix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
