@@ -647,7 +647,7 @@ class ExpData:
 
         N = np.column_stack((H, self.asy, self.index[:, 0]))
 
-        header = '    phi    asy     slope   slope error   sbar (%)    tau (%)   s       hkl'
+        header = '    phi    asy     slope   slope error   sbar (%)    tau (%)   g       hkl'
 
         if fout == '':
             fout = self.name.upper() + '_E' + str(self.energy)
@@ -658,7 +658,7 @@ class ExpData:
             for line in np.matrix(M):
                 np.savetxt(f, line, fmt='%10s %5s %10s %10s %10s %10s %5s %10s %32s')
 
-        header = '      h          k         l           asy         s '
+        header = '      h          k         l           asy         g '
         with open(fout + '.red', 'wb') as f:
             np.savetxt(f, [], header=header)
             np.savetxt(f, np.column_stack((self.primary[0], self.primary[1], self.primary[2], self.energy)),
