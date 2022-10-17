@@ -18,7 +18,7 @@
 
 # Contents
 
-* pyddt: directory with the sources for the Python package.
+* pyddt: directory with the source codes for the Python package.
 * docs: directory with documentation (html and pdf versions).
   * docs/notebooks: directory with notebook tutorials.
 * setup.py: *setuptools* install script for the package installation.
@@ -31,17 +31,17 @@ First, use
 git clone https://github.com/rafaela-felix/pyddt.git
 ```
 
-for obtaining the source code. Then, installing **pyddt** by executing
+for obtaining the source code. Then, installing pyddt by executing
 
 ```
-pip install .
+pip install . --use-feature=in-tree-build
 ```
 
 inside the source folder on the command line.
 
 ## Python package configuration
 
-Considering that **pyddt** package has been installed in a directory unknown to your Python distribution, you have to indicate Python where to look for it. So, you might:
+Considering that pyddt package has been installed in a directory unknown to your Python distribution, you have to indicate Python where to look for it. So, you might:
 
 * add the installation directory to your PYTHONPATH environment variable.
 * add the path to *sys.path* in the *.pythonrc* file placed in your home directory.
@@ -53,10 +53,13 @@ sys.path.append("path to the pyddt package")
 
 import pyddt
 ```
+It might need to use a double backslash `\\` in the file path on Windows systems.
 
 ## Testing 
 
-For now, **pyddt** does not contain formal tests. If you can run the tutorial notebooks (*docs/notebooks/* directory), you have successfully installed the package.
+For now, pyddt does not contain formal tests. 
+
+If you can run the tutorial notebooks (*docs/notebooks/* directory), you have successfully installed the package.
 
 
 # Requirements
@@ -72,19 +75,42 @@ The following requirements are needed for installing and using pyddt:
   * plotly (>= 5.6.0)
   * sklearn
   * lmfit (>= 1.0.3)
-  * pymatgen (>= 2022.5.26)
   * ase (>= 3.22.1)
   * tqdm (>= 4.63.1)
-  * nglwview (optional - only used in Jupyter Notebooks, version >= 3.0.3)
+  * pymatgen (>= 2022.5.26)
+  * nglwview (only used in Jupyter Notebooks, version >= 3.0.3)
+  
+ **Windows systems**: The *pymatgen* current version is not correctly installed using `pip`. In this case, please use `conda`.
+ 
+ ```
+ conda install --channel conda-forge pymatgen
+ ```
   
  # Getting started
 
- To get started with **pyddt**, see our tutorials (Jupyter Notebooks).
+ To get started with pyddt, see our [user guide and tutorials](https://rafaela-felix.github.io/pyddt/tutorial.html).
    
  # Documentation
  
- For more details on the use of **pyddt**, check out the *docs* directory.
+ For more details on the use of pyddt, check out the *docs* directory or our [online documentation](https://rafaela-felix.github.io/pyddt/api.html).
  
 # Acknowledgements
 
 This package was developed at the University of São Paulo with FAPESP funding (grant ns. 2021/01004-6 and 2019/019461-1).
+
+# Citation
+
+If you use pyddt in your research, please consider citing the following work:
+
+```
+@article{pyddt,
+  title={},
+  author={},
+  journal={},
+  pages={},
+  year={2022},
+  doi={}
+  publisher={}
+}
+```
+
