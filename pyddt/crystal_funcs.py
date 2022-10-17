@@ -91,7 +91,7 @@ def phase_triplet(FG: np.ndarray, FH: np.ndarray, FGH: np.ndarray) -> tuple[np.n
         FGH (np.ndarray): List of structure factors (complex) of the coupling reflections(s).
 
     Returns:
-        tuple[np.ndarray, np.ndarray, np.ndarray]: Cosine of phase triplet, phase triplet (radians) and W.
+        tuple[np.ndarray, np.ndarray, np.ndarray]: Cosine of phase triplet, phase triplet (deg) and W.
 
     Notes:
          For unknown structure factors, use the ``triplet_relation`` method from ``Crystal`` class.
@@ -99,4 +99,4 @@ def phase_triplet(FG: np.ndarray, FH: np.ndarray, FGH: np.ndarray) -> tuple[np.n
 
     W = (FH * FGH) / FG
 
-    return np.real(W) / np.absolute(W), np.angle(W), np.absolute(W)
+    return np.real(W) / np.absolute(W), np.arctan2(np.imag(W), np.real(W))*180/np.pi, np.absolute(W)

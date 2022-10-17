@@ -320,14 +320,14 @@ class Crystal:
 
     def triplet_relation(self, E: float, G_H: list) -> tuple[float, float]:
 
-        """Calculates the phase triplet.
+        """Calculates the triplet phase.
 
         Args:
             E (float): X-ray energy (eV).
             G_H (list): Indices of primary and secondary reflection (in this order).
 
         Returns:
-            tuple[float, float]: Cosine of phase triplet and interference amplitude W.
+            tuple[float, float]: Triplet phase (deg) and interference amplitude W.
         """
 
         G_H = np.array(G_H)
@@ -335,7 +335,7 @@ class Crystal:
         W = self.Fhkl(E, G_H)
         W = (W[1] * W[2]) / W[0]
 
-        return np.real(W) / np.absolute(W), np.absolute(W)
+        return np.arctan2(np.imag(W), np.real(W))*180/np.pi, np.absolute(W)
 
     def klines(self, E: float, G: list or np.ndarray, M: list or np.ndarray, Fmin: float, dw: float = 0.1,
                npoints: int = 20):

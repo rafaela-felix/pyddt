@@ -727,7 +727,7 @@ class ExpData:
                 W1 = w_values[m[0]][0]
                 W2 = w_values[m[0]][1]
 
-                if phi1 == phi2 and W1 == W2:
+                if np.abs(np.round(phi1, 4) - np.round(phi2, 4)) < 0.005 and W1 == W2:
                     miller = '/ '.join(hkl[k][m][0][:2])
                     PHI = phi1
                     W = W1
