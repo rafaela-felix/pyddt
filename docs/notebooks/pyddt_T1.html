@@ -408,7 +408,7 @@ div.rendered_html tbody tr:hover {
 <p>After this brief remarking on the pyddt implementation, let us show how to perform some crystallographic calculations.</p>
 <section id="2.1-Importing-packages">
 <h3>2.1 Importing packages<a class="headerlink" href="#2.1-Importing-packages" title="Permalink to this heading"></a></h3>
-<p>Beyond <strong>pyddt</strong>, we will also use Numpy for generating arrays and matplotlib for plotting.</p>
+<p>Beyond pyddt, we will also use Numpy for generating arrays and matplotlib for plotting.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -419,7 +419,7 @@ div.rendered_html tbody tr:hover {
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;14&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/home/rafaela/doutorado/pyddt&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;path/to/pyddt&#39;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">pyddt</span>
 </pre></div>
@@ -619,7 +619,7 @@ array([-0.11975181+6.32684898j,  0.09827547+3.9969607j ,
 <h3>2.3 Structure factor<a class="headerlink" href="#2.3-Structure-factor" title="Permalink to this heading"></a></h3>
 <p>To exemplify the structure factor calculation, let us consider the sodium chloride crystal. You can download its CIF on <a class="reference external" href="https://materialsproject.org/materials/mp-22862/">Materials Project mp-22862</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">NaCl.cif</span></code></p>
-<p><img alt="b9676e4540844ac68d67b317235aab80" class="no-scaled-link" src="https://user-images.githubusercontent.com/106104347/187297124-d39c3bb1-c62a-41d7-a11e-a1b7c264b281.png" style="width: 350px;" /></p>
+<p><img alt="ac8e1ed43a3340fdb358e9021b291064" class="no-scaled-link" src="https://user-images.githubusercontent.com/106104347/187297124-d39c3bb1-c62a-41d7-a11e-a1b7c264b281.png" style="width: 350px;" /></p>
 <section id="2.3.1-Converting-CIF-into-.in-file">
 <h4>2.3.1 Converting CIF into .in file<a class="headerlink" href="#2.3.1-Converting-CIF-into-.in-file" title="Permalink to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">Crystal</span></code>class requires an <em>.in</em> file, so we will convert the CIF into the expected format using the <code class="docutils literal notranslate"><span class="pre">pyddt.to_in()</span></code> function.</p>

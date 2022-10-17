@@ -62,7 +62,7 @@
     "plt.rcParams['font.size'] = '10'\n",
     "\n",
     "import sys\n",
-    "sys.path.append('/home/rafaela/doutorado/pyddt')\n",
+    "sys.path.append('path/to/pyddt')\n",
     "\n",
     "import pyddt"
    ]
@@ -458,7 +458,7 @@
    "source": [
     "It's easy to relate the slope sign with the asymmetry type: if negative, the asymmetry is HL (the MD intensity profile has higher/lower shoulders); if positive, it's LH.\n",
     "\n",
-    "So, the MD peaks observed at $\\phi = $25.16º and 25.57º are HL, while the remaining is LH. "
+    "So, the MD peaks observed at 25.16º and 25.57º are HL, while the remaining is LH. "
    ]
   },
   {
@@ -885,7 +885,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.10.5"
+   "version": "3.10.7"
   }
  },
  "nbformat": 4,
