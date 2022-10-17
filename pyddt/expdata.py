@@ -213,7 +213,7 @@ class ExpData:
                 diff = np.abs(self.phi - phi_mk[j])
                 idx.append(int(diff.argmin()))
 
-            if self.peaks.all() == None:
+            if self.peaks == None:
                 self.peaks = idx
             else:
                 self.peaks = np.append(self.peaks, idx)
