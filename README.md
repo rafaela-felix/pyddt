@@ -66,7 +66,7 @@ If you can run the tutorial notebooks (*docs/notebooks/* directory), you have su
 
 The following requirements are needed for installing and using pyddt:
 
-* Python (version >= 3.6)
+* Python (version >= 3.9)
 * Python packages (pip installable):
   * numpy (>= 1.22.0)
   * matplotlib (>= 3.5.0)
@@ -80,7 +80,7 @@ The following requirements are needed for installing and using pyddt:
   * pymatgen (>= 2022.5.26)
   * nglwview (only used in Jupyter Notebooks, version >= 3.0.3)
   
- **Windows systems**: The *pymatgen* current version is not correctly installed using `pip`. In this case, please use `conda`.
+ **Windows systems**: The current version of *pymatgen* is not correctly installed using `pip`. In this case, please use `conda`.
  
  ```
  conda install --channel conda-forge pymatgen
