@@ -59,7 +59,7 @@ It might need to use a double backslash `\\` in the file path on Windows systems
 
 For now, pyddt does not contain formal tests. 
 
-If you can run the tutorial notebooks (*docs/notebooks/* directory), you have successfully installed the package. Also, you may try excute 
+If you can run the tutorial notebooks (*docs/notebooks/* directory), you have successfully installed the package. Also, you may try execute 
 
 ```
 import pyddt
