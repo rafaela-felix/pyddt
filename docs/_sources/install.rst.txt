@@ -11,7 +11,7 @@ for obtaining the source code. Then, installing pyddt by executing::
 
   pip install .
 
-inside the source folder on the command line.
+inside the source folder.
 
 
 Python package configuration
