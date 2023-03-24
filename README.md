@@ -66,7 +66,7 @@ If you can run the tutorial notebooks (*docs/notebooks/* directory), you have su
 
 The following requirements are needed for installing and using pyddt:
 
-* Python (version >= 3.9)
+* Python (version >= 3.8)
 * Python packages (pip installable):
   * numpy (>= 1.22.0)
   * matplotlib (>= 3.5.0)
@@ -85,6 +85,8 @@ The following requirements are needed for installing and using pyddt:
  ```
  conda install --channel conda-forge pymatgen
  ```
+ 
+  **Python 3.8**: You must add `from __future__ import annotations` before any import in all pyydt/*.py files. If your Python version >= 3.9, please don't change the *.py files.
   
  # Getting started
 
