@@ -34,7 +34,7 @@ git clone https://github.com/rafaela-felix/pyddt.git
 for obtaining the source code. Then, installing pyddt by executing
 
 ```
-pip install . --use-feature=in-tree-build
+pip install .
 ```
 
 inside the source folder on the command line.
