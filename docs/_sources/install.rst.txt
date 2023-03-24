@@ -33,4 +33,12 @@ Considering that pyddt has been installed in a directory unknown to your Python 
 Testing 
 -------
 
-For now, pyddt does not contain formal tests. If you can run the tutorial notebooks, you have successfully installed the package. 
+For now, pyddt does not contain formal tests. If you can run the tutorial notebooks, you have successfully installed the package.  Also, you may try excute 
+
+```
+import pyddt
+
+pyddt.scatter.asfQ('H', 0)
+```
+
+If your installation is corrected, the output should be `array([[0.999953]])`.
