@@ -37,7 +37,7 @@ for obtaining the source code. Then, installing pyddt by executing
 pip install .
 ```
 
-inside the source folder on the command line.
+inside the source folder.
 
 ## Python package configuration
 
@@ -73,7 +73,8 @@ The following requirements are needed for installing and using pyddt:
   * scipy (>= 1.8.0)
   * pandas (>= 1.4.1)
   * plotly (>= 5.6.0)
-  * sklearn
+  * sklearn/scikit-learn
+  * ipykernel
   * lmfit (>= 1.0.3)
   * ase (>= 3.22.1)
   * tqdm (>= 4.63.1)
@@ -86,7 +87,7 @@ The following requirements are needed for installing and using pyddt:
  conda install --channel conda-forge pymatgen
  ```
  
-  **Python 3.8**: You must add `from __future__ import annotations` before any import in all pyydt/*.py files. If your Python version >= 3.9, please don't change the *.py files.
+  **Python 3.8**: You must add `from __future__ import annotations` before any import in all pyydt/.py files. If your Python version >= 3.9, please don't change the .py files.
   
  # Getting started
 
