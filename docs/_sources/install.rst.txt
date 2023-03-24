@@ -41,4 +41,4 @@ For now, pyddt does not contain formal tests. If you can run the tutorial notebo
 
  pyddt.scatter.asfQ('H', 0)
 
-If your installation is corrected, the output should be `array([[0.999953]])`.
+If your installation is corrected, the output should be *array([[0.999953]])*.
