@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyddt",
-    version="0.0.2",
+    version="0.0.3",
     author="Rafaela Felix",
     author_email="rafaelafelixp@usp.br",
     description="Tool for planning and analyzing XRDD experiments.",
@@ -30,10 +30,12 @@ setuptools.setup(
         'tqdm>=4.63.1',
         'lmfit>=1.0.3',
         'sklearn',
+        'scikit-learn',
+        'ipykernel',
         'ase>=3.22.1',
         'nglview>=3.0.3',
         'pymatgen>=2022.5.26'
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.8",
 )
 
