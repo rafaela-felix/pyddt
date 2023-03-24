@@ -59,8 +59,15 @@ It might need to use a double backslash `\\` in the file path on Windows systems
 
 For now, pyddt does not contain formal tests. 
 
-If you can run the tutorial notebooks (*docs/notebooks/* directory), you have successfully installed the package.
+If you can run the tutorial notebooks (*docs/notebooks/* directory), you have successfully installed the package. Also, you may try excute 
 
+```
+import pyddt
+
+pyddt.scatter.asfQ('H', 0)
+```
+
+If your installation is corrected, the output should be `array([[0.999953]])`.
 
 # Requirements
 
