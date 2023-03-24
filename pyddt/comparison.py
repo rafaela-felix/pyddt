@@ -71,7 +71,7 @@ def phase(data1: np.ndarray, data2: np.ndarray, min: float = 15):
     df = pd.DataFrame(np.column_stack((HKL, np.round(F, 2), np.round(Q, 2),
                                        np.round(Z, 2))),
                       columns=['hkl', 'F', 'Q', 'Z'])
-    date = datetime.now().strftime("%Y%m%d_%X")
+    date = datetime.now().strftime("%Y%m%d_%H_%M_%S")
     name = 'PHASE' + date + '.txt'
 
     np.savetxt(name, df.values, fmt='% 10s',
@@ -172,7 +172,7 @@ def triplet(data1: np.ndarray, data2: np.ndarray, G: list, wmin: float = 5):
                                        np.round(Z, 2))),
                       columns=['hkl', 'F', 'Q', 'Z'])
 
-    date = datetime.now().strftime("%Y%m%d_%X")
+    date = datetime.now().strftime("%Y%m%d_%H_%M_%S")
     name = 'TRIPLET_G_' + "".join((G.astype(int)).astype(str)) + '_' + date + '.txt'
 
     np.savetxt(name, df.values, fmt='% 10s',
