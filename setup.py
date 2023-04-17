@@ -33,8 +33,8 @@ setuptools.setup(
         'ase>=3.22.1',
         'nglview>=3.0.3',
         'pymatgen>=2022.5.26',
+        'scikit-learn',
         'sklearn',
-        'scikit-learn'
     ],
     python_requires=">=3.8",
 )
