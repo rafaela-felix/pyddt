@@ -29,12 +29,12 @@ setuptools.setup(
         'scipy>=1.8.0',
         'tqdm>=4.63.1',
         'lmfit>=1.0.3',
-        'sklearn',
-        'scikit-learn',
         'ipykernel',
         'ase>=3.22.1',
         'nglview>=3.0.3',
-        'pymatgen>=2022.5.26'
+        'pymatgen>=2022.5.26',
+        'sklearn',
+        'scikit-learn'
     ],
     python_requires=">=3.8",
 )
