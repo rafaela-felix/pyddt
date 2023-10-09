@@ -14,7 +14,7 @@
 * Easy probing of the dynamical-diffraction susceptibility to structural details such as valence of chemical species, vacancies, anti-site occupation, internal strain due to foreign atoms, and relative differences in atomic displacement.
 * Identification of optimum resonant diffraction conditions.
 * Extracting all structure factor phase information available in the data set.
-* Comparison of experimental and theoretical phase triplets.
+* Comparison of experimental and theoretical triplet phases.
 
 # Contents
 
