@@ -113,14 +113,17 @@ This package was developed at the University of São Paulo with FAPESP funding (
 If you use pyddt in your research, please consider citing the following work:
 
 ```
-@article{pyddt,
-  title={},
-  author={},
-  journal={},
-  pages={},
-  year={2022},
-  doi={}
-  publisher={}
+@article{penacchio2023,
+author = "Penacchio, Rafaela F. S. and Estradiote, Maur{\'\i}cio B. and Rem{\'{e}}dios, Cl{\'{a}}udio M. R. and Calligaris, Guilherme A. and Torikachvili, Milton S. and Kycia, Stefan W. and Morelh{\~{a}}o, S{\'{e}}rgio L.",
+title = "{Introduction to {\it Python Dynamic Diffraction Toolkit} ({\it PyDDT}): structural refinement of single crystals via X-ray phase measurements}",
+journal = "Journal of Applied Crystallography",
+year = "2023",
+volume = "56",
+number = "5",
+pages = "1574--1584",
+month = "Oct",
+doi = {10.1107/S1600576723005800},
+url = {https://doi.org/10.1107/S1600576723005800},
 }
 ```
 
